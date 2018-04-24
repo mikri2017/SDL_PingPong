@@ -37,6 +37,8 @@
 		</Compiler>
 		<Unit filename="Ball.cpp" />
 		<Unit filename="Ball.h" />
+		<Unit filename="BallMgr.cpp" />
+		<Unit filename="BallMgr.h" />
 		<Unit filename="MainConstants.h" />
 		<Unit filename="Rect.cpp" />
 		<Unit filename="Rect.h" />

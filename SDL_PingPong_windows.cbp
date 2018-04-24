@@ -48,19 +48,13 @@
 		</Linker>
 		<Unit filename="Ball.cpp" />
 		<Unit filename="Ball.h" />
-		<Unit filename="GameScene.cpp" />
-		<Unit filename="GameScene.h" />
+		<Unit filename="BallMgr.cpp" />
+		<Unit filename="BallMgr.h" />
 		<Unit filename="MainConstants.h" />
-		<Unit filename="MenuScene.cpp" />
-		<Unit filename="MenuScene.h" />
 		<Unit filename="Rect.cpp" />
 		<Unit filename="Rect.h" />
 		<Unit filename="SDL_Game.cpp" />
 		<Unit filename="SDL_Game.h" />
-		<Unit filename="Scene.cpp" />
-		<Unit filename="Scene.h" />
-		<Unit filename="SceneMgr.cpp" />
-		<Unit filename="SceneMgr.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
