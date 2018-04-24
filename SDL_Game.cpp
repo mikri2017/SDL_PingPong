@@ -30,14 +30,19 @@ bool SDL_Game::init(const char* title, int xpos, int ypos,
             renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
 	}
 
-	ball = new Ball();
-	ball->setCentreXY(100, 100);
-    ball->setRadius(50);
+	ballmgr = new BallMgr();
+	ballmgr->setCentreXY(100, 100);
+    ballmgr->setRadius(25);
 
-    rect = new Rect();
-    rect->setBeginXY(200, 200);
-    rect->setHeight(50);
-    rect->setWidth(100);
+    rectUp = new Rect();
+    rectUp->setBeginXY(0, 0);
+    rectUp->setHeight(50);
+    rectUp->setWidth(200);
+
+    rectDown = new Rect();
+    rectDown->setBeginXY(0, SCREEN_HEIGHT - 50);
+    rectDown->setHeight(50);
+    rectDown->setWidth(200);
 
 	return true;
 }
@@ -77,8 +82,9 @@ void SDL_Game::render()
     SDL_RenderClear( renderer );
 
     SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
-    ball->draw(renderer);
-    rect->draw(renderer);
+    ballmgr->draw(renderer);
+    rectUp->draw(renderer);
+    rectDown->draw(renderer);
 
     SDL_RenderPresent(renderer);
 
