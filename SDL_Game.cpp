@@ -30,9 +30,10 @@ bool SDL_Game::init(const char* title, int xpos, int ypos,
             renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
 	}
 
-	ballmgr = new BallMgr();
-	ballmgr->setCentreXY(100, 100);
-    ballmgr->setRadius(25);
+    SDL_Point p_ball_start;
+    p_ball_start.x = 100;
+    p_ball_start.y = 100;
+	ballmgr = new BallMgr(p_ball_start, 25);
 
     rectUp = new Rect();
     rectUp->setBeginXY(0, 0);

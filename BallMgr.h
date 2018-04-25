@@ -1,6 +1,7 @@
 #ifndef BALLMGR_H_INCLUDED
 #define BALLMGR_H_INCLUDED
 
+#include <ctime>
 #include "Ball.h"
 
 class BallMgr
@@ -8,10 +9,10 @@ class BallMgr
 private:
     Ball *ball;
     SDL_Rect ball_cleaner;
+    int dir_angle;
+    void chg_dir_angle();
 public:
-    BallMgr();
-    void setCentreXY(int x, int y);
-    void setRadius(int r);
+    BallMgr(SDL_Point p_begin, int radius);
     void draw(SDL_Renderer *renderer);
 };
 
