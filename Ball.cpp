@@ -36,6 +36,11 @@ void Ball::setRadius(int r)
     radius = r;
 }
 
+int Ball::getRadius()
+{
+    return radius;
+}
+
 void Ball::draw(SDL_Renderer *renderer)
 {
     //Рисуем шарик

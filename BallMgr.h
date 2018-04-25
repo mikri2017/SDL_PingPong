@@ -12,14 +12,19 @@ private:
     SDL_Rect ball_cleaner;
     SDL_Point p_ball_centre;
     int dir_angle;
+    int checkCollisionAngles[3];
     float dir_angle_cos, dir_angle_sin;
     int dir_line_len;
+    std::vector<double> CosForAngles, SinForAngles;
+    bool ball_moving;
 
     void chg_dir_angle();
+    void CalculateAngles();
 public:
     BallMgr(int radius);
     void reinit();
     void draw(SDL_Renderer *renderer, bool clean = false);
+    bool checkCollisionWithScreen();
 };
 
 
