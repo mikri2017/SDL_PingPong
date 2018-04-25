@@ -1,5 +1,4 @@
 #include "SceneGame.h"
-#include <iostream>
 
 SceneGame::SceneGame()
 {
@@ -7,15 +6,18 @@ SceneGame::SceneGame()
     p_ball_start.y = 100;
 	ballmgr = new BallMgr(p_ball_start, 25);
 
+	rect_w = 200;
+	rect_h = 50;
+
     rectUp = new Rect();
     rectUp->setBeginXY(0, 0);
-    rectUp->setHeight(50);
-    rectUp->setWidth(200);
+    rectUp->setHeight(rect_h);
+    rectUp->setWidth(rect_w);
 
     rectDown = new Rect();
-    rectDown->setBeginXY(0, SCREEN_HEIGHT - 50);
-    rectDown->setHeight(50);
-    rectDown->setWidth(200);
+    rectDown->setBeginXY(0, SCREEN_HEIGHT - rect_h);
+    rectDown->setHeight(rect_h);
+    rectDown->setWidth(rect_w);
 }
 
 void SceneGame::render(SDL_Renderer *renderer)
@@ -35,5 +37,11 @@ void SceneGame::render(SDL_Renderer *renderer)
 
 void SceneGame::process_mouse_motion(Sint32 x, Sint32 y)
 {
-    std::cout << "x= " << x << " y=" << y << std::endl;
+    // Управляем движением ракеток
+    // Чтобы ракетка не ушла за экран
+    if( x + rect_w/2 > SCREEN_WIDTH)
+        x = SCREEN_WIDTH - rect_w/2;
+
+    rectUp->setBeginXY(x - rect_w/2, 0);
+    rectDown->setBeginXY(x - rect_w/2, SCREEN_HEIGHT - rect_h);
 }

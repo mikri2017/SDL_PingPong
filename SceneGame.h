@@ -11,6 +11,7 @@ private:
     SDL_Point p_ball_start;
     BallMgr *ballmgr;
     Rect *rectUp, *rectDown;
+    int rect_w, rect_h;
 public:
     SceneGame();
     void render(SDL_Renderer *renderer);
