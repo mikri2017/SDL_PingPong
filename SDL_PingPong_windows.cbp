@@ -53,6 +53,8 @@
 		<Unit filename="MainConstants.h" />
 		<Unit filename="Rect.cpp" />
 		<Unit filename="Rect.h" />
+		<Unit filename="RectMgr.cpp" />
+		<Unit filename="RectMgr.h" />
 		<Unit filename="SDL_Game.cpp" />
 		<Unit filename="SDL_Game.h" />
 		<Unit filename="Scene.cpp" />

@@ -2,19 +2,19 @@
 
 SceneGame::SceneGame()
 {
-    p_ball_start.x = 100;
-    p_ball_start.y = 100;
-	ballmgr = new BallMgr(p_ball_start, 25);
+    first_render = true;
+
+	ballmgr = new BallMgr(25);
 
 	rect_w = 200;
 	rect_h = 50;
 
-    rectUp = new Rect();
+    rectUp = new RectMgr();
     rectUp->setBeginXY(0, 0);
     rectUp->setHeight(rect_h);
     rectUp->setWidth(rect_w);
 
-    rectDown = new Rect();
+    rectDown = new RectMgr();
     rectDown->setBeginXY(0, SCREEN_HEIGHT - rect_h);
     rectDown->setHeight(rect_h);
     rectDown->setWidth(rect_w);
@@ -22,17 +22,35 @@ SceneGame::SceneGame()
 
 void SceneGame::render(SDL_Renderer *renderer)
 {
-    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-    SDL_RenderClear( renderer );
+    if(first_render)
+    {
+        first_render = false;
 
-    SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
-    ballmgr->draw(renderer);
+        SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
+        SDL_RenderClear( renderer );
+        SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
+    }
+
+    // Очищаем экран от текущих объектов
+    render_clean(renderer);
+
+    // Рисуем новые
     rectUp->draw(renderer);
     rectDown->draw(renderer);
+
+    ballmgr->draw(renderer);
 
     SDL_RenderPresent(renderer);
 
     SDL_Delay(50);
+}
+
+void SceneGame::render_clean(SDL_Renderer *renderer)
+{
+    // Стираем текущие объекты сцены
+    rectUp->draw(renderer, true);
+    rectDown->draw(renderer, true);
+    ballmgr->draw(renderer, true);
 }
 
 void SceneGame::process_mouse_motion(Sint32 x, Sint32 y)

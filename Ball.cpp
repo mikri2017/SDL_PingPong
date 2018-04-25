@@ -48,3 +48,16 @@ void Ball::draw(SDL_Renderer *renderer)
         SDL_RenderDrawLine(renderer, p_centre.x, p_centre.y, p_dest.x, p_dest.y);
     }
 }
+
+SDL_Rect Ball::getRectArea()
+{
+    // Вычисляем область текущего
+    // расположения объекта
+    SDL_Rect ball_rect;
+    ball_rect.x = p_centre.x - radius;
+    ball_rect.y = p_centre.y - radius;
+    // +1, чтобы не оставалось следов от шарика
+    ball_rect.h = radius * 2 + 1;
+    ball_rect.w = radius * 2 + 1;
+    return ball_rect;
+}

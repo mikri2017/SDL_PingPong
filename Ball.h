@@ -19,6 +19,7 @@ public:
     void setCentreXY(int x, int y);
     void setRadius(int r);
     void draw(SDL_Renderer *renderer);
+    SDL_Rect getRectArea();
 };
 
 #endif // BALL_H_INCLUDED

@@ -3,18 +3,19 @@
 
 #include "Scene.h"
 #include "BallMgr.h"
-#include "Rect.h"
+#include "RectMgr.h"
 
 class SceneGame: public Scene
 {
 private:
-    SDL_Point p_ball_start;
     BallMgr *ballmgr;
-    Rect *rectUp, *rectDown;
+    RectMgr *rectUp, *rectDown;
     int rect_w, rect_h;
+    bool first_render;
 public:
     SceneGame();
     void render(SDL_Renderer *renderer);
+    void render_clean(SDL_Renderer *renderer);
     void process_mouse_motion(Sint32 x, Sint32 y);
 };
 

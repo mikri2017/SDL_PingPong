@@ -19,6 +19,14 @@ void Rect::setBeginXY(int x, int y)
     rect.y = y;
 }
 
+SDL_Point Rect::getBeginXY()
+{
+    SDL_Point p_begin_xy;
+    p_begin_xy.x = rect.x;
+    p_begin_xy.y = rect.y;
+    return p_begin_xy;
+}
+
 void Rect::setWidth(int w)
 {
     if(w < 0)
