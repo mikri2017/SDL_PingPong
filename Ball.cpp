@@ -19,7 +19,7 @@ void Ball::CalculateAngles()
 
 void Ball::setCentreXY(int x, int y)
 {
-    // x и y должны быть неотрицательны
+    // x Рё y РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РЅРµРѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹
     if(x < 0)
         x = 0;
     if(y < 0)
@@ -30,7 +30,7 @@ void Ball::setCentreXY(int x, int y)
 
 void Ball::setRadius(int r)
 {
-    // Радиус должен быть неотрицательным
+    // Р Р°РґРёСѓСЃ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РЅРµРѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рј
     if(r < 0)
         r = 0;
     radius = r;
@@ -38,7 +38,7 @@ void Ball::setRadius(int r)
 
 void Ball::draw(SDL_Renderer *renderer)
 {
-    //Рисуем шарик
+    //Р РёСЃСѓРµРј С€Р°СЂРёРє
     SDL_Point p_dest;
 
     for(int i=0;i<360;i++)

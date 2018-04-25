@@ -10,7 +10,7 @@ SDL_Game::SDL_Game()
 bool SDL_Game::init(const char* title, int xpos, int ypos,
               int height, int width, int flags)
 {
-    // Инициализация SDL
+    // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ SDL
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
         SDL_error_msg = "SDL could not initialize! SDL_Error: " + std::string(SDL_GetError());
@@ -19,7 +19,7 @@ bool SDL_Game::init(const char* title, int xpos, int ypos,
     }
 	else
 	{
-	    // Создаем окно
+	    // РЎРѕР·РґР°РµРј РѕРєРЅРѕ
 		window = SDL_CreateWindow(title, xpos, ypos, height, width, flags);
 		if( window == NULL )
         {
@@ -94,8 +94,8 @@ void SDL_Game::render()
 
 void SDL_Game::clean_and_exit()
 {
-    SDL_DestroyWindow( window ); // Уничтожаем окно
-	SDL_Quit(); //Выход из SDL
+    SDL_DestroyWindow( window ); // РЈРЅРёС‡С‚РѕР¶Р°РµРј РѕРєРЅРѕ
+	SDL_Quit(); //Р’С‹С…РѕРґ РёР· SDL
 }
 
 std::string SDL_Game::getErrorMsg()
