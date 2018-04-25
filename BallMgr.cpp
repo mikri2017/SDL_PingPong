@@ -37,12 +37,17 @@ void BallMgr::chg_dir_angle()
     else // Летим вниз - от 210 до 330
         dir_angle = rand()%120 + 211;
 
+    // Градусы идут по часовой стрелке
+    dir_angle = dir_angle * (-1);
+
     // Вычисляем sin и cos этого угла
-    dir_angle_cos = cos(dir_angle);
-    dir_angle_sin = sin(dir_angle);
+    dir_angle_cos = cos(dir_angle * PI_by_180);
+    dir_angle_sin = sin(dir_angle * PI_by_180);
 
     // Сбрасываем длину направляющей
     dir_line_len = 0;
+
+    std::cout << "dir_angle = " << dir_angle << std::endl;
 
     // Определяем соседние углы для проверки столкновения
     if(dir_angle >= 0 && dir_angle < 90)
@@ -120,8 +125,8 @@ bool BallMgr::checkCollisionWithScreen()
         {
             dir_angle = 180 - dir_angle;
 
-            dir_angle_cos = cos(dir_angle);
-            dir_angle_sin = sin(dir_angle);
+            dir_angle_cos = cos(dir_angle * PI_by_180);
+            dir_angle_sin = sin(dir_angle * PI_by_180);
 
             dir_line_len = 0;
 
@@ -149,4 +154,9 @@ bool BallMgr::checkCollisionWithScreen()
     }
 
     return false;
+}
+
+bool BallMgr::checkCollisionWithRect(RectMgr *rect)
+{
+    SDL_Rect p_rect = rect->getRect();
 }

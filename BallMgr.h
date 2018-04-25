@@ -4,6 +4,7 @@
 #include <ctime>
 #include <math.h>
 #include "Ball.h"
+#include "RectMgr.h"
 
 class BallMgr
 {
@@ -25,6 +26,7 @@ public:
     void reinit();
     void draw(SDL_Renderer *renderer, bool clean = false);
     bool checkCollisionWithScreen();
+    bool checkCollisionWithRect(RectMgr *rect);
 };
 
 

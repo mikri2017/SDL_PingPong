@@ -12,7 +12,9 @@ public:
     void setBeginXY(int x, int y);
     SDL_Point getBeginXY();
     void setWidth(int w);
+    int getWidth();
     void setHeight(int h);
+    int getHeight();
     void draw(SDL_Renderer *renderer);
 };
 

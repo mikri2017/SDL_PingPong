@@ -39,3 +39,14 @@ void RectMgr::draw(SDL_Renderer *renderer, bool clean)
         rect->draw(renderer);
     }
 }
+
+SDL_Rect RectMgr::getRect()
+{
+    SDL_Point tmp_point;
+    tmp_point = rect->getBeginXY();
+    SDL_Rect tmp_rect;
+    tmp_rect.x = tmp_point.x;
+    tmp_rect.y = tmp_rect.y;
+    tmp_rect.w = rect->getWidth();
+    tmp_rect.h = rect->getHeight();
+}

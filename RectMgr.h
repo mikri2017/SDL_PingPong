@@ -13,6 +13,7 @@ public:
     void setWidth(int w);
     void setHeight(int h);
     void draw(SDL_Renderer *renderer, bool clean = false);
+    SDL_Rect getRect();
 };
 
 

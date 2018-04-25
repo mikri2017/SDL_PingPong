@@ -34,11 +34,21 @@ void Rect::setWidth(int w)
     rect.w = w;
 }
 
+int Rect::getWidth()
+{
+    return rect.w;
+}
+
 void Rect::setHeight(int h)
 {
     if(h < 0)
         h = 0;
     rect.h = h;
+}
+
+int Rect::getHeight()
+{
+    return rect.h;
 }
 
 void Rect::draw(SDL_Renderer *renderer)
