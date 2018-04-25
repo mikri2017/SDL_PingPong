@@ -30,20 +30,7 @@ bool SDL_Game::init(const char* title, int xpos, int ypos,
             renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
 	}
 
-    SDL_Point p_ball_start;
-    p_ball_start.x = 100;
-    p_ball_start.y = 100;
-	ballmgr = new BallMgr(p_ball_start, 25);
-
-    rectUp = new Rect();
-    rectUp->setBeginXY(0, 0);
-    rectUp->setHeight(50);
-    rectUp->setWidth(200);
-
-    rectDown = new Rect();
-    rectDown->setBeginXY(0, SCREEN_HEIGHT - 50);
-    rectDown->setHeight(50);
-    rectDown->setWidth(200);
+	s_mgr = new SceneMgr();
 
 	return true;
 }
@@ -68,7 +55,7 @@ int SDL_Game::process_events()
                 ret = 0;
             break;
         case SDL_MOUSEMOTION:
-            //ScrObjMngr.ChgXBeginByMouse(event.motion.x);
+            s_mgr->process_mouse_motion(event.motion.x, event.motion.y);
             break;
         default:
             break;
@@ -79,17 +66,7 @@ int SDL_Game::process_events()
 
 void SDL_Game::render()
 {
-    SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-    SDL_RenderClear( renderer );
-
-    SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
-    ballmgr->draw(renderer);
-    rectUp->draw(renderer);
-    rectDown->draw(renderer);
-
-    SDL_RenderPresent(renderer);
-
-    SDL_Delay(50);
+    s_mgr->render(renderer);
 }
 
 void SDL_Game::clean_and_exit()

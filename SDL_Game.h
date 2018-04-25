@@ -6,17 +6,15 @@
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_keyboard.h>
 #include "MainConstants.h"
-#include "BallMgr.h"
-#include "Rect.h"
+#include "SceneMgr.h"
 
 class SDL_Game
 {
 private:
     SDL_Window *window;
 	SDL_Renderer *renderer;
+	SceneMgr *s_mgr;
 	std::string SDL_error_msg;
-    BallMgr *ballmgr;
-    Rect *rectUp, *rectDown;
 public:
     SDL_Game();
     std::string getErrorMsg();
