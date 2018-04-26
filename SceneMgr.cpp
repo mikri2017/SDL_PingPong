@@ -23,7 +23,7 @@ void SceneMgr::process_mouse_motion(Sint32 x, Sint32 y)
     active->process_mouse_motion(x, y);
 }
 
-void SceneMgr::process_keyboard_keydown(SDL_Keysym keysym)
+void SceneMgr::process_keyboard_keydown(SDL_Keycode keycode)
 {
-
+    active->process_keyboard_keydown(keycode);
 }

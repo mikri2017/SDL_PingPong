@@ -17,7 +17,7 @@ public:
     SceneMgr();
     void render(SDL_Renderer *renderer);
     void process_mouse_motion(Sint32 x, Sint32 y);
-    void process_keyboard_keydown(SDL_Keysym keysym);
+    void process_keyboard_keydown(SDL_Keycode keycode);
 };
 
 #endif // SCENEMGR_H_INCLUDED

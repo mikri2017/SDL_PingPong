@@ -26,6 +26,8 @@ public:
     BallMgr(int radius);
     void reinit();
     void draw(SDL_Renderer *renderer, bool clean = false);
+    void flipVertically();
+    void flipHorizontally();
     bool checkCollisionWithScreen();
     void checkCollisionWithRect(RectMgr *rect);
 };

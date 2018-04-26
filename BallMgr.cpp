@@ -1,4 +1,6 @@
 #include "BallMgr.h"
+#include <iostream>
+using namespace std;
 
 BallMgr::BallMgr(int radius)
 {
@@ -117,13 +119,38 @@ void BallMgr::draw(SDL_Renderer *renderer, bool clean)
     }
 }
 
+void BallMgr::flipVertically()
+{
+    dir_angle = 180 - dir_angle;
+
+    dir_angle_cos = cos(dir_angle * PI_by_180);
+    dir_angle_sin = sin(dir_angle * PI_by_180);
+
+    dir_line_len = 0;
+
+    // Определяем соседние углы для проверки столкновения
+    updateCollisionAngles();
+}
+
+void BallMgr::flipHorizontally()
+{
+    dir_angle = -dir_angle;
+
+    dir_angle_cos = cos(dir_angle * PI_by_180);
+    dir_angle_sin = sin(dir_angle * PI_by_180);
+
+    dir_line_len = 0;
+
+    // Определяем соседние углы для проверки столкновения
+    updateCollisionAngles();
+}
+
 bool BallMgr::checkCollisionWithScreen()
 {
     // Проверка столкновения с экраном
     // У нас 3 возможных угла соприкосновения:
     // направляющий(1) и 2 соседних кратных 90 градусам (0, 2)
     int p_dest_x, p_dest_y;
-    bool can_chg = false;
     for(int i = 0; i < 3; i++)
     {
         p_dest_x = p_ball_centre.x + CosForAngles[checkCollisionAngles[i]] * ball->getRadius();
@@ -131,29 +158,10 @@ bool BallMgr::checkCollisionWithScreen()
 
         if(p_dest_x >= SCREEN_WIDTH || p_dest_x <= 0)
         {
-            if(i == 0 || i == 2)
+            // Столкнулись
+            if(dir_line_len > 15) // Чтобы быть уверенным, что отошли достаточно далеко
             {
-                // Проверяем, можно ли полагаться на соседние углы
-                // x = x0 + cos(dir_angle) * dir_line_len
-                // Длина направляющей при движении вперед постоянно растет.
-                // Длина направляющей при столкновении с ракеткой
-                // должна быть больше длины в текущей точке
-                if(((0 - p_dest_x) / dir_angle_cos) > dir_line_len)
-                    can_chg = true;
-                else if(((SCREEN_WIDTH - p_dest_x) / dir_angle_cos) > dir_line_len)
-                    can_chg = true;
-                else can_chg = false;
-            }
-            else can_chg = true;
-
-            if(can_chg)
-            {
-                dir_angle = 180 - dir_angle;
-
-                dir_angle_cos = cos(dir_angle * PI_by_180);
-                dir_angle_sin = sin(dir_angle * PI_by_180);
-
-                dir_line_len = 0;
+                flipVertically();
 
                 if(p_dest_x >= SCREEN_WIDTH)
                     p_ball_centre.x = SCREEN_WIDTH - ball->getRadius();
@@ -162,9 +170,6 @@ bool BallMgr::checkCollisionWithScreen()
                 p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
 
                 ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
-
-                // Определяем соседние углы для проверки столкновения
-                updateCollisionAngles();
 
                 return false;// Столкнулись с левой/правой стенкой
             }
@@ -191,56 +196,26 @@ void BallMgr::checkCollisionWithRect(RectMgr *rect)
     // У нас 3 возможных угла соприкосновения:
     // направляющий(1) и 2 соседних кратных 90 градусам (0, 2)
     int p_dest_x, p_dest_y;
-    bool can_chg = false;
     for(int i = 0; i < 3; i++)
     {
-        p_dest_x = p_ball_centre.x + CosForAngles[checkCollisionAngles[1]] * ball->getRadius();
-        p_dest_y = p_ball_centre.y + SinForAngles[checkCollisionAngles[1]] * ball->getRadius();
+        p_dest_x = p_ball_centre.x + CosForAngles[checkCollisionAngles[i]] * ball->getRadius();
+        p_dest_y = p_ball_centre.y + SinForAngles[checkCollisionAngles[i]] * ball->getRadius();
 
         if((p_dest_x >= p_rect.x) && (p_dest_x <= p_rect.x + p_rect.w))
         {
             // В возможной зоне столкновения с платформой
-            if((p_dest_y >= p_rect.y) && (p_dest_y <= p_rect.y + p_rect.h))
+            if((p_dest_y >= p_rect.y) && (p_dest_y - 5 <= p_rect.y + p_rect.h))
             {
                 // Столкнулись
-                if(i == 0 || i == 2)
+                if(dir_line_len > 15) // Чтобы быть уверенным, что отошли достаточно далеко
                 {
-                    // Проверяем, можно ли полагаться на соседние углы
-                    // y = y0 + sin(dir_angle) * dir_line_len
-                    // Длина направляющей при движении вперед постоянно растет.
-                    // Длина направляющей при столкновении с ракеткой
-                    // должна быть больше длины в текущей точке
-                    if(((p_rect.y - p_dest_y) / dir_angle_sin) > dir_line_len)
-                        can_chg = true;
-                    else if(((p_rect.y + p_rect.h - p_dest_y) / dir_angle_sin) > dir_line_len)
-                        can_chg = true;
-                    else can_chg = false;
-                }
-                else can_chg = true;
-
-                if(can_chg)
-                {
-                    dir_angle = -dir_angle;
-
-                    dir_angle_cos = cos(dir_angle * PI_by_180);
-                    dir_angle_sin = sin(dir_angle * PI_by_180);
-
-                    updateCollisionAngles();
-
-                    dir_line_len = 0;
+                    flipHorizontally();
 
                     p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
-
                     ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
-
                     return;
                 }
             }
         }
     }
-
-
-
-
-
 }

@@ -66,3 +66,11 @@ void SceneGame::process_mouse_motion(Sint32 x, Sint32 y)
     rectUp->setBeginXY(x - rect_w/2, 0);
     rectDown->setBeginXY(x - rect_w/2, SCREEN_HEIGHT - rect_h);
 }
+
+void SceneGame::process_keyboard_keydown(SDL_Keycode keycode)
+{
+    if(keycode == SDLK_LEFT)
+        ballmgr->flipVertically();
+    if(keycode == SDLK_UP)
+        ballmgr->flipHorizontally();
+}

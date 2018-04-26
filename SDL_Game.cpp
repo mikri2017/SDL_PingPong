@@ -53,6 +53,7 @@ int SDL_Game::process_events()
             */
             if (event.key.keysym.sym == SDLK_ESCAPE)
                 ret = 0;
+            else s_mgr->process_keyboard_keydown(event.key.keysym.sym);
             break;
         case SDL_MOUSEMOTION:
             s_mgr->process_mouse_motion(event.motion.x, event.motion.y);
