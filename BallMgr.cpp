@@ -119,37 +119,63 @@ void BallMgr::draw(SDL_Renderer *renderer, bool clean)
 
 bool BallMgr::checkCollisionWithScreen()
 {
+    // Проверка столкновения с экраном
+    // У нас 3 возможных угла соприкосновения:
+    // направляющий(1) и 2 соседних кратных 90 градусам (0, 2)
+    int p_dest_x, p_dest_y;
+    bool can_chg = false;
     for(int i = 0; i < 3; i++)
     {
-        int p_dest_x = p_ball_centre.x + CosForAngles[checkCollisionAngles[i]] * ball->getRadius();
-        int p_dest_y = p_ball_centre.y + SinForAngles[checkCollisionAngles[i]] * ball->getRadius();
+        p_dest_x = p_ball_centre.x + CosForAngles[checkCollisionAngles[i]] * ball->getRadius();
+        p_dest_y = p_ball_centre.y + SinForAngles[checkCollisionAngles[i]] * ball->getRadius();
 
         if(p_dest_x >= SCREEN_WIDTH || p_dest_x <= 0)
         {
-            dir_angle = 180 - dir_angle;
+            if(i == 0 || i == 2)
+            {
+                // Проверяем, можно ли полагаться на соседние углы
+                // x = x0 + cos(dir_angle) * dir_line_len
+                // Длина направляющей при движении вперед постоянно растет.
+                // Длина направляющей при столкновении с ракеткой
+                // должна быть больше длины в текущей точке
+                if(((0 - p_dest_x) / dir_angle_cos) > dir_line_len)
+                    can_chg = true;
+                else if(((SCREEN_WIDTH - p_dest_x) / dir_angle_cos) > dir_line_len)
+                    can_chg = true;
+                else can_chg = false;
+            }
+            else can_chg = true;
 
-            dir_angle_cos = cos(dir_angle * PI_by_180);
-            dir_angle_sin = sin(dir_angle * PI_by_180);
+            if(can_chg)
+            {
+                dir_angle = 180 - dir_angle;
 
-            dir_line_len = 0;
+                dir_angle_cos = cos(dir_angle * PI_by_180);
+                dir_angle_sin = sin(dir_angle * PI_by_180);
 
-            if(p_dest_x >= SCREEN_WIDTH)
-                p_ball_centre.x = SCREEN_WIDTH - ball->getRadius();
-            else p_ball_centre.x = 0 + ball->getRadius();
+                dir_line_len = 0;
 
-            p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
+                if(p_dest_x >= SCREEN_WIDTH)
+                    p_ball_centre.x = SCREEN_WIDTH - ball->getRadius();
+                else p_ball_centre.x = 0 + ball->getRadius();
 
-            ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
+                p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
 
-            // Определяем соседние углы для проверки столкновения
-            updateCollisionAngles();
+                ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
 
-            return false;// Столкнулись с левой/правой стенкой
+                // Определяем соседние углы для проверки столкновения
+                updateCollisionAngles();
+
+                return false;// Столкнулись с левой/правой стенкой
+            }
         }
 
         if(p_dest_y >= SCREEN_HEIGHT || p_dest_y <= 0)
         {
-            p_ball_centre.y = SCREEN_HEIGHT - ball->getRadius();
+            if(p_dest_y >= SCREEN_HEIGHT)
+                p_ball_centre.y = SCREEN_HEIGHT - ball->getRadius();
+            else p_ball_centre.y = 0 + ball->getRadius();
+
             return true;// Столкнулись с нижней стенкой
         }
     }
@@ -159,11 +185,17 @@ bool BallMgr::checkCollisionWithScreen()
 
 void BallMgr::checkCollisionWithRect(RectMgr *rect)
 {
+    // Проверка столкновения с ракеткой
     SDL_Rect p_rect = rect->getRect();
+
+    // У нас 3 возможных угла соприкосновения:
+    // направляющий(1) и 2 соседних кратных 90 градусам (0, 2)
+    int p_dest_x, p_dest_y;
+    bool can_chg = false;
     for(int i = 0; i < 3; i++)
     {
-        int p_dest_x = p_ball_centre.x + CosForAngles[checkCollisionAngles[i]] * ball->getRadius();
-        int p_dest_y = p_ball_centre.y + SinForAngles[checkCollisionAngles[i]] * ball->getRadius();
+        p_dest_x = p_ball_centre.x + CosForAngles[checkCollisionAngles[1]] * ball->getRadius();
+        p_dest_y = p_ball_centre.y + SinForAngles[checkCollisionAngles[1]] * ball->getRadius();
 
         if((p_dest_x >= p_rect.x) && (p_dest_x <= p_rect.x + p_rect.w))
         {
@@ -171,19 +203,44 @@ void BallMgr::checkCollisionWithRect(RectMgr *rect)
             if((p_dest_y >= p_rect.y) && (p_dest_y <= p_rect.y + p_rect.h))
             {
                 // Столкнулись
-                dir_angle = -dir_angle;
+                if(i == 0 || i == 2)
+                {
+                    // Проверяем, можно ли полагаться на соседние углы
+                    // y = y0 + sin(dir_angle) * dir_line_len
+                    // Длина направляющей при движении вперед постоянно растет.
+                    // Длина направляющей при столкновении с ракеткой
+                    // должна быть больше длины в текущей точке
+                    if(((p_rect.y - p_dest_y) / dir_angle_sin) > dir_line_len)
+                        can_chg = true;
+                    else if(((p_rect.y + p_rect.h - p_dest_y) / dir_angle_sin) > dir_line_len)
+                        can_chg = true;
+                    else can_chg = false;
+                }
+                else can_chg = true;
 
-                dir_angle_cos = cos(dir_angle * PI_by_180);
-                dir_angle_sin = sin(dir_angle * PI_by_180);
+                if(can_chg)
+                {
+                    dir_angle = -dir_angle;
 
-                updateCollisionAngles();
+                    dir_angle_cos = cos(dir_angle * PI_by_180);
+                    dir_angle_sin = sin(dir_angle * PI_by_180);
 
-                dir_line_len = 0;
+                    updateCollisionAngles();
 
-                p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
+                    dir_line_len = 0;
 
-                ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
+                    p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
+
+                    ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
+
+                    return;
+                }
             }
         }
     }
+
+
+
+
+
 }
