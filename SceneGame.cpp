@@ -40,6 +40,9 @@ void SceneGame::render(SDL_Renderer *renderer)
 
     ballmgr->draw(renderer);
 
+    ballmgr->checkCollisionWithRect(rectUp);
+    ballmgr->checkCollisionWithRect(rectDown);
+
     SDL_RenderPresent(renderer);
 
     SDL_Delay(50);

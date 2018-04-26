@@ -21,12 +21,13 @@ private:
 
     void chg_dir_angle();
     void CalculateAngles();
+    void updateCollisionAngles();
 public:
     BallMgr(int radius);
     void reinit();
     void draw(SDL_Renderer *renderer, bool clean = false);
     bool checkCollisionWithScreen();
-    bool checkCollisionWithRect(RectMgr *rect);
+    void checkCollisionWithRect(RectMgr *rect);
 };
 
 

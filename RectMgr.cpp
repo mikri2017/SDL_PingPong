@@ -46,7 +46,8 @@ SDL_Rect RectMgr::getRect()
     tmp_point = rect->getBeginXY();
     SDL_Rect tmp_rect;
     tmp_rect.x = tmp_point.x;
-    tmp_rect.y = tmp_rect.y;
+    tmp_rect.y = tmp_point.y;
     tmp_rect.w = rect->getWidth();
     tmp_rect.h = rect->getHeight();
+    return tmp_rect;
 }

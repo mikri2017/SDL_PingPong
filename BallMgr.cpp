@@ -1,5 +1,4 @@
 #include "BallMgr.h"
-#include <iostream>
 
 BallMgr::BallMgr(int radius)
 {
@@ -47,8 +46,22 @@ void BallMgr::chg_dir_angle()
     // Сбрасываем длину направляющей
     dir_line_len = 0;
 
-    std::cout << "dir_angle = " << dir_angle << std::endl;
+    // Определяем соседние углы для проверки столкновения
+    updateCollisionAngles();
 
+}
+
+void BallMgr::CalculateAngles()
+{
+    for(int i=0; i<360; i++)
+    {
+        CosForAngles.push_back(cos(i*PI_by_180));
+        SinForAngles.push_back(sin(i*PI_by_180));
+    }
+}
+
+void BallMgr::updateCollisionAngles()
+{
     // Определяем соседние углы для проверки столкновения
     if(dir_angle >= 0 && dir_angle < 90)
     {
@@ -73,16 +86,6 @@ void BallMgr::chg_dir_angle()
         checkCollisionAngles[0] = 270;
         checkCollisionAngles[1] = dir_angle;
         checkCollisionAngles[2] = 360;
-    }
-
-}
-
-void BallMgr::CalculateAngles()
-{
-    for(int i=0; i<360; i++)
-    {
-        CosForAngles.push_back(cos(i*PI_by_180));
-        SinForAngles.push_back(sin(i*PI_by_180));
     }
 }
 
@@ -138,10 +141,8 @@ bool BallMgr::checkCollisionWithScreen()
 
             ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
 
-
-            if(p_dest_x >= SCREEN_WIDTH)
-                std::cout << "SCREEN_WIDTH" << std::endl;
-            else std::cout << "0" << std::endl;
+            // Определяем соседние углы для проверки столкновения
+            updateCollisionAngles();
 
             return false;// Столкнулись с левой/правой стенкой
         }
@@ -156,7 +157,33 @@ bool BallMgr::checkCollisionWithScreen()
     return false;
 }
 
-bool BallMgr::checkCollisionWithRect(RectMgr *rect)
+void BallMgr::checkCollisionWithRect(RectMgr *rect)
 {
     SDL_Rect p_rect = rect->getRect();
+    for(int i = 0; i < 3; i++)
+    {
+        int p_dest_x = p_ball_centre.x + CosForAngles[checkCollisionAngles[i]] * ball->getRadius();
+        int p_dest_y = p_ball_centre.y + SinForAngles[checkCollisionAngles[i]] * ball->getRadius();
+
+        if((p_dest_x >= p_rect.x) && (p_dest_x <= p_rect.x + p_rect.w))
+        {
+            // В возможной зоне столкновения с платформой
+            if((p_dest_y >= p_rect.y) && (p_dest_y <= p_rect.y + p_rect.h))
+            {
+                // Столкнулись
+                dir_angle = -dir_angle;
+
+                dir_angle_cos = cos(dir_angle * PI_by_180);
+                dir_angle_sin = sin(dir_angle * PI_by_180);
+
+                updateCollisionAngles();
+
+                dir_line_len = 0;
+
+                p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
+
+                ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
+            }
+        }
+    }
 }
