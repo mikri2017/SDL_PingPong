@@ -19,7 +19,7 @@ bool SDL_Game::init(const char* title, int xpos, int ypos,
     }
 	else
 	{
-	    // Создаем окно
+	    // Создаем окно 
 		window = SDL_CreateWindow(title, xpos, ypos, height, width, flags);
 		if( window == NULL )
         {
