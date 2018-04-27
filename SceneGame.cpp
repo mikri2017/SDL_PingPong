@@ -31,17 +31,19 @@ void SceneGame::render(SDL_Renderer *renderer)
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
     }
 
+
+    // Просчитываем столкновения
+    ballmgr->checkCollisionWithRect(rectUp);
+    ballmgr->checkCollisionWithRect(rectDown);
+
     // Очищаем экран от текущих объектов
     render_clean(renderer);
 
     // Рисуем новые
     rectUp->draw(renderer);
     rectDown->draw(renderer);
-
     ballmgr->draw(renderer);
 
-    ballmgr->checkCollisionWithRect(rectUp);
-    ballmgr->checkCollisionWithRect(rectDown);
 
     SDL_RenderPresent(renderer);
 

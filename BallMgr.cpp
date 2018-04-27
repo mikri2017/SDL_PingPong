@@ -1,6 +1,4 @@
 #include "BallMgr.h"
-#include <iostream>
-using namespace std;
 
 BallMgr::BallMgr(int radius)
 {
@@ -37,9 +35,6 @@ void BallMgr::chg_dir_angle()
         dir_angle = rand()%120 + 31;
     else // Летим вниз - от 210 до 330
         dir_angle = rand()%120 + 211;
-
-    // Градусы идут по часовой стрелке
-    dir_angle = dir_angle * (-1);
 
     // Вычисляем sin и cos этого угла
     dir_angle_cos = cos(dir_angle * PI_by_180);
@@ -98,7 +93,7 @@ void BallMgr::draw(SDL_Renderer *renderer, bool clean)
         ball_cleaner = ball->getRectArea();
 
         // Перемещаем шарик вдоль выбранной направляющей
-        dir_line_len++;
+        dir_line_len += 0.1;
         p_ball_centre.x = p_ball_centre.x + dir_angle_cos * dir_line_len;
         p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
 
@@ -134,7 +129,7 @@ void BallMgr::flipVertically()
 
 void BallMgr::flipHorizontally()
 {
-    dir_angle = -dir_angle;
+    dir_angle = 360 - dir_angle;
 
     dir_angle_cos = cos(dir_angle * PI_by_180);
     dir_angle_sin = sin(dir_angle * PI_by_180);
@@ -159,20 +154,8 @@ bool BallMgr::checkCollisionWithScreen()
         if(p_dest_x >= SCREEN_WIDTH || p_dest_x <= 0)
         {
             // Столкнулись
-            if(dir_line_len > 15) // Чтобы быть уверенным, что отошли достаточно далеко
-            {
-                flipVertically();
-
-                if(p_dest_x >= SCREEN_WIDTH)
-                    p_ball_centre.x = SCREEN_WIDTH - ball->getRadius();
-                else p_ball_centre.x = 0 + ball->getRadius();
-
-                p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
-
-                ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
-
-                return false;// Столкнулись с левой/правой стенкой
-            }
+            flipVertically();
+            return false;// Столкнулись с левой/правой стенкой
         }
 
         if(p_dest_y >= SCREEN_HEIGHT || p_dest_y <= 0)
@@ -204,15 +187,22 @@ void BallMgr::checkCollisionWithRect(RectMgr *rect)
         if((p_dest_x >= p_rect.x) && (p_dest_x <= p_rect.x + p_rect.w))
         {
             // В возможной зоне столкновения с платформой
-            if((p_dest_y >= p_rect.y) && (p_dest_y - 5 <= p_rect.y + p_rect.h))
+            if(p_ball_centre.y > p_rect.y)
             {
-                // Столкнулись
-                if(dir_line_len > 15) // Чтобы быть уверенным, что отошли достаточно далеко
+                // Верхняя платформа
+                if(p_dest_y <= (p_rect.y + p_rect.h))
                 {
                     flipHorizontally();
+                    return;
+                }
 
-                    p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
-                    ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
+            }
+            else
+            {
+                // Нижняя платформа
+                if(p_dest_y >= p_rect.y)
+                {
+                    flipHorizontally();
                     return;
                 }
             }

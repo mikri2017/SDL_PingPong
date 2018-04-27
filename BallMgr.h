@@ -15,7 +15,7 @@ private:
     int dir_angle;
     int checkCollisionAngles[3];
     float dir_angle_cos, dir_angle_sin;
-    int dir_line_len;
+    float dir_line_len;
     std::vector<double> CosForAngles, SinForAngles;
     bool ball_moving;
 

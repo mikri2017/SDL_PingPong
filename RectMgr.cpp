@@ -28,13 +28,13 @@ void RectMgr::draw(SDL_Renderer *renderer, bool clean)
 {
     if(clean)
     {
-        // Óáèğàåì ñòàğîå èçîáğàæåíèå ïëàòôîğìû
+        // Ğ£Ğ±Ğ¸Ñ€Ğ°ĞµĞ¼ ÑÑ‚Ğ°Ñ€Ğ¾Ğµ Ğ¸Ğ·Ğ¾Ğ±Ñ€Ğ°Ğ¶ĞµĞ½Ğ¸Ğµ Ğ¿Ğ»Ğ°Ñ‚Ñ„Ğ¾Ñ€Ğ¼Ñ‹
         SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
         rect_cleaner->draw(renderer);
     }
     else
     {
-        // Ğèñóåì íîâîå èçîáğàæåíèå ïëàòôîğìû
+        // Ğ Ğ¸ÑÑƒĞµĞ¼ Ğ½Ğ¾Ğ²Ğ¾Ğµ Ğ¸Ğ·Ğ¾Ğ±Ñ€Ğ°Ğ¶ĞµĞ½Ğ¸Ğµ Ğ¿Ğ»Ğ°Ñ‚Ñ„Ğ¾Ñ€Ğ¼Ñ‹
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
         rect->draw(renderer);
     }
