@@ -82,7 +82,7 @@ void BallMgr::updateCollisionAngles()
     {
         checkCollisionAngles[0] = 270;
         checkCollisionAngles[1] = dir_angle;
-        checkCollisionAngles[2] = 360;
+        checkCollisionAngles[2] = 0;
     }
 }
 
@@ -130,6 +130,8 @@ void BallMgr::flipVertically()
 void BallMgr::flipHorizontally()
 {
     dir_angle = 360 - dir_angle;
+    if(dir_angle == 360)
+        dir_angle = 0;
 
     dir_angle_cos = cos(dir_angle * PI_by_180);
     dir_angle_sin = sin(dir_angle * PI_by_180);
