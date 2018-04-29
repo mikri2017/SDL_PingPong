@@ -4,8 +4,6 @@ BallMgr::BallMgr(int radius)
 {
     srand(time(NULL));
 
-    CalculateAngles();
-
     ball = new Ball();
     ball->setRadius(radius);
 
@@ -14,19 +12,13 @@ BallMgr::BallMgr(int radius)
 
 void BallMgr::reinit()
 {
-    p_ball_centre.x = SCREEN_WIDTH / 2;
-    p_ball_centre.y = SCREEN_HEIGHT / 2;
+    SDL_Point p_ball_first;
+    p_ball_first.x = SCREEN_WIDTH / 2;
+    p_ball_first.y = SCREEN_HEIGHT / 2;
 
-    ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
+    ball->setCentreXY(p_ball_first.x, p_ball_first.y);
     ball_cleaner = ball->getRectArea();
 
-    chg_dir_angle();
-
-    ball_moving = true;
-}
-
-void BallMgr::chg_dir_angle()
-{
     // Определяемся с направлением
     // 1. Шарик летит вниз или вверх
     int direction = rand()%50;
@@ -36,176 +28,187 @@ void BallMgr::chg_dir_angle()
     else // Летим вниз - от 210 до 330
         dir_angle = rand()%120 + 211;
 
+    // Убираем "скучные" углы
+    if(dir_angle == 90 || dir_angle == 270)
+        dir_angle += 30;
+
     // Вычисляем sin и cos этого угла
     dir_angle_cos = cos(dir_angle * PI_by_180);
     dir_angle_sin = sin(dir_angle * PI_by_180);
 
-    // Сбрасываем длину направляющей
-    dir_line_len = 0;
+    SDL_Point p_ball_second;
+    p_ball_second.x = p_ball_first.x + dir_angle_cos * 10;
+    p_ball_second.y = p_ball_first.y + dir_angle_sin * 10;
 
-    // Определяем соседние углы для проверки столкновения
-    updateCollisionAngles();
-
+    updateLinePath(p_ball_first, p_ball_second);
 }
 
-void BallMgr::CalculateAngles()
+void BallMgr::updateLinePath(SDL_Point p_first, SDL_Point p_second)
 {
-    for(int i=0; i<360; i++)
+    // Обновляем направляющую шарик линию
+    if(p_first.y != p_second.y) // Избегаем деление на ноль
     {
-        CosForAngles.push_back(cos(i*PI_by_180));
-        SinForAngles.push_back(sin(i*PI_by_180));
+        SDL_Point p_end_line;
+        if(p_second.y > p_first.y)
+            p_end_line.y = SCREEN_HEIGHT; // Идем вниз
+        else p_end_line.y = 0; // Идем вверх
+
+        p_end_line.x = ( (p_second.x * p_first.y - p_first.x * p_second.y) - p_end_line.y * (p_second.x - p_first.x) ) / (p_first.y - p_second.y);
+
+        // Генерируем путь движения
+        genLinePath(p_first.x, p_first.y, p_end_line.x, p_end_line.y);
+
+        // Сбрасываем счетчик
+        linePath_iter = 0;
+    }
+    else
+    {
+        // Зашли в тупик, сбрасываем игру
+        reinit();
     }
 }
 
-void BallMgr::updateCollisionAngles()
+void BallMgr::genLinePath(int x1, int y1, int x2, int y2)
 {
-    // Определяем соседние углы для проверки столкновения
-    if(dir_angle >= 0 && dir_angle < 90)
+    // Рисуем линию алгоритмом Брезенхэма
+    linePath.clear();
+
+    const int deltaX = abs(x2 - x1);
+    const int deltaY = abs(y2 - y1);
+    const int signX = x1 < x2 ? 1 : -1;
+    const int signY = y1 < y2 ? 1 : -1;
+    //
+    int error = deltaX - deltaY;
+    //
+    SDL_Point p;
+    p.x = x2;
+    p.y = y2;
+    //linePath.push_back(p);
+    //SDL_RenderDrawPoint(renderer, x2, y2);
+    //setPixel(x2, y2);
+    while(x1 != x2 || y1 != y2)
     {
-        checkCollisionAngles[0] = 0;
-        checkCollisionAngles[1] = dir_angle;
-        checkCollisionAngles[2] = 90;
-    }
-    else if(dir_angle >= 90 && dir_angle < 180)
-    {
-        checkCollisionAngles[0] = 90;
-        checkCollisionAngles[1] = dir_angle;
-        checkCollisionAngles[2] = 180;
-    }
-    else if(dir_angle >= 180 && dir_angle < 270)
-    {
-        checkCollisionAngles[0] = 180;
-        checkCollisionAngles[1] = dir_angle;
-        checkCollisionAngles[2] = 270;
-    }
-    else if(dir_angle >= 270 && dir_angle < 360)
-    {
-        checkCollisionAngles[0] = 270;
-        checkCollisionAngles[1] = dir_angle;
-        checkCollisionAngles[2] = 0;
+        p.x = x1;
+        p.y = y1;
+        linePath.push_back(p);
+        //SDL_RenderDrawPoint(renderer, x1, y1);
+        //setPixel(x1, y1);
+        const int error2 = error * 2;
+        //
+        if(error2 > -deltaY)
+        {
+            error -= deltaY;
+            x1 += signX;
+        }
+        if(error2 < deltaX)
+        {
+            error += deltaX;
+            y1 += signY;
+        }
     }
 }
 
 void BallMgr::draw(SDL_Renderer *renderer, bool clean)
 {
+    //for(int i = 0; i < linePath.size(); i++)
+    //    SDL_RenderDrawPoint(renderer, linePath[i].x, linePath[i].y);
+
     if(clean)
     {
-        ball_cleaner = ball->getRectArea();
-
-        // Перемещаем шарик вдоль выбранной направляющей
-        dir_line_len += 0.1;
-        p_ball_centre.x = p_ball_centre.x + dir_angle_cos * dir_line_len;
-        p_ball_centre.y = p_ball_centre.y + dir_angle_sin * dir_line_len;
-
-        ball->setCentreXY(p_ball_centre.x, p_ball_centre.y);
-
         // Убираем старое изображение шарика
+        ball_cleaner = ball->getRectArea();
         SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
         SDL_RenderFillRect(renderer, &ball_cleaner);
     }
     else
     {
+        // Перемещаем шарик дальше вдоль пути
+        if(linePath_iter < linePath.size())
+            ball->setCentreXY(linePath[linePath_iter].x, linePath[linePath_iter].y);
+
         // Рисуем новое изображение шарика
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
         ball->draw(renderer);
 
         if(checkCollisionWithScreen())
             reinit();
+        else linePath_iter++;
     }
 }
 
 void BallMgr::flipVertically()
 {
-    dir_angle = 180 - dir_angle;
-
-    dir_angle_cos = cos(dir_angle * PI_by_180);
-    dir_angle_sin = sin(dir_angle * PI_by_180);
-
-    dir_line_len = 0;
-
-    // Определяем соседние углы для проверки столкновения
-    updateCollisionAngles();
+    // Отражаем шарик от вертикальной поверхности
+    SDL_Point p_second;
+    p_second.x = linePath[0].x;
+    p_second.y = linePath[0].y + 2 * (linePath[linePath_iter].y - linePath[0].y);
+    updateLinePath(linePath[linePath_iter], p_second);
 }
 
 void BallMgr::flipHorizontally()
 {
-    dir_angle = 360 - dir_angle;
-    if(dir_angle == 360)
-        dir_angle = 0;
-
-    dir_angle_cos = cos(dir_angle * PI_by_180);
-    dir_angle_sin = sin(dir_angle * PI_by_180);
-
-    dir_line_len = 0;
-
-    // Определяем соседние углы для проверки столкновения
-    updateCollisionAngles();
+    // Отражаем шарик от горизонтальной поверхности
+    SDL_Point p_second;
+    p_second.x = linePath[0].x + 2 * (linePath[linePath_iter].x - linePath[0].x);
+    p_second.y = linePath[0].y;
+    updateLinePath(linePath[linePath_iter], p_second);
 }
 
 bool BallMgr::checkCollisionWithScreen()
 {
     // Проверка столкновения с экраном
-    // У нас 3 возможных угла соприкосновения:
-    // направляющий(1) и 2 соседних кратных 90 градусам (0, 2)
-    int p_dest_x, p_dest_y;
-    for(int i = 0; i < 3; i++)
+    if(linePath_iter < linePath.size())
     {
-        p_dest_x = p_ball_centre.x + CosForAngles[checkCollisionAngles[i]] * ball->getRadius();
-        p_dest_y = p_ball_centre.y + SinForAngles[checkCollisionAngles[i]] * ball->getRadius();
-
-        if(p_dest_x >= SCREEN_WIDTH || p_dest_x <= 0)
+        // Опредедяем столкновение с боковыми сторонами экрана
+        if((linePath[linePath_iter].x + ball->getRadius() >= SCREEN_WIDTH)
+            || (linePath[linePath_iter].x - ball->getRadius() <= 0))
         {
-            // Столкнулись
             flipVertically();
-            return false;// Столкнулись с левой/правой стенкой
+            return false;
         }
 
-        if(p_dest_y >= SCREEN_HEIGHT || p_dest_y <= 0)
+        // Определяем столкновение с нижней и верхней сторонами экрана
+        if((linePath[linePath_iter].y + ball->getRadius() >= SCREEN_HEIGHT)
+            || (linePath[linePath_iter].y - ball->getRadius() <= 0))
         {
-            if(p_dest_y >= SCREEN_HEIGHT)
-                p_ball_centre.y = SCREEN_HEIGHT - ball->getRadius();
-            else p_ball_centre.y = 0 + ball->getRadius();
-
-            return true;// Столкнулись с нижней стенкой
+            return true;
         }
-    }
 
+    }
     return false;
 }
 
 void BallMgr::checkCollisionWithRect(RectMgr *rect)
 {
     // Проверка столкновения с ракеткой
-    SDL_Rect p_rect = rect->getRect();
-
-    // У нас 3 возможных угла соприкосновения:
-    // направляющий(1) и 2 соседних кратных 90 градусам (0, 2)
-    int p_dest_x, p_dest_y;
-    for(int i = 0; i < 3; i++)
+    if(linePath_iter < linePath.size())
     {
-        p_dest_x = p_ball_centre.x + CosForAngles[checkCollisionAngles[i]] * ball->getRadius();
-        p_dest_y = p_ball_centre.y + SinForAngles[checkCollisionAngles[i]] * ball->getRadius();
+        // Получаем данные ракетки
+        SDL_Rect p_rect = rect->getRect();
 
-        if((p_dest_x >= p_rect.x) && (p_dest_x <= p_rect.x + p_rect.w))
+        // Проверяем, что мы в зоне ракеток
+        if((linePath[linePath_iter].x >= p_rect.x)
+           && (linePath[linePath_iter].x <= p_rect.x + p_rect.w))
         {
-            // В возможной зоне столкновения с платформой
-            if(p_ball_centre.y > p_rect.y)
+            // Определяем направление шарика
+            if(linePath[linePath.size() - 1].y > linePath[0].y)
             {
-                // Верхняя платформа
-                if(p_dest_y <= (p_rect.y + p_rect.h))
+                // Летим вниз
+                if(p_rect.y > p_rect.h)
                 {
-                    flipHorizontally();
-                    return;
+                    // Нижняя ракетка
+                    if(linePath[linePath_iter].y + ball->getRadius() >= p_rect.y)
+                        flipHorizontally();
                 }
-
             }
             else
             {
-                // Нижняя платформа
-                if(p_dest_y >= p_rect.y)
+                // Летим вверх
+                if(p_rect.y < p_rect.h)
                 {
-                    flipHorizontally();
-                    return;
+                    // Верхняя ракетка
+                    if(linePath[linePath_iter].y - ball->getRadius() <= p_rect.y + p_rect.h)
+                        flipHorizontally();
                 }
             }
         }
