@@ -11,17 +11,15 @@ class BallMgr
 private:
     Ball *ball;
     SDL_Rect ball_cleaner;
-    SDL_Point p_ball_centre;
     int dir_angle;
     int checkCollisionAngles[3];
     float dir_angle_cos, dir_angle_sin;
-    float dir_line_len;
-    std::vector<double> CosForAngles, SinForAngles;
-    bool ball_moving;
 
-    void chg_dir_angle();
-    void CalculateAngles();
-    void updateCollisionAngles();
+    std::vector<SDL_Point> linePath;
+    int linePath_iter;
+
+    void updateLinePath(SDL_Point p_first, SDL_Point p_second);
+    void genLinePath(int x1, int y1, int x2, int y2);
 public:
     BallMgr(int radius);
     void reinit();
