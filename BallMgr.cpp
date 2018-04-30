@@ -1,4 +1,5 @@
 #include "BallMgr.h"
+#include <iostream>
 
 BallMgr::BallMgr(int radius)
 {
@@ -53,8 +54,24 @@ void BallMgr::updateLinePath(SDL_Point p_first, SDL_Point p_second)
             p_end_line.y = SCREEN_HEIGHT; // Идем вниз
         else p_end_line.y = 0; // Идем вверх
 
-        p_end_line.x = ( (p_second.x * p_first.y - p_first.x * p_second.y) - p_end_line.y * (p_second.x - p_first.x) ) / (p_first.y - p_second.y);
+        // Проверяем на "плохие" углы отражения
+        // близкие прямой линии
+        std::cout << abs(p_second.y - p_first.y) << " <= " << ball->getRadius() << std::endl;
+        if(abs(p_second.y - p_first.y) <= ball->getRadius())
+        {
+            float k_chg_angle;
+            if(p_second.x < SCREEN_WIDTH / 2)
+                k_chg_angle = 0.2;
+            else k_chg_angle = -0.2;
 
+            p_second.x += ball->getRadius() * k_chg_angle;
+        }
+
+        p_end_line.x = ( (p_second.x * p_first.y - p_first.x * p_second.y) - p_end_line.y * (p_second.x - p_first.x) )
+                        / (p_first.y - p_second.y);
+
+        std::cout << "f_x: " << p_first.x << " f_y: " << p_first.y << " s_x: " << p_second.x << " s_y: " << p_second.y << " e_x: " << p_end_line.x << " e_y: " << p_end_line.y << std::endl;
+        std::cout << "e_x: (" << (p_second.x * p_first.y - p_first.x * p_second.y) << " - " << p_end_line.y * (p_second.x - p_first.x) << ") / " << (p_first.y - p_second.y) << std::endl;
         // Генерируем путь движения
         genLinePath(p_first.x, p_first.y, p_end_line.x, p_end_line.y);
 
@@ -143,6 +160,18 @@ void BallMgr::flipVertically()
     p_second.x = linePath[0].x;
     p_second.y = linePath[0].y + 2 * (linePath[linePath_iter].y - linePath[0].y);
     updateLinePath(linePath[linePath_iter], p_second);
+
+    /*
+    // Тест плохих углов
+    SDL_Point t_f, t_s;
+    // Слева
+    t_f.x = 25; t_f.y = 373; t_s.x = 25; t_s.y = 372;
+    //t_f.x = 25; t_f.y = 106; t_s.x = 25; t_s.y = 107;
+    // Справа
+    //t_f.x = SCREEN_WIDTH - 25; t_f.y = 373; t_s.x = SCREEN_WIDTH - 25; t_s.y = 372;
+    //t_f.x = SCREEN_WIDTH - 25; t_f.y = 106; t_s.x = SCREEN_WIDTH - 25; t_s.y = 107;
+    updateLinePath(t_f, t_s);
+    */
 }
 
 void BallMgr::flipHorizontally()
