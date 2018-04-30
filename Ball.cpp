@@ -43,14 +43,64 @@ int Ball::getRadius()
 
 void Ball::draw(SDL_Renderer *renderer)
 {
-    //Рисуем шарик
-    SDL_Point p_dest;
+    drawImpl(renderer);
+    fillCircle(renderer);
+}
 
-    for(int i=0;i<360;i++)
-    {
-        p_dest.x = p_centre.x + CosForAngles[i] * radius;
-        p_dest.y = p_centre.y + SinForAngles[i] * radius;
-        SDL_RenderDrawLine(renderer, p_centre.x, p_centre.y, p_dest.x, p_dest.y);
+void Ball::drawImpl(SDL_Renderer* renderer)
+{
+	double error = (double)-radius;
+	double x = (double)radius - 0.5;
+	double y = (double)0.5;
+	double cx = p_centre.x - 0.5;
+	double cy = p_centre.y - 0.5;
+
+	while (x >= y)
+	{
+		SDL_RenderDrawPoint(renderer, (int)(cx + x), (int)(cy + y));
+		SDL_RenderDrawPoint(renderer, (int)(cx + y), (int)(cy + x));
+
+		if (x != 0)
+		{
+			SDL_RenderDrawPoint(renderer, (int)(cx - x), (int)(cy + y));
+			SDL_RenderDrawPoint(renderer, (int)(cx + y), (int)(cy - x));
+		}
+
+		if (y != 0)
+		{
+			SDL_RenderDrawPoint(renderer, (int)(cx + x), (int)(cy - y));
+			SDL_RenderDrawPoint(renderer, (int)(cx - y), (int)(cy + x));
+		}
+
+		if (x != 0 && y != 0)
+		{
+			SDL_RenderDrawPoint(renderer, (int)(cx - x), (int)(cy - y));
+			SDL_RenderDrawPoint(renderer, (int)(cx - y), (int)(cy - x));
+		}
+
+		error += y;
+		++y;
+		error += y;
+
+		if (error >= 0)
+		{
+			--x;
+			error -= x;
+			error -= x;
+		}
+    }
+}
+
+void Ball::fillCircle (SDL_Renderer* renderer)
+{
+
+	for (double dy = 1; dy <= radius; dy += 1.0)
+	{
+        int cx = p_centre.x;
+        int cy = p_centre.y;
+		double dx = floor(sqrt((2.0 * radius * dy) - (dy * dy)));
+		SDL_RenderDrawLine(renderer, cx - dx, cy + dy - radius, cx + dx, cy + dy - radius);
+		SDL_RenderDrawLine(renderer, cx - dx, cy - dy + radius, cx + dx, cy - dy + radius);
     }
 }
 
