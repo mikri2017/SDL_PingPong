@@ -93,11 +93,10 @@ void Ball::drawCircle(SDL_Renderer* renderer)
 
 void Ball::fillCircle (SDL_Renderer* renderer)
 {
-
+    int cx = p_centre.x;
+    int cy = p_centre.y;
 	for (double dy = 1; dy <= radius; dy += 1.0)
 	{
-        int cx = p_centre.x;
-        int cy = p_centre.y;
 		double dx = floor(sqrt((2.0 * radius * dy) - (dy * dy)));
 		SDL_RenderDrawLine(renderer, cx - dx, cy + dy - radius, cx + dx, cy + dy - radius);
 		SDL_RenderDrawLine(renderer, cx - dx, cy - dy + radius, cx + dx, cy - dy + radius);
