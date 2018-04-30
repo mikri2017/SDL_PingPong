@@ -14,7 +14,7 @@ private:
     std::vector<double> CosForAngles, SinForAngles;
     void SetDirectionAngle(double new_angle);
     void CalculateAngles();
-    void drawImpl(SDL_Renderer* renderer);
+    void drawCircle(SDL_Renderer* renderer);
     void fillCircle (SDL_Renderer* renderer);
 public:
     Ball();

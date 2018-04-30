@@ -43,11 +43,11 @@ int Ball::getRadius()
 
 void Ball::draw(SDL_Renderer *renderer)
 {
-    drawImpl(renderer);
+    drawCircle(renderer);
     fillCircle(renderer);
 }
 
-void Ball::drawImpl(SDL_Renderer* renderer)
+void Ball::drawCircle(SDL_Renderer* renderer)
 {
 	double error = (double)-radius;
 	double x = (double)radius - 0.5;
