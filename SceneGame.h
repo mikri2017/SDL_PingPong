@@ -3,12 +3,12 @@
 
 #include "Scene.h"
 #include "BallMgr.h"
-#include "RectMgr.h"
+#include "IBallManager.h"
 
 class SceneGame: public Scene
 {
 private:
-    BallMgr *ballmgr;
+    IBallMgr *ballmgr;
     RectMgr *rectUp, *rectDown;
     int rect_w, rect_h;
     bool first_render;
