@@ -5,9 +5,8 @@
 #include <math.h>
 #include "Ball.h"
 #include "RectMgr.h"
-#include "IBallManager.h"
 
-class BallMgr : public IBallMgr
+class BallMgr
 {
 private:
     Ball *ball;
