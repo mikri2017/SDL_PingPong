@@ -54,7 +54,7 @@ void FontMgr::paintText(SDL_Renderer *renderer, std::string text, int y, int h, 
 
     if(f_align == fontAlign::left)
         x = 0;
-    else // Формируем текст по правому краю
+    else // Р¤РѕСЂРјРёСЂСѓРµРј С‚РµРєСЃС‚ РїРѕ РїСЂР°РІРѕРјСѓ РєСЂР°СЋ
         x = SCREEN_WIDTH - scn_indent - text_width_px;
 
     SDL_Rect dstrect = { x, y, text_width_px, h };
