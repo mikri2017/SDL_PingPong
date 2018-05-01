@@ -1,14 +1,15 @@
 #include "SceneGame.h"
 #include "RectMgr.h"
-//#include "BallMgr.h"
-#include "BallMgrSimple.h"
+#include "BallMgr.h"
+//#include "BallMgrSimple.h"
 #include <iostream>
 
 SceneGame::SceneGame()
 {
     first_render = true;
 
-	ballmgr = new BallMgrSimple(25);
+	//ballmgr = new BallMgrSimple(25);
+    ballmgr = new BallMgr(25);
 
 	rect_w = 200;
 	rect_h = 50;
