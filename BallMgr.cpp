@@ -158,9 +158,7 @@ void BallMgr::draw(SDL_Renderer *renderer, bool clean)
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
         ball->draw(renderer);
 
-        if(checkCollisionWithScreen())
-            reinit();
-        else linePath_iter++;
+        linePath_iter++;
     }
 }
 
@@ -215,7 +213,7 @@ bool BallMgr::checkCollisionWithScreen()
     return false;
 }
 
-void BallMgr::checkCollisionWithRect(RectMgr *rect)
+bool BallMgr::checkCollisionWithRect(RectMgr *rect)
 {
     // Проверка столкновения с ракеткой
     if(linePath_iter < linePath.size())
@@ -235,7 +233,11 @@ void BallMgr::checkCollisionWithRect(RectMgr *rect)
                 {
                     // Нижняя ракетка
                     if(linePath[linePath_iter].y + ball->getRadius() >= p_rect.y)
+                    {
                         flipHorizontally();
+                        return true;
+                    }
+
                 }
             }
             else
@@ -245,9 +247,15 @@ void BallMgr::checkCollisionWithRect(RectMgr *rect)
                 {
                     // Верхняя ракетка
                     if(linePath[linePath_iter].y - ball->getRadius() <= p_rect.y + p_rect.h)
+                    {
                         flipHorizontally();
+                        return true;
+                    }
+
                 }
             }
         }
     }
+
+    return false;
 }

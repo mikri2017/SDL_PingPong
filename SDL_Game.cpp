@@ -76,6 +76,7 @@ void SDL_Game::render()
 void SDL_Game::clean_and_exit()
 {
     SDL_DestroyWindow( window ); // Уничтожаем окно
+    TTF_Quit(); // Отключаем библиотеку SDL_ttf
 	SDL_Quit(); //Выход из SDL
 }
 

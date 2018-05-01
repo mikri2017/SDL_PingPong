@@ -1,4 +1,5 @@
 #include "SceneGame.h"
+#include <iostream>
 
 SceneGame::SceneGame()
 {
@@ -18,6 +19,17 @@ SceneGame::SceneGame()
     rectDown->setBeginXY(0, SCREEN_HEIGHT - rect_h);
     rectDown->setHeight(rect_h);
     rectDown->setWidth(rect_w);
+
+    // Задаем параметры текста
+    font_color = {0, 0, 255};
+    font_game_info.setFontName("assets/fonts/XoloniumBold.ttf");
+    font_game_info.setFontSize(10);
+    font_game_info.setFontColor(font_color);
+    font_game_info.setLetterSizeInPX(20);
+
+    // Выставляем счет игры
+    score = 0;
+    best = 0;
 }
 
 void SceneGame::render(SDL_Renderer *renderer)
@@ -31,10 +43,12 @@ void SceneGame::render(SDL_Renderer *renderer)
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
     }
 
-
     // Просчитываем столкновения
-    ballmgr->checkCollisionWithRect(rectUp);
-    ballmgr->checkCollisionWithRect(rectDown);
+    if(ballmgr->checkCollisionWithRect(rectUp))
+        score++;
+
+    if(ballmgr->checkCollisionWithRect(rectDown))
+        score++;
 
     // Очищаем экран от текущих объектов
     render_clean(renderer);
@@ -42,8 +56,20 @@ void SceneGame::render(SDL_Renderer *renderer)
     // Рисуем новые
     rectUp->draw(renderer);
     rectDown->draw(renderer);
-    ballmgr->draw(renderer);
 
+    ballmgr->draw(renderer);
+    if(ballmgr->checkCollisionWithScreen())
+    {
+        // Формируем статистику игры
+        if(score > best)
+            best = score;
+        score = 0;
+        ballmgr->reinit();
+    }
+
+    // Выводим текст
+    std::string s_game_info = "SCORE: " + std::to_string(score) + "  BEST: " + std::to_string(best);
+    font_game_info.paintText(renderer, s_game_info, SCREEN_HEIGHT - 30, 30, fontAlign::right);
 
     SDL_RenderPresent(renderer);
 
