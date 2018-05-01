@@ -61,6 +61,8 @@
 		<Unit filename="Scene.h" />
 		<Unit filename="SceneGame.cpp" />
 		<Unit filename="SceneGame.h" />
+		<Unit filename="SceneMenu.cpp" />
+		<Unit filename="SceneMenu.h" />
 		<Unit filename="SceneMgr.cpp" />
 		<Unit filename="SceneMgr.h" />
 		<Unit filename="main.cpp" />
