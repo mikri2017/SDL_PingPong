@@ -1,5 +1,6 @@
 #include "SceneMgr.h"
 #include "SceneGame.h"
+#include "SceneMenu.h"
 
 SceneMgr::SceneMgr()
 {

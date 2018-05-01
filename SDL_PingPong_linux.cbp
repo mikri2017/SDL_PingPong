@@ -39,8 +39,11 @@
 		<Unit filename="Ball.h" />
 		<Unit filename="BallMgr.cpp" />
 		<Unit filename="BallMgr.h" />
+		<Unit filename="BallMgrSimple.cpp" />
+		<Unit filename="BallMgrSimple.h" />
 		<Unit filename="FontMgr.cpp" />
 		<Unit filename="FontMgr.h" />
+		<Unit filename="IBallManager.h" />
 		<Unit filename="MainConstants.h" />
 		<Unit filename="Rect.cpp" />
 		<Unit filename="Rect.h" />
@@ -52,6 +55,8 @@
 		<Unit filename="Scene.h" />
 		<Unit filename="SceneGame.cpp" />
 		<Unit filename="SceneGame.h" />
+		<Unit filename="SceneMenu.cpp" />
+		<Unit filename="SceneMenu.h" />
 		<Unit filename="SceneMgr.cpp" />
 		<Unit filename="SceneMgr.h" />
 		<Unit filename="main.cpp" />
