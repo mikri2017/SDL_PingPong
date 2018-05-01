@@ -1,11 +1,15 @@
 #include "SceneGame.h"
+#include "RectMgr.h"
+#include "BallMgr.h"
+//#include "BallMgrSimple.h"
 #include <iostream>
 
 SceneGame::SceneGame()
 {
     first_render = true;
 
-	ballmgr = new BallMgr(25);
+	//ballmgr = new BallMgrSimple(25);
+    ballmgr = new BallMgr(25);
 
 	rect_w = 200;
 	rect_h = 50;
@@ -20,14 +24,14 @@ SceneGame::SceneGame()
     rectDown->setHeight(rect_h);
     rectDown->setWidth(rect_w);
 
-    // Задаем параметры текста
+    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     font_color = {0, 0, 255};
     font_game_info.setFontName("assets/fonts/XoloniumBold.ttf");
     font_game_info.setFontSize(10);
     font_game_info.setFontColor(font_color);
     font_game_info.setLetterSizeInPX(20);
 
-    // Выставляем счет игры
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
     score = 0;
     best = 0;
 }
@@ -43,42 +47,42 @@ void SceneGame::render(SDL_Renderer *renderer)
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
     }
 
-    // Просчитываем столкновения
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     if(ballmgr->checkCollisionWithRect(rectUp))
         score++;
 
     if(ballmgr->checkCollisionWithRect(rectDown))
         score++;
 
-    // Очищаем экран от текущих объектов
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     render_clean(renderer);
 
-    // Рисуем новые
+    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     rectUp->draw(renderer);
     rectDown->draw(renderer);
 
     ballmgr->draw(renderer);
     if(ballmgr->checkCollisionWithScreen())
     {
-        // Формируем статистику игры
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         if(score > best)
             best = score;
         score = 0;
         ballmgr->reinit();
     }
 
-    // Выводим текст
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     std::string s_game_info = "SCORE: " + std::to_string(score) + "  BEST: " + std::to_string(best);
     font_game_info.paintText(renderer, s_game_info, SCREEN_HEIGHT - 30, 30, fontAlign::right);
 
     SDL_RenderPresent(renderer);
 
-    SDL_Delay(5);
+    SDL_Delay(50);
 }
 
 void SceneGame::render_clean(SDL_Renderer *renderer)
 {
-    // Стираем текущие объекты сцены
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     rectUp->draw(renderer, true);
     rectDown->draw(renderer, true);
     ballmgr->draw(renderer, true);
@@ -86,8 +90,8 @@ void SceneGame::render_clean(SDL_Renderer *renderer)
 
 void SceneGame::process_mouse_motion(Sint32 x, Sint32 y)
 {
-    // Управляем движением ракеток
-    // Чтобы ракетка не ушла за экран
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     if( x + rect_w/2 > SCREEN_WIDTH)
         x = SCREEN_WIDTH - rect_w/2;
 
