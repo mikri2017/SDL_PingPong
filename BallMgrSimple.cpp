@@ -1,12 +1,11 @@
 #include "BallMgrSimple.h"
 
-#include "Ball.h"
 #include "RectMgr.h"
 
 BallMgrSimple::BallMgrSimple (size_t radius)
     : yspeed(3.), xspeed(2.), bounce(1.01)
 {
-    ball = new Ball();
+    ball.reset(new Ball());
     ball->setRadius(radius);
     reinit();
 }
