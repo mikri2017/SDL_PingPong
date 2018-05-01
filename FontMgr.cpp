@@ -58,8 +58,12 @@ void FontMgr::paintText(SDL_Renderer *renderer, std::string text, int y, int h, 
         x = SCREEN_WIDTH - scn_indent - text_width_px;
 
     SDL_Rect dstrect = { x, y, text_width_px, h };
-    //SDL_Rect dstrect = { 0, 0, text_width_px, 50 };
+
+    // Русский язык в тексте не поддерживается :(
+    // c_str() не проносит нормально русские буквы
+    // Заполнение char* русскими буквами и его отдача дает русский язык на экране
     surface = TTF_RenderText_Solid(font, text.c_str(), font_color);
+
     texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_RenderCopy(renderer, texture, NULL, &dstrect);
 }
