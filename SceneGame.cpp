@@ -1,11 +1,13 @@
 #include "SceneGame.h"
 #include "RectMgr.h"
+//#include "BallMgr.h"
+#include "BallMgr2.h"
 
 SceneGame::SceneGame()
 {
     first_render = true;
 
-	ballmgr = new BallMgr(25);
+	ballmgr = new BallMgr2(25);
 
 	rect_w = 200;
 	rect_h = 50;
@@ -48,7 +50,7 @@ void SceneGame::render(SDL_Renderer *renderer)
 
     SDL_RenderPresent(renderer);
 
-    SDL_Delay(5);
+    SDL_Delay(50);
 }
 
 void SceneGame::render_clean(SDL_Renderer *renderer)

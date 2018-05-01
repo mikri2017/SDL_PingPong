@@ -2,7 +2,6 @@
 #define GAMESCENE_H_INCLUDED
 
 #include "Scene.h"
-#include "BallMgr.h"
 #include "IBallManager.h"
 
 class SceneGame: public Scene
