@@ -7,6 +7,11 @@
 #include "RectMgr.h"
 #include "FontMgr.h"
 
+typedef enum {
+    mikriVision,
+    nZemekisVision
+} ball_move_logic;
+
 class SceneGame: public Scene
 {
 private:
@@ -19,8 +24,9 @@ private:
     SDL_Color font_color;
 
     int score, best;
+    int delay_time;
 public:
-    SceneGame();
+    SceneGame(ball_move_logic bm_logic = ball_move_logic::mikriVision);
     void render(SDL_Renderer *renderer);
     void render_clean(SDL_Renderer *renderer);
     void process_mouse_motion(Sint32 x, Sint32 y);
