@@ -26,7 +26,7 @@ public:
     void flipVertically();
     void flipHorizontally();
     bool checkCollisionWithScreen();
-    void checkCollisionWithRect(RectMgr *rect);
+    bool checkCollisionWithRect(RectMgr *rect);
 };
 
 

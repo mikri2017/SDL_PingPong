@@ -39,9 +39,6 @@ void BallMgrSimple::draw (SDL_Renderer *renderer, bool clean)
         // Рисуем новое изображение шарика
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
         ball->draw(renderer);
-
-        if(checkCollisionWithScreen())
-            reinit();
     }
 }
 
@@ -58,49 +55,71 @@ void BallMgrSimple::flipVertically ()
 bool BallMgrSimple::checkCollisionWithScreen ()
 {
     int radius = ball->getRadius();
+    Ball::BallBound ballBound = ball->getBallBound();
 
-    if (ball_point.x - radius < 0 || ball_point.x + radius > SCREEN_WIDTH)
+    if (ballBound.l < 0)
     {
+        ball_point.x = radius;
         flipHorizontally();
         return false;
     }
 
-    if (ball_point.y + radius > SCREEN_HEIGHT || ball_point.y - radius < 0)
+    if (ballBound.r > SCREEN_WIDTH)
     {
+        ball_point.x = SCREEN_WIDTH - radius;
+        flipHorizontally();
+        return false;
+    }
+
+    if (ballBound.t < 0)
+    {
+        ball_point.y = radius;
+        flipVertically();
+        return true;
+    }
+
+    if (ballBound.b > SCREEN_HEIGHT)
+    {
+        ball_point.y = SCREEN_HEIGHT - radius;
         flipVertically();
         return true;
     }
     return false;
 }
 
-void BallMgrSimple::checkCollisionWithRect (RectMgr *rect)
+
+bool BallMgrSimple::checkCollisionWithRect (RectMgr *rect)
 {
     SDL_Rect p_rect = rect->getRect();
     int radius = ball->getRadius();
+    Ball::BallBound ballBound = ball->getBallBound();
 
+    // Если не в зоне ракеток проверять не надо
     if (ball_point.x >= p_rect.x && ball_point.x <= p_rect.x + p_rect.w)
     {
         // Проверяем верхнюю ракетку
         if (p_rect.y == 0)
         {
-            if (ball_point.y - radius <= p_rect.y + p_rect.h)
+            if (ballBound.t < p_rect.y + p_rect.h)
             {
+                ball_point.y = p_rect.y + p_rect.h + radius;
                 flipVertically();
                 xspeed *= bounce;
                 yspeed *= bounce;
+                return true;
             }
         }
         else
         {
-            if (ball_point.y + radius >= p_rect.y)
+            if (ballBound.b > p_rect.y)
             {
+                ball_point.y = p_rect.y - radius;
                 flipVertically();
                 xspeed *= bounce;
                 yspeed *= bounce;
+                return true;
             }
         }
     }
-
-
-
+    return false;
 }

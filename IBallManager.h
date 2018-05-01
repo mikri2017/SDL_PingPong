@@ -11,7 +11,7 @@ struct IBallMgr
     virtual void flipVertically() = 0;
     virtual void flipHorizontally() = 0;
     virtual bool checkCollisionWithScreen() = 0;
-    virtual void checkCollisionWithRect(RectMgr *rect) = 0;
+    virtual bool checkCollisionWithRect(RectMgr *rect) = 0;
 };
 
 #endif
