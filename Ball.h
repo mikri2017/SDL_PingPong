@@ -17,12 +17,17 @@ private:
     void drawCircle(SDL_Renderer* renderer);
     void fillCircle (SDL_Renderer* renderer);
 public:
+    struct BallBound {
+        int l,r,t,b;
+    };
+
     Ball();
     void setCentreXY(int x, int y);
     void setRadius(int r);
     int getRadius();
     void draw(SDL_Renderer *renderer);
     SDL_Rect getRectArea();
+    BallBound getBallBound() const;
 };
 
 #endif // BALL_H_INCLUDED
