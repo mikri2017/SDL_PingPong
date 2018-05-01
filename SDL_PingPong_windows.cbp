@@ -45,8 +45,11 @@
 		<Unit filename="Ball.h" />
 		<Unit filename="BallMgr.cpp" />
 		<Unit filename="BallMgr.h" />
+		<Unit filename="BallMgrSimple.cpp" />
+		<Unit filename="BallMgrSimple.h" />
 		<Unit filename="FontMgr.cpp" />
 		<Unit filename="FontMgr.h" />
+		<Unit filename="IBallManager.h" />
 		<Unit filename="MainConstants.h" />
 		<Unit filename="Rect.cpp" />
 		<Unit filename="Rect.h" />

@@ -3,14 +3,16 @@
 
 #include <string>
 #include "Scene.h"
+#include "IBallManager.h"
 #include "BallMgr.h"
+//#include "BallMgrSimple.h"
 #include "RectMgr.h"
 #include "FontMgr.h"
 
 class SceneGame: public Scene
 {
 private:
-    BallMgr *ballmgr;
+    IBallMgr *ballmgr;
     RectMgr *rectUp, *rectDown;
     int rect_w, rect_h;
     bool first_render;
