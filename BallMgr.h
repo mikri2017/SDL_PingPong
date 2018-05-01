@@ -16,7 +16,7 @@ private:
     float dir_angle_cos, dir_angle_sin;
 
     std::vector<SDL_Point> linePath;
-    int linePath_iter;
+    size_t linePath_iter;
 
     void updateLinePath(SDL_Point p_first, SDL_Point p_second);
     void genLinePath(int x1, int y1, int x2, int y2);
