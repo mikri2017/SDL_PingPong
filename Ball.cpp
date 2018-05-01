@@ -115,14 +115,3 @@ SDL_Rect Ball::getRectArea()
     ball_rect.w = radius * 2 + 1;
     return ball_rect;
 }
-
-
-Ball::BallBound Ball::getBallBound() const
-{
-	BallBound bb;
-	bb.l = p_centre.x - radius;
-	bb.r = p_centre.x + radius;
-	bb.t = p_centre.y - radius;
-	bb.b = p_centre.y + radius;
-	return bb;
-}
