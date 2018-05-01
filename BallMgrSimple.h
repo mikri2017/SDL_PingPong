@@ -1,5 +1,5 @@
-#ifndef BALLMGR2_H_INCLUDED
-#define BALLMGR2_H_INCLUDED
+#ifndef BallMgrSimple_H_INCLUDED
+#define BallMgrSimple_H_INCLUDED
 
 #include "IBallManager.h"
 #include <SDL2/SDL_video.h>
@@ -7,7 +7,7 @@
 class Ball;
 class RectMgr;
 
-class BallMgr2 : public IBallMgr
+class BallMgrSimple : public IBallMgr
 {
 private:
     Ball *ball;
@@ -17,10 +17,10 @@ private:
     SDL_Rect ball_cleaner;
     SDL_Point ball_point;
 
-    BallMgr2 () {};
+    BallMgrSimple () {};
 
 public:
-    explicit BallMgr2(size_t radius);
+    explicit BallMgrSimple(size_t radius);
     void reinit();
     void draw(SDL_Renderer *renderer, bool clean = false);
     void flipVertically();
@@ -30,4 +30,4 @@ public:
 };
 
 
-#endif // BALLMGR2_H_INCLUDED
+#endif // BallMgrSimple_H_INCLUDED

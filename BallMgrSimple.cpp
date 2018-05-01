@@ -1,9 +1,9 @@
-#include "BallMgr2.h"
+#include "BallMgrSimple.h"
 
 #include "Ball.h"
 #include "RectMgr.h"
 
-BallMgr2::BallMgr2 (size_t radius)
+BallMgrSimple::BallMgrSimple (size_t radius)
     : yspeed(3.), xspeed(2.), bounce(1.01)
 {
     ball = new Ball();
@@ -13,7 +13,7 @@ BallMgr2::BallMgr2 (size_t radius)
 
 // implementation for IBallMgr
 
-void BallMgr2::reinit()
+void BallMgrSimple::reinit()
 {
     ball_point.x = SCREEN_WIDTH / 2;
     ball_point.y = SCREEN_HEIGHT / 2;
@@ -23,7 +23,7 @@ void BallMgr2::reinit()
     yspeed = 2.;
 }
 
-void BallMgr2::draw (SDL_Renderer *renderer, bool clean)
+void BallMgrSimple::draw (SDL_Renderer *renderer, bool clean)
 {
     if (clean)
     {
@@ -45,17 +45,17 @@ void BallMgr2::draw (SDL_Renderer *renderer, bool clean)
     }
 }
 
-void BallMgr2::flipHorizontally ()
+void BallMgrSimple::flipHorizontally ()
 {
     xspeed = -xspeed;
 }
 
-void BallMgr2::flipVertically ()
+void BallMgrSimple::flipVertically ()
 {
     yspeed = -yspeed;
 }
 
-bool BallMgr2::checkCollisionWithScreen ()
+bool BallMgrSimple::checkCollisionWithScreen ()
 {
     int radius = ball->getRadius();
 
@@ -73,7 +73,7 @@ bool BallMgr2::checkCollisionWithScreen ()
     return false;
 }
 
-void BallMgr2::checkCollisionWithRect (RectMgr *rect)
+void BallMgrSimple::checkCollisionWithRect (RectMgr *rect)
 {
     SDL_Rect p_rect = rect->getRect();
     int radius = ball->getRadius();
