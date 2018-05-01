@@ -1,12 +1,22 @@
 #include "SceneGame.h"
+#include "BallMgr.h"
+#include "BallMgrSimple.h"
 #include <iostream>
 
-SceneGame::SceneGame()
+SceneGame::SceneGame(ball_move_logic bm_logic)
 {
     first_render = true;
 
-	//ballmgr = new BallMgrSimple(25);
-    ballmgr = new BallMgr(25);
+    if(bm_logic == ball_move_logic::mikriVision)
+    {
+        delay_time = 5;
+        ballmgr = new BallMgr(25);
+    }
+    else
+    {
+        delay_time = 50;
+        ballmgr = new BallMgrSimple(25);
+    }
 
 	rect_w = 200;
 	rect_h = 50;
@@ -74,8 +84,7 @@ void SceneGame::render(SDL_Renderer *renderer)
 
     SDL_RenderPresent(renderer);
 
-    SDL_Delay(5);
-	//SDL_Delay(50);
+    SDL_Delay(delay_time);
 }
 
 void SceneGame::render_clean(SDL_Renderer *renderer)

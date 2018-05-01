@@ -4,13 +4,11 @@
 #include <vector>
 #include <SDL2/SDL.h>
 #include "Scene.h"
-#include "SceneGame.h"
 
 class SceneMgr
 {
 private:
     Scene *active;
-    SceneGame *s_game;
     std::vector<Scene*> v_scenes;
     void add_scene(Scene *scene, bool set_active = true);
 public:

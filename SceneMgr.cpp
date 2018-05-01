@@ -1,9 +1,10 @@
 #include "SceneMgr.h"
+#include "SceneGame.h"
 
 SceneMgr::SceneMgr()
 {
-    s_game = new SceneGame();
-    add_scene(s_game);
+    //add_scene(new SceneGame(ball_move_logic::mikriVision));
+    add_scene(new SceneGame(ball_move_logic::nZemekisVision));
 }
 
 void SceneMgr::add_scene(Scene *scene, bool set_active)
