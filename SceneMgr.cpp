@@ -4,8 +4,9 @@
 
 SceneMgr::SceneMgr()
 {
-    //add_scene(new SceneGame(ball_move_logic::mikriVision));
-    add_scene(new SceneGame(ball_move_logic::nZemekisVision));
+    add_scene(new SceneGame(ball_move_logic::mikriVision));
+    //add_scene(new SceneGame(ball_move_logic::nZemekisVision));
+    //add_scene(new SceneMenu());
 }
 
 void SceneMgr::add_scene(Scene *scene, bool set_active)
