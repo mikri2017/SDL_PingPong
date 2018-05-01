@@ -21,14 +21,14 @@ SceneGame::SceneGame()
     rectDown->setHeight(rect_h);
     rectDown->setWidth(rect_w);
 
-    // Çàäàåì ïàðàìåòðû òåêñòà
+    // Ð—Ð°Ð´Ð°ÐµÐ¼ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ Ñ‚ÐµÐºÑÑ‚Ð°
     font_color = {0, 0, 255};
     font_game_info.setFontName("assets/fonts/XoloniumBold.ttf");
     font_game_info.setFontSize(10);
     font_game_info.setFontColor(font_color);
     font_game_info.setLetterSizeInPX(20);
 
-    // Âûñòàâëÿåì ñ÷åò èãðû
+    // Ð’Ñ‹ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼ ÑÑ‡ÐµÑ‚ Ð¸Ð³Ñ€Ñ‹
     score = 0;
     best = 0;
 }
@@ -44,31 +44,31 @@ void SceneGame::render(SDL_Renderer *renderer)
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
     }
 
-    // Ïðîñ÷èòûâàåì ñòîëêíîâåíèÿ
+    // ÐŸÑ€Ð¾ÑÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼ ÑÑ‚Ð¾Ð»ÐºÐ½Ð¾Ð²ÐµÐ½Ð¸Ñ
     if(ballmgr->checkCollisionWithRect(rectUp))
         score++;
 
     if(ballmgr->checkCollisionWithRect(rectDown))
         score++;
 
-    // Î÷èùàåì ýêðàí îò òåêóùèõ îáúåêòîâ
+    // ÐžÑ‡Ð¸Ñ‰Ð°ÐµÐ¼ ÑÐºÑ€Ð°Ð½ Ð¾Ñ‚ Ñ‚ÐµÐºÑƒÑ‰Ð¸Ñ… Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð²
     render_clean(renderer);
 
-    // Ðèñóåì íîâûå
+    // Ð Ð¸ÑÑƒÐµÐ¼ Ð½Ð¾Ð²Ñ‹Ðµ
     rectUp->draw(renderer);
     rectDown->draw(renderer);
 
     ballmgr->draw(renderer);
     if(ballmgr->checkCollisionWithScreen())
     {
-        // Ôîðìèðóåì ñòàòèñòèêó èãðû
+        // Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ ÑÑ‚Ð°Ñ‚Ð¸ÑÑ‚Ð¸ÐºÑƒ Ð¸Ð³Ñ€Ñ‹
         if(score > best)
             best = score;
         score = 0;
         ballmgr->reinit();
     }
 
-    // Âûâîäèì òåêñò
+    // Ð’Ñ‹Ð²Ð¾Ð´Ð¸Ð¼ Ñ‚ÐµÐºÑÑ‚
     std::string s_game_info = "SCORE: " + std::to_string(score) + "  BEST: " + std::to_string(best);
     font_game_info.paintText(renderer, s_game_info, SCREEN_HEIGHT - 30, 30, fontAlign::right);
 
@@ -80,7 +80,7 @@ void SceneGame::render(SDL_Renderer *renderer)
 
 void SceneGame::render_clean(SDL_Renderer *renderer)
 {
-    // Ñòèðàåì òåêóùèå îáúåêòû ñöåíû
+    // Ð¡Ñ‚Ð¸Ñ€Ð°ÐµÐ¼ Ñ‚ÐµÐºÑƒÑ‰Ð¸Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹ ÑÑ†ÐµÐ½Ñ‹
     rectUp->draw(renderer, true);
     rectDown->draw(renderer, true);
     ballmgr->draw(renderer, true);
@@ -88,8 +88,8 @@ void SceneGame::render_clean(SDL_Renderer *renderer)
 
 void SceneGame::process_mouse_motion(Sint32 x, Sint32 y)
 {
-    // Óïðàâëÿåì äâèæåíèåì ðàêåòîê
-    // ×òîáû ðàêåòêà íå óøëà çà ýêðàí
+    // Ð£Ð¿Ñ€Ð°Ð²Ð»ÑÐµÐ¼ Ð´Ð²Ð¸Ð¶ÐµÐ½Ð¸ÐµÐ¼ Ñ€Ð°ÐºÐµÑ‚Ð¾Ðº
+    // Ð§Ñ‚Ð¾Ð±Ñ‹ Ñ€Ð°ÐºÐµÑ‚ÐºÐ° Ð½Ðµ ÑƒÑˆÐ»Ð° Ð·Ð° ÑÐºÑ€Ð°Ð½
     if( x + rect_w/2 > SCREEN_WIDTH)
         x = SCREEN_WIDTH - rect_w/2;
 
