@@ -19,7 +19,7 @@ bool SDL_Game::init(const char* title, int xpos, int ypos,
     }
 	else
 	{
-	    // Создаем окно 
+	    // Создаем окно
 		window = SDL_CreateWindow(title, xpos, ypos, height, width, flags);
 		if( window == NULL )
         {
@@ -44,7 +44,7 @@ int SDL_Game::process_events()
     {
         switch(event.type)
         {
-        case SDL_KEYDOWN:
+        case SDL_KEYDOWN: // Нажали клавишу на клавиатуре
             /*if (event.key.keysym.sym == SDLK_LEFT)
                 ScrObjMngr.ChgXBegin(-RectStepByKeyboard);
 
@@ -55,8 +55,11 @@ int SDL_Game::process_events()
                 ret = 0;
             else s_mgr->process_keyboard_keydown(event.key.keysym.sym);
             break;
-        case SDL_MOUSEMOTION:
+        case SDL_MOUSEMOTION: // Движение мышкой
             s_mgr->process_mouse_motion(event.motion.x, event.motion.y);
+            break;
+        case SDL_QUIT: // Закрыли окно
+            ret = 0;
             break;
         default:
             break;
@@ -73,6 +76,7 @@ void SDL_Game::render()
 void SDL_Game::clean_and_exit()
 {
     SDL_DestroyWindow( window ); // Уничтожаем окно
+    TTF_Quit(); // Отключаем библиотеку SDL_ttf
 	SDL_Quit(); //Выход из SDL
 }
 

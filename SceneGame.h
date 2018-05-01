@@ -1,8 +1,12 @@
 #ifndef GAMESCENE_H_INCLUDED
 #define GAMESCENE_H_INCLUDED
 
+#include <string>
 #include "Scene.h"
 #include "IBallManager.h"
+#include "BallMgr.h"
+#include "RectMgr.h"
+#include "FontMgr.h"
 
 class SceneGame: public Scene
 {
@@ -11,6 +15,11 @@ private:
     RectMgr *rectUp, *rectDown;
     int rect_w, rect_h;
     bool first_render;
+
+    FontMgr font_game_info;
+    SDL_Color font_color;
+
+    int score, best;
 public:
     SceneGame();
     void render(SDL_Renderer *renderer);

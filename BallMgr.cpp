@@ -30,7 +30,7 @@ void BallMgr::reinit()
         dir_angle = rand()%120 + 211;
 
     // Убираем "скучные" углы
-    if(dir_angle == 90 || dir_angle == 270)
+    if((dir_angle >= 75 && dir_angle <= 105) || (dir_angle >= 255 && dir_angle <= 285))
         dir_angle += 30;
 
     // Вычисляем sin и cos этого угла
@@ -54,8 +54,8 @@ void BallMgr::updateLinePath(SDL_Point p_first, SDL_Point p_second)
             p_end_line.y = SCREEN_HEIGHT; // Идем вниз
         else p_end_line.y = 0; // Идем вверх
 
-        // Проверяем на "плохие" углы отражения
-        // близкие прямой линии
+        // Проверяем на "плохие" углы отражения, близкие прямой линии
+        // Слева/справа
         std::cout << abs(p_second.y - p_first.y) << " <= " << ball->getRadius() << std::endl;
         if(abs(p_second.y - p_first.y) <= ball->getRadius())
         {
@@ -66,6 +66,17 @@ void BallMgr::updateLinePath(SDL_Point p_first, SDL_Point p_second)
 
             p_second.x += ball->getRadius() * k_chg_angle;
         }
+
+        // Сверху/снизу
+        /*if(abs(p_second.x - p_first.x) <= ball->getRadius())
+        {
+            float k_chg_angle;
+            if(p_second.y < SCREEN_HEIGHT / 2)
+                k_chg_angle = 0.0401;
+            else k_chg_angle = -0.0401;
+
+            p_second.y += ball->getRadius() * k_chg_angle;
+        }*/
 
         p_end_line.x = ( (p_second.x * p_first.y - p_first.x * p_second.y) - p_end_line.y * (p_second.x - p_first.x) )
                         / (p_first.y - p_second.y);
@@ -147,9 +158,7 @@ void BallMgr::draw(SDL_Renderer *renderer, bool clean)
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
         ball->draw(renderer);
 
-        if(checkCollisionWithScreen())
-            reinit();
-        else linePath_iter++;
+        linePath_iter++;
     }
 }
 
@@ -160,18 +169,15 @@ void BallMgr::flipVertically()
     p_second.x = linePath[0].x;
     p_second.y = linePath[0].y + 2 * (linePath[linePath_iter].y - linePath[0].y);
     updateLinePath(linePath[linePath_iter], p_second);
-
-    /*
     // Тест плохих углов
     SDL_Point t_f, t_s;
     // Слева
-    t_f.x = 25; t_f.y = 373; t_s.x = 25; t_s.y = 372;
+    //t_f.x = 25; t_f.y = 373; t_s.x = 25; t_s.y = 372;
     //t_f.x = 25; t_f.y = 106; t_s.x = 25; t_s.y = 107;
     // Справа
     //t_f.x = SCREEN_WIDTH - 25; t_f.y = 373; t_s.x = SCREEN_WIDTH - 25; t_s.y = 372;
     //t_f.x = SCREEN_WIDTH - 25; t_f.y = 106; t_s.x = SCREEN_WIDTH - 25; t_s.y = 107;
-    updateLinePath(t_f, t_s);
-    */
+    //updateLinePath(t_f, t_s);
 }
 
 void BallMgr::flipHorizontally()
@@ -207,7 +213,7 @@ bool BallMgr::checkCollisionWithScreen()
     return false;
 }
 
-void BallMgr::checkCollisionWithRect(RectMgr *rect)
+bool BallMgr::checkCollisionWithRect(RectMgr *rect)
 {
     // Проверка столкновения с ракеткой
     if(linePath_iter < linePath.size())
@@ -227,7 +233,11 @@ void BallMgr::checkCollisionWithRect(RectMgr *rect)
                 {
                     // Нижняя ракетка
                     if(linePath[linePath_iter].y + ball->getRadius() >= p_rect.y)
+                    {
                         flipHorizontally();
+                        return true;
+                    }
+
                 }
             }
             else
@@ -237,9 +247,15 @@ void BallMgr::checkCollisionWithRect(RectMgr *rect)
                 {
                     // Верхняя ракетка
                     if(linePath[linePath_iter].y - ball->getRadius() <= p_rect.y + p_rect.h)
+                    {
                         flipHorizontally();
+                        return true;
+                    }
+
                 }
             }
         }
     }
+
+    return false;
 }
