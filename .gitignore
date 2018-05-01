@@ -3,7 +3,4 @@
 *.dll
 *.exe
 *.o
-.vscode/
-debug/
-res
 bin

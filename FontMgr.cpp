@@ -6,7 +6,7 @@ FontMgr::FontMgr()
 
     scn_indent = 10;
     font_size = 10;
-    font_name = "fonts/XoloniumBold.ttf";
+    font_name = "assets/fonts/XoloniumBold.ttf";
     font = TTF_OpenFont(font_name.c_str(), font_size);
 
     if(!font)
