@@ -14,10 +14,12 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add directory="C:/SDL/SDL2-2.0.8/i686-w64-mingw32/include" />
+					<Add directory="C:/SDL/SDL2_ttf-2.0.14/i686-w64-mingw32/include" />
 				</Compiler>
 				<Linker>
-					<Add option="-lmingw32 -lSDL2main -lSDL2" />
+					<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf" />
 					<Add directory="C:/SDL/SDL2-2.0.8/i686-w64-mingw32/lib" />
+					<Add directory="C:/SDL/SDL2_ttf-2.0.14/i686-w64-mingw32/lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -29,11 +31,13 @@
 					<Add option="-O2" />
 					<Add option="-std=c++11" />
 					<Add directory="C:/SDL/SDL2-2.0.8/i686-w64-mingw32/include" />
+					<Add directory="C:/SDL/SDL2_ttf-2.0.14/i686-w64-mingw32/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="-lmingw32 -lSDL2main -lSDL2" />
+					<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf" />
 					<Add directory="C:/SDL/SDL2-2.0.8/i686-w64-mingw32/lib" />
+					<Add directory="C:/SDL/SDL2_ttf-2.0.14/i686-w64-mingw32/lib" />
 				</Linker>
 			</Target>
 		</Build>
@@ -41,6 +45,8 @@
 		<Unit filename="Ball.h" />
 		<Unit filename="BallMgr.cpp" />
 		<Unit filename="BallMgr.h" />
+		<Unit filename="FontMgr.cpp" />
+		<Unit filename="FontMgr.h" />
 		<Unit filename="MainConstants.h" />
 		<Unit filename="Rect.cpp" />
 		<Unit filename="Rect.h" />
