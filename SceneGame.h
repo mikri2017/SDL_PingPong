@@ -12,6 +12,8 @@ typedef enum {
     nZemekisVision
 } ball_move_logic;
 
+class Mix_Chunk;
+
 class SceneGame: public Scene
 {
 private:
@@ -22,6 +24,8 @@ private:
 
     FontMgr font_game_info;
     SDL_Color font_color;
+
+    Mix_Chunk *ping, *pong, *knock;
 
     int score, best;
     int delay_time;

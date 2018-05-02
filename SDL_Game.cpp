@@ -1,4 +1,5 @@
 #include "SDL_Game.h"
+#include <SDL2/SDL_mixer.h>
 
 SDL_Game::SDL_Game()
 {
@@ -28,6 +29,12 @@ bool SDL_Game::init(const char* title, int xpos, int ypos,
         }
         else
             renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED);
+
+        if (Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1)
+        {
+            SDL_error_msg = "Audio mixer not initialized " + std::string(SDL_GetError());
+            return false;
+        }
 	}
 
 	s_mgr = new SceneMgr();
