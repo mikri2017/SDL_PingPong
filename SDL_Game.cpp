@@ -65,6 +65,9 @@ int SDL_Game::process_events()
         case SDL_MOUSEMOTION: // Движение мышкой
             s_mgr->process_mouse_motion(event.motion.x, event.motion.y);
             break;
+        case SDL_MOUSEBUTTONDOWN: // Клик мышкой
+            s_mgr->process_mouse_button_event(event.button);
+            break;
         case SDL_QUIT: // Закрыли окно
             ret = 0;
             break;
