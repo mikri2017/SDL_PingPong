@@ -189,7 +189,7 @@ void BallMgr::flipHorizontally()
     updateLinePath(linePath[linePath_iter], p_second);
 }
 
-bool BallMgr::checkCollisionWithScreen()
+CollisionType BallMgr::checkCollisionWithScreen()
 {
     // Проверка столкновения с экраном
     if(linePath_iter < linePath.size())
@@ -199,18 +199,18 @@ bool BallMgr::checkCollisionWithScreen()
             || (linePath[linePath_iter].x - ball->getRadius() <= 0))
         {
             flipVertically();
-            return false;
+            return leftRight;
         }
 
         // Определяем столкновение с нижней и верхней сторонами экрана
         if((linePath[linePath_iter].y + ball->getRadius() >= SCREEN_HEIGHT)
             || (linePath[linePath_iter].y - ball->getRadius() <= 0))
         {
-            return true;
+            return topBottom;
         }
 
     }
-    return false;
+    return none;
 }
 
 bool BallMgr::checkCollisionWithRect(RectMgr *rect)

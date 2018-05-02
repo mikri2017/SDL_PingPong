@@ -3,14 +3,16 @@
 
 #include "IBallManager.h"
 #include <SDL2/SDL_video.h>
+#include <memory>
 
-class Ball;
+#include "Ball.h"
+
 class RectMgr;
 
 class BallMgrSimple : public IBallMgr
 {
 private:
-    Ball *ball;
+    std::unique_ptr<Ball> ball;
     float yspeed;
     float xspeed;
     float bounce;
@@ -25,7 +27,7 @@ public:
     void draw(SDL_Renderer *renderer, bool clean = false);
     void flipVertically();
     void flipHorizontally();
-    bool checkCollisionWithScreen();
+    CollisionType checkCollisionWithScreen();
     bool checkCollisionWithRect(RectMgr *rect);
 };
 

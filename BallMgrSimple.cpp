@@ -1,12 +1,11 @@
 #include "BallMgrSimple.h"
 
-#include "Ball.h"
 #include "RectMgr.h"
 
 BallMgrSimple::BallMgrSimple (size_t radius)
     : yspeed(3.), xspeed(2.), bounce(1.01)
 {
-    ball = new Ball();
+    ball.reset(new Ball());
     ball->setRadius(radius);
     reinit();
 }
@@ -52,7 +51,7 @@ void BallMgrSimple::flipVertically ()
     yspeed = -yspeed;
 }
 
-bool BallMgrSimple::checkCollisionWithScreen ()
+CollisionType BallMgrSimple::checkCollisionWithScreen ()
 {
     int radius = ball->getRadius();
     Ball::BallBound ballBound = ball->getBallBound();
@@ -61,30 +60,30 @@ bool BallMgrSimple::checkCollisionWithScreen ()
     {
         ball_point.x = radius;
         flipHorizontally();
-        return false;
+        return leftRight;
     }
 
     if (ballBound.r > SCREEN_WIDTH)
     {
         ball_point.x = SCREEN_WIDTH - radius;
         flipHorizontally();
-        return false;
+        return leftRight;
     }
 
     if (ballBound.t < 0)
     {
         ball_point.y = radius;
         flipVertically();
-        return true;
+        return topBottom;
     }
 
     if (ballBound.b > SCREEN_HEIGHT)
     {
         ball_point.y = SCREEN_HEIGHT - radius;
         flipVertically();
-        return true;
+        return topBottom;
     }
-    return false;
+    return none;
 }
 
 
