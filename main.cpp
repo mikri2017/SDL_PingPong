@@ -8,7 +8,7 @@
 int main( int argc, char* args[] )
 {
     SDL_Game *game = new SDL_Game();
-    if(!game->init("SDL PingPong by MIKRI (Press Esc for Exit)", SDL_WINDOWPOS_UNDEFINED,
+    if(!game->init("SDL PingPong by MIKRI and nZemekis (Press Esc for Exit)", SDL_WINDOWPOS_UNDEFINED,
                             SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT,
                             SDL_WINDOW_SHOWN))
     {
