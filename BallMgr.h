@@ -27,7 +27,7 @@ public:
     void draw(SDL_Renderer *renderer, bool clean = false);
     void flipVertically();
     void flipHorizontally();
-    bool checkCollisionWithScreen();
+    CollisionType checkCollisionWithScreen();
     bool checkCollisionWithRect(RectMgr *rect);
 };
 

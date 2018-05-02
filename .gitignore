@@ -4,3 +4,6 @@
 *.exe
 *.o
 bin
+.vscode/
+res
+debug/
