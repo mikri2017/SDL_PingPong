@@ -45,6 +45,7 @@ bool SDL_Game::init(const char* title, int xpos, int ypos,
 int SDL_Game::process_events()
 {
     SDL_Event event;
+    gameReaction gr = gameReaction::gr_ignore;
     int ret = 1;
 
     while ( SDL_PollEvent(&event) >= 1)
@@ -58,15 +59,13 @@ int SDL_Game::process_events()
             if (event.key.keysym.sym == SDLK_RIGHT)
                 ScrObjMngr.ChgXBegin(RectStepByKeyboard);
             */
-            if (event.key.keysym.sym == SDLK_ESCAPE)
-                ret = 0;
-            else s_mgr->process_keyboard_keydown(event.key.keysym.sym);
+            gr = s_mgr->process_keyboard_keydown(event.key.keysym.sym);//SDLK_ESCAPE
             break;
         case SDL_MOUSEMOTION: // Движение мышкой
-            s_mgr->process_mouse_motion(event.motion.x, event.motion.y);
+            gr = s_mgr->process_mouse_motion(event.motion.x, event.motion.y);
             break;
         case SDL_MOUSEBUTTONDOWN: // Клик мышкой
-            s_mgr->process_mouse_button_event(event.button);
+            gr = s_mgr->process_mouse_button_event(event.button);
             break;
         case SDL_QUIT: // Закрыли окно
             ret = 0;
@@ -74,6 +73,10 @@ int SDL_Game::process_events()
         default:
             break;
         }
+
+        // Выходим из игры
+        if(gr == gameReaction::gr_exit)
+            ret = 0;
     }
     return ret;
 }
