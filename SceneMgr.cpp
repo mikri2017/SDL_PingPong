@@ -5,8 +5,8 @@
 
 SceneMgr::SceneMgr()
 {
-    add_scene(new SceneMenu()); // Основное меню
-    add_scene(new SceneMenuPause(), false); // Меню паузы
+    add_scene(new SceneMenu()); // РћСЃРЅРѕРІРЅРѕРµ РјРµРЅСЋ
+    add_scene(new SceneMenuPause(), false); // РњРµРЅСЋ РїР°СѓР·С‹
 }
 
 void SceneMgr::add_scene(Scene *scene, bool set_active)
@@ -44,7 +44,7 @@ gameReaction SceneMgr::process_mouse_button_event(SDL_MouseButtonEvent m_btn_eve
     }
     else if(gr == gameReaction::gr_continue)
     {
-        // Если пауза, возвращаемся в игру
+        // Р•СЃР»Рё РїР°СѓР·Р°, РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РёРіСЂСѓ
         active = v_scenes[2];
         active->setPaused(false);
         active->setFirstRenderState(true);
@@ -62,20 +62,20 @@ gameReaction SceneMgr::process_keyboard_keydown(SDL_Keycode keycode)
     {
         if(active == v_scenes[2])
         {
-            // Если игра - ставим ее на паузу
+            // Р•СЃР»Рё РёРіСЂР° - СЃС‚Р°РІРёРј РµРµ РЅР° РїР°СѓР·Сѓ
             active->setPaused(true);
-            // Передаем управление в меню паузы
+            // РџРµСЂРµРґР°РµРј СѓРїСЂР°РІР»РµРЅРёРµ РІ РјРµРЅСЋ РїР°СѓР·С‹
             active = v_scenes[1];
             active->setFirstRenderState(true);
         }
         else if(active == v_scenes[1])
         {
-            // Если пауза, возвращаемся в игру
+            // Р•СЃР»Рё РїР°СѓР·Р°, РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РёРіСЂСѓ
             active = v_scenes[2];
             active->setPaused(false);
             active->setFirstRenderState(true);
         }
-        else // Выходим из игры
+        else // Р’С‹С…РѕРґРёРј РёР· РёРіСЂС‹
             gr = gameReaction::gr_exit;
     }
     else
