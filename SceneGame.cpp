@@ -83,6 +83,7 @@ void SceneGame::render(SDL_Renderer *renderer)
             sounds.playSound(SoundMgr::tcKnock);
             break;
         case topBottom:
+            sounds.playSound(SoundMgr::tcCrash);
             // Формируем статистику игры
             if(score > best)
                 best = score;

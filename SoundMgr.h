@@ -10,7 +10,8 @@ public:
     {
         tcPing,
         tcPong,
-        tcKnock
+        tcKnock,
+        tcCrash
     };
 
     SoundMgr();
@@ -19,7 +20,7 @@ public:
     void playSound(TypeChunk typechunk);
 
 private:
-    Mix_Chunk *ping, *pong, *knock;
+    Mix_Chunk *ping, *pong, *knock, *crash;
 };
 
 #endif
