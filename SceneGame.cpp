@@ -7,8 +7,6 @@
 
 SceneGame::SceneGame(ball_move_logic bm_logic)
 {
-    first_render = true;
-
     if(bm_logic == ball_move_logic::mikriVision)
     {
         delay_time = 5;
@@ -47,14 +45,16 @@ SceneGame::SceneGame(ball_move_logic bm_logic)
 
 void SceneGame::render(SDL_Renderer *renderer)
 {
-    if(first_render)
+    if(!b_paused)
     {
-        first_render = false;
+        if(b_first_render)
+        {
+            setFirstRenderState(false);
 
-        SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-        SDL_RenderClear( renderer );
-        SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
-    }
+            SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
+            SDL_RenderClear( renderer );
+            SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
+        }
 
     // Просчитываем столкновения
     if(ballmgr->checkCollisionWithRect(rectUp))
@@ -98,7 +98,8 @@ void SceneGame::render(SDL_Renderer *renderer)
 
     SDL_RenderPresent(renderer);
 
-    SDL_Delay(delay_time);
+        SDL_Delay(delay_time);
+    }
 }
 
 void SceneGame::render_clean(SDL_Renderer *renderer)
@@ -109,26 +110,36 @@ void SceneGame::render_clean(SDL_Renderer *renderer)
     ballmgr->draw(renderer, true);
 }
 
-void SceneGame::process_mouse_motion(Sint32 x, Sint32 y)
+gameReaction SceneGame::process_mouse_motion(Sint32 x, Sint32 y)
 {
-    // Управляем движением ракеток
-    // Чтобы ракетка не ушла за экран
-    if( x + rect_w/2 > SCREEN_WIDTH)
-        x = SCREEN_WIDTH - rect_w/2;
+    if(!b_paused)
+    {
+        // Управляем движением ракеток
+        // Чтобы ракетка не ушла за экран
+        if( x + rect_w/2 > SCREEN_WIDTH)
+            x = SCREEN_WIDTH - rect_w/2;
 
-    rectUp->setBeginXY(x - rect_w/2, 0);
-    rectDown->setBeginXY(x - rect_w/2, SCREEN_HEIGHT - rect_h);
+        rectUp->setBeginXY(x - rect_w/2, 0);
+        rectDown->setBeginXY(x - rect_w/2, SCREEN_HEIGHT - rect_h);
+    }
+
+    return gameReaction::gr_ignore;
 }
 
-void SceneGame::process_mouse_button_event(SDL_MouseButtonEvent m_btn_event)
+gameReaction SceneGame::process_mouse_button_event(SDL_MouseButtonEvent m_btn_event)
 {
-
+    return gameReaction::gr_ignore;
 }
 
-void SceneGame::process_keyboard_keydown(SDL_Keycode keycode)
+gameReaction SceneGame::process_keyboard_keydown(SDL_Keycode keycode)
 {
-    if(keycode == SDLK_LEFT)
-        ballmgr->flipVertically();
-    if(keycode == SDLK_UP)
-        ballmgr->flipHorizontally();
+    if(!b_paused)
+    {
+        if(keycode == SDLK_LEFT)
+            ballmgr->flipVertically();
+        if(keycode == SDLK_UP)
+            ballmgr->flipHorizontally();
+        return gameReaction::gr_ignore;
+
+    }
 }
