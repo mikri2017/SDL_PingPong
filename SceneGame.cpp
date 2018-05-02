@@ -4,7 +4,6 @@
 #include <iostream>
 #include "BallMgr.h"
 #include "BallMgrSimple.h"
-#include <SDL2/SDL_mixer.h>
 
 SceneGame::SceneGame(ball_move_logic bm_logic)
 {
@@ -41,10 +40,6 @@ SceneGame::SceneGame(ball_move_logic bm_logic)
     font_game_info.setFontColor(font_color);
     font_game_info.setLetterSizeInPX(20);
 
-    knock = Mix_LoadWAV("assets/snd/knock.wav");
-    ping = Mix_LoadWAV("assets/snd/ping.wav");
-    pong = Mix_LoadWAV("assets/snd/pong.wav");
-
     // Выставляем счет игры
     score = 0;
     best = 0;
@@ -65,13 +60,13 @@ void SceneGame::render(SDL_Renderer *renderer)
     if(ballmgr->checkCollisionWithRect(rectUp))
     {
         score++;
-        Mix_PlayChannel(-1, ping, 0);
+        sounds.playSound(SoundMgr::tcPing);
     }
 
     if(ballmgr->checkCollisionWithRect(rectDown))
     {
         score++;
-        Mix_PlayChannel(-1, pong, 0);
+        sounds.playSound(SoundMgr::tcPong);
     }
 
     // Очищаем экран от текущих объектов
@@ -85,7 +80,7 @@ void SceneGame::render(SDL_Renderer *renderer)
     switch (ballmgr->checkCollisionWithScreen())
     {
         case leftRight:
-            Mix_PlayChannel(-1, knock, 0);
+            sounds.playSound(SoundMgr::tcKnock);
             break;
         case topBottom:
             // Формируем статистику игры

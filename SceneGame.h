@@ -6,13 +6,12 @@
 #include "IBallManager.h"
 #include "RectMgr.h"
 #include "FontMgr.h"
+#include "SoundMgr.h"
 
 typedef enum {
     mikriVision,
     nZemekisVision
 } ball_move_logic;
-
-class Mix_Chunk;
 
 class SceneGame: public Scene
 {
@@ -23,9 +22,8 @@ private:
     bool first_render;
 
     FontMgr font_game_info;
+    SoundMgr sounds;
     SDL_Color font_color;
-
-    Mix_Chunk *ping, *pong, *knock;
 
     int score, best;
     int delay_time;
