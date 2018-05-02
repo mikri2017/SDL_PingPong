@@ -10,7 +10,7 @@ SceneMenu::SceneMenu()
     btn_w = 400;
     btn_h = 70;
 
-    // Р—Р°РґР°РµРј РїР°СЂР°РјРµС‚СЂС‹ РєРЅРѕРїРѕРє
+    // Задаем параметры кнопок
     btn_new_game.setCaption("NEW GAME");
     btn_new_game.setPosition(menuPosition.x, menuPosition.y);
     btn_new_game.setSize(btn_w, btn_h);
@@ -57,10 +57,10 @@ void SceneMenu::process_mouse_motion(Sint32 x, Sint32 y)
 
 void SceneMenu::process_mouse_button_event(SDL_MouseButtonEvent m_btn_event)
 {
-    // РљР»РёРє Р»РµРІРѕР№ РєРЅРѕРїРєРѕР№ РјС‹С€РєРё
+    // Клик левой кнопкой мышки
     if(m_btn_event.button == SDL_BUTTON_LEFT)
     {
-        // РћРґРёРЅ РєР»РёРє
+        // Один клик
         if(m_btn_event.clicks == 1)
         {
             if(chkbx_mikri.checkHover(m_btn_event.x, m_btn_event.y))
