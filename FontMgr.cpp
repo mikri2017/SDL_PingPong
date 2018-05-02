@@ -14,6 +14,8 @@ FontMgr::FontMgr()
 
     font_color = {0, 0, 255};
     letter_size_px = 20;
+    x_start_left = 0;
+    x_start_right = SCREEN_WIDTH;
 }
 
 FontMgr::~FontMgr()
@@ -41,6 +43,12 @@ void FontMgr::setFontColor(const SDL_Color &f_color)
     reloadFont();
 }
 
+void FontMgr::setTextXStartFrom(int x_left, int x_right)
+{
+    x_start_left = x_left;
+    x_start_right = x_right;
+}
+
 void FontMgr::setFontSize(int f_size)
 {
     font_size = f_size;
@@ -52,10 +60,13 @@ void FontMgr::paintText(SDL_Renderer *renderer, std::string text, int y, int h, 
     int x;
     int text_width_px = letter_size_px * static_cast<int>(text.length());
 
-    if(f_align == fontAlign::left)
-        x = 0;
-    else // Формируем текст по правому краю
-        x = SCREEN_WIDTH - scn_indent - text_width_px;
+    // Настраиваем форматирование текста
+    if(f_align == fontAlign::right) // по правому краю
+        x = x_start_right - scn_indent - text_width_px;
+    else if(f_align == fontAlign::centre) // по центру
+        x = x_start_left + (x_start_right - x_start_left - text_width_px) / 2;
+    else // по левому краю
+        x = x_start_left;
 
     SDL_Rect dstrect = { x, y, text_width_px, h };
 
