@@ -56,47 +56,47 @@ void SceneGame::render(SDL_Renderer *renderer)
             SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
         }
 
-    // Просчитываем столкновения
-    if(ballmgr->checkCollisionWithRect(rectUp))
-    {
-        score++;
-        sounds.playSound(SoundMgr::tcPing);
-    }
+        // Просчитываем столкновения
+        if(ballmgr->checkCollisionWithRect(rectUp))
+        {
+            score++;
+            sounds.playSound(SoundMgr::tcPing);
+        }
 
-    if(ballmgr->checkCollisionWithRect(rectDown))
-    {
-        score++;
-        sounds.playSound(SoundMgr::tcPong);
-    }
+        if(ballmgr->checkCollisionWithRect(rectDown))
+        {
+            score++;
+            sounds.playSound(SoundMgr::tcPong);
+        }
 
-    // Очищаем экран от текущих объектов
-    render_clean(renderer);
+        // Очищаем экран от текущих объектов
+        render_clean(renderer);
 
-    // Рисуем новые
-    rectUp->draw(renderer);
-    rectDown->draw(renderer);
+        // Рисуем новые
+        rectUp->draw(renderer);
+        rectDown->draw(renderer);
 
-    ballmgr->draw(renderer);
-    switch (ballmgr->checkCollisionWithScreen())
-    {
-        case leftRight:
-            sounds.playSound(SoundMgr::tcKnock);
-            break;
-        case topBottom:
-            sounds.playSound(SoundMgr::tcCrash);
-            // Формируем статистику игры
-            if(score > best)
-                best = score;
-            score = 0;
-            ballmgr->reinit();
-            break;
-    }
+        ballmgr->draw(renderer);
+        switch (ballmgr->checkCollisionWithScreen())
+        {
+            case leftRight:
+                sounds.playSound(SoundMgr::tcKnock);
+                break;
+            case topBottom:
+                sounds.playSound(SoundMgr::tcCrash);
+                // Формируем статистику игры
+                if(score > best)
+                    best = score;
+                score = 0;
+                ballmgr->reinit();
+                break;
+        }
 
-    // Выводим текст
-    std::string s_game_info = "SCORE: " + std::to_string(score) + "  BEST: " + std::to_string(best);
-    font_game_info.paintText(renderer, s_game_info, SCREEN_HEIGHT - 30, 30, fontAlign::right);
+        // Выводим текст
+        std::string s_game_info = "SCORE: " + std::to_string(score) + "  BEST: " + std::to_string(best);
+        font_game_info.paintText(renderer, s_game_info, SCREEN_HEIGHT - 30, 30, fontAlign::right);
 
-    SDL_RenderPresent(renderer);
+        SDL_RenderPresent(renderer);
 
         SDL_Delay(delay_time);
     }
