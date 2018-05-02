@@ -3,7 +3,7 @@
 #include "RectMgr.h"
 
 BallMgrSimple::BallMgrSimple (size_t radius)
-    : yspeed(3.), xspeed(2.), bounce(1.01)
+    : yspeed(3.), xspeed(2.), bounce(1.05)
 {
     ball.reset(new Ball());
     ball->setRadius(radius);
