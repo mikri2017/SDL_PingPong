@@ -65,11 +65,14 @@
 		<Unit filename="RectMgr.h" />
 		<Unit filename="SDL_Game.cpp" />
 		<Unit filename="SDL_Game.h" />
+		<Unit filename="Scene.cpp" />
 		<Unit filename="Scene.h" />
 		<Unit filename="SceneGame.cpp" />
 		<Unit filename="SceneGame.h" />
 		<Unit filename="SceneMenu.cpp" />
 		<Unit filename="SceneMenu.h" />
+		<Unit filename="SceneMenuPause.cpp" />
+		<Unit filename="SceneMenuPause.h" />
 		<Unit filename="SceneMgr.cpp" />
 		<Unit filename="SceneMgr.h" />
 		<Unit filename="main.cpp" />
