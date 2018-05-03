@@ -9,13 +9,13 @@ SceneMenuPause::SceneMenuPause()
     btn_w = 400;
     btn_h = 70;
 
-    // Фон меню паузы
+    // Р¤РѕРЅ РјРµРЅСЋ РїР°СѓР·С‹
     rect_backgrnd.x = 0;
     rect_backgrnd.y = 0;
     rect_backgrnd.w = SCREEN_WIDTH;
     rect_backgrnd.h = SCREEN_HEIGHT;
 
-    // Задаем параметры кнопок
+    // Р—Р°РґР°РµРј РїР°СЂР°РјРµС‚СЂС‹ РєРЅРѕРїРѕРє
     btn_continue.setCaption("CONTINUE GAME");
     btn_continue.setPosition(menuPosition.x, menuPosition.y);
     btn_continue.setSize(btn_w, btn_h);
@@ -31,13 +31,13 @@ void SceneMenuPause::render(SDL_Renderer *renderer)
     {
         setFirstRenderState(false);
 
-        // Включаем поддержку прозрачности
+        // Р’РєР»СЋС‡Р°РµРј РїРѕРґРґРµСЂР¶РєСѓ РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚Рё
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-        // Выставляем цвет с прозрачностью
+        // Р’С‹СЃС‚Р°РІР»СЏРµРј С†РІРµС‚ СЃ РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊСЋ
         SDL_SetRenderDrawColor( renderer, 255, 255, 255, 190 );
-        // Заливаем весь экран
+        // Р—Р°Р»РёРІР°РµРј РІРµСЃСЊ СЌРєСЂР°РЅ
         SDL_RenderFillRect(renderer, &rect_backgrnd);
-        // Возвращаем основной цвет рисовки
+        // Р’РѕР·РІСЂР°С‰Р°РµРј РѕСЃРЅРѕРІРЅРѕР№ С†РІРµС‚ СЂРёСЃРѕРІРєРё
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
     }
 
@@ -56,21 +56,21 @@ gameReaction SceneMenuPause::process_mouse_motion(Sint32 x, Sint32 y)
 
 gameReaction SceneMenuPause::process_mouse_button_event(SDL_MouseButtonEvent m_btn_event)
 {
-    // Клик левой кнопкой мышки
+    // РљР»РёРє Р»РµРІРѕР№ РєРЅРѕРїРєРѕР№ РјС‹С€РєРё
     if(m_btn_event.button == SDL_BUTTON_LEFT)
     {
-        // Один клик
+        // РћРґРёРЅ РєР»РёРє
         if(m_btn_event.clicks == 1)
         {
             if(btn_exit.checkHover(m_btn_event.x, m_btn_event.y))
             {
-                // Выходим из игры
+                // Р’С‹С…РѕРґРёРј РёР· РёРіСЂС‹
                 return gameReaction::gr_exit;
             }
 
             if(btn_continue.checkHover(m_btn_event.x, m_btn_event.y))
             {
-                // Возвращаемся в игру
+                // Р’РѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РёРіСЂСѓ
                 return gameReaction::gr_continue;
             }
         }

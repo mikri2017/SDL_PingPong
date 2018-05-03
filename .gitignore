@@ -5,5 +5,5 @@
 *.o
 bin
 .vscode/
-res
 debug/
+obj

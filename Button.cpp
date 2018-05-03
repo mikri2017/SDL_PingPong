@@ -8,7 +8,7 @@ Button::Button()
     btn.h = 0;
     s_caption = "";
 
-    // Задаем параметры текста
+    // Р—Р°РґР°РµРј РїР°СЂР°РјРµС‚СЂС‹ С‚РµРєСЃС‚Р°
     font_color = {255, 0, 0};
     font_margin_left_right = 10;
     font_margin_up_dowm = 5;
