@@ -1,11 +1,12 @@
 #include "SceneMenuPause.h"
+#include <iostream>
 
 SceneMenuPause::SceneMenuPause()
 {
     delay_time = 50;
 
     menuPosition.x = 120;
-    menuPosition.y = 150;
+    menuPosition.y = 100;
     btn_w = 400;
     btn_h = 70;
 
@@ -20,8 +21,12 @@ SceneMenuPause::SceneMenuPause()
     btn_continue.setPosition(menuPosition.x, menuPosition.y);
     btn_continue.setSize(btn_w, btn_h);
 
+    btn_main_menu.setCaption("MAIN MENU");
+    btn_main_menu.setPosition(menuPosition.x, menuPosition.y + btn_h + 30);
+    btn_main_menu.setSize(btn_w, btn_h);
+
     btn_exit.setCaption("EXIT");
-    btn_exit.setPosition(menuPosition.x, menuPosition.y + btn_h + 30);
+    btn_exit.setPosition(menuPosition.x, menuPosition.y + 2 * btn_h + 60);
     btn_exit.setSize(btn_w, btn_h);
 }
 
@@ -42,6 +47,7 @@ void SceneMenuPause::render(SDL_Renderer *renderer)
     }
 
     btn_continue.draw(renderer);
+    btn_main_menu.draw(renderer);
     btn_exit.draw(renderer);
 
     SDL_RenderPresent(renderer);
@@ -66,6 +72,12 @@ gameReaction SceneMenuPause::process_mouse_button_event(SDL_MouseButtonEvent m_b
             {
                 // Выходим из игры
                 return gameReaction::gr_exit;
+            }
+
+            if(btn_main_menu.checkHover(m_btn_event.x, m_btn_event.y))
+            {
+                // Выходим в главное меню
+                return gameReaction::gr_main_menu;
             }
 
             if(btn_continue.checkHover(m_btn_event.x, m_btn_event.y))

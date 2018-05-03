@@ -50,6 +50,14 @@ gameReaction SceneMgr::process_mouse_button_event(SDL_MouseButtonEvent m_btn_eve
         active->setFirstRenderState(true);
         return gameReaction::gr_ignore;
     }
+    else if(gr == gameReaction::gr_main_menu)
+    {
+        // Сбрасываем все и запускаем главное меню
+        v_scenes.erase(v_scenes.end() - 1);
+        active = v_scenes[0];
+        active->setFirstRenderState(true);
+        gr = gameReaction::gr_ignore;
+    }
     else
         return gr;
 }

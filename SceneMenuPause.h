@@ -11,7 +11,7 @@ private:
     SDL_Point menuPosition, btn_size;
     SDL_Rect rect_backgrnd;
     int btn_w, btn_h;
-    Button btn_continue, btn_exit;
+    Button btn_continue, btn_main_menu, btn_exit;
 public:
     SceneMenuPause();
     void render(SDL_Renderer *renderer);

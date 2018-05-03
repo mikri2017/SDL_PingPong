@@ -12,6 +12,7 @@ enum gameReaction {
     gr_start_new_zemekis,
     gr_continue,
     gr_pause,
+    gr_main_menu,
     gr_exit
 };
 
