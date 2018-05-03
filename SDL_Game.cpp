@@ -91,6 +91,7 @@ void SDL_Game::clean_and_exit()
     SDL_DestroyWindow( window ); // Уничтожаем окно
     TTF_Quit(); // Отключаем библиотеку SDL_ttf
 	SDL_Quit(); //Выход из SDL
+    Mix_CloseAudio(); // Закрываем аудио
 }
 
 std::string SDL_Game::getErrorMsg()
