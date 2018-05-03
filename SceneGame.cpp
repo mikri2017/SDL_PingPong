@@ -143,7 +143,7 @@ gameReaction SceneGame::process_keyboard_keydown(SDL_Keycode keycode)
             ballmgr->flipVertically();
         if(keycode == SDLK_UP)
             ballmgr->flipHorizontally();
-        return gameReaction::gr_ignore;
-
     }
+
+    return gameReaction::gr_ignore;
 }
