@@ -6,11 +6,11 @@
 #include <SDL2/SDL_ttf.h>
 #include "MainConstants.h"
 
-typedef enum {
+enum fontAlign {
     right,
     left,
     centre
-} fontAlign;
+};
 
 class FontMgr
 {

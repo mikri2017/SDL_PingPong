@@ -8,10 +8,10 @@
 #include "FontMgr.h"
 #include "SoundMgr.h"
 
-typedef enum {
+enum ball_move_logic {
     mikriVision,
     nZemekisVision
-} ball_move_logic;
+};
 
 class SceneGame: public Scene
 {
