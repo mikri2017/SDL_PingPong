@@ -1,4 +1,5 @@
 #include "BallMgr.h"
+#include <ctime>
 //#include <iostream>
 
 BallMgr::BallMgr(int radius)

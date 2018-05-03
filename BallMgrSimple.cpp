@@ -1,7 +1,6 @@
 #include "BallMgrSimple.h"
-
 #include "RectMgr.h"
-
+#include <ctime>
 
 //возвращает true, если сгенерировано четное число
 static inline bool evenUnevenGenerate ()

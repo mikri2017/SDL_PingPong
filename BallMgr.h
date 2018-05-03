@@ -1,7 +1,6 @@
 #ifndef BALLMGR_H_INCLUDED
 #define BALLMGR_H_INCLUDED
 
-#include <ctime>
 #include <math.h>
 #include "Ball.h"
 #include "RectMgr.h"
