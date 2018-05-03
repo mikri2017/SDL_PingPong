@@ -1,5 +1,5 @@
 #include "BallMgr.h"
-#include <iostream>
+//#include <iostream>
 
 BallMgr::BallMgr(int radius)
 {
@@ -56,7 +56,7 @@ void BallMgr::updateLinePath(SDL_Point p_first, SDL_Point p_second)
 
         // Проверяем на "плохие" углы отражения, близкие прямой линии
         // Слева/справа
-        std::cout << abs(p_second.y - p_first.y) << " <= " << ball->getRadius() << std::endl;
+        //std::cout << abs(p_second.y - p_first.y) << " <= " << ball->getRadius() << std::endl;
         if(abs(p_second.y - p_first.y) <= ball->getRadius())
         {
             float k_chg_angle;
@@ -81,8 +81,8 @@ void BallMgr::updateLinePath(SDL_Point p_first, SDL_Point p_second)
         p_end_line.x = ( (p_second.x * p_first.y - p_first.x * p_second.y) - p_end_line.y * (p_second.x - p_first.x) )
                         / (p_first.y - p_second.y);
 
-        std::cout << "f_x: " << p_first.x << " f_y: " << p_first.y << " s_x: " << p_second.x << " s_y: " << p_second.y << " e_x: " << p_end_line.x << " e_y: " << p_end_line.y << std::endl;
-        std::cout << "e_x: (" << (p_second.x * p_first.y - p_first.x * p_second.y) << " - " << p_end_line.y * (p_second.x - p_first.x) << ") / " << (p_first.y - p_second.y) << std::endl;
+        //std::cout << "f_x: " << p_first.x << " f_y: " << p_first.y << " s_x: " << p_second.x << " s_y: " << p_second.y << " e_x: " << p_end_line.x << " e_y: " << p_end_line.y << std::endl;
+        //std::cout << "e_x: (" << (p_second.x * p_first.y - p_first.x * p_second.y) << " - " << p_end_line.y * (p_second.x - p_first.x) << ") / " << (p_first.y - p_second.y) << std::endl;
         // Генерируем путь движения
         genLinePath(p_first.x, p_first.y, p_end_line.x, p_end_line.y);
 

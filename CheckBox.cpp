@@ -9,7 +9,7 @@ CheckBox::CheckBox()
     chkbx.w = 0;
     chkbx.h = 0;
 
-    // Задаем параметры текста
+    // Р—Р°РґР°РµРј РїР°СЂР°РјРµС‚СЂС‹ С‚РµРєСЃС‚Р°
     font_color = {255, 0, 0};
     font_margin_left = 10;
     font_caption.setFontName("assets/fonts/XoloniumBold.ttf");

@@ -75,6 +75,8 @@
 		<Unit filename="SceneMenuPause.h" />
 		<Unit filename="SceneMgr.cpp" />
 		<Unit filename="SceneMgr.h" />
+		<Unit filename="SoundMgr.cpp" />
+		<Unit filename="SoundMgr.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
