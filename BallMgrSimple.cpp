@@ -2,6 +2,23 @@
 
 #include "RectMgr.h"
 
+
+//возвращает true, если сгенерировано четное число
+static inline bool evenUnevenGenerate ()
+{
+    int number = rand() % 100;
+    return (number % 2 == 0);
+}
+
+// задает направлении, на основании случайного числа
+static float initDirection (float direction)
+{
+    if (evenUnevenGenerate())
+        direction *= -1.;
+    return direction;
+}
+
+
 BallMgrSimple::BallMgrSimple (size_t radius)
     : yspeed(3.), xspeed(2.), bounce(1.05)
 {
@@ -14,12 +31,16 @@ BallMgrSimple::BallMgrSimple (size_t radius)
 
 void BallMgrSimple::reinit()
 {
+    srand(time(NULL));
+
     ball_point.x = SCREEN_WIDTH / 2;
     ball_point.y = SCREEN_HEIGHT / 2;
     ball->setCentreXY(ball_point.x, ball_point.y);
     ball_cleaner = ball->getRectArea();
-    xspeed = 3.;
-    yspeed = 2.;
+
+    xspeed = initDirection(3.);
+    yspeed = initDirection(2.);
+
 }
 
 void BallMgrSimple::draw (SDL_Renderer *renderer, bool clean)
