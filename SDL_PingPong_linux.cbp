@@ -15,7 +15,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add option="-lSDL2" />
+					<Add option="-lSDL2 -lSDL2_ttf -lSDL2_mixer" />
 				</Linker>
 			</Target>
 			<Target title="Release">
