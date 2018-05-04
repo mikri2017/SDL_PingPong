@@ -63,13 +63,7 @@ int SDL_Game::process_events()
         switch(event.type)
         {
         case SDL_KEYDOWN: // Нажали клавишу на клавиатуре
-            /*if (event.key.keysym.sym == SDLK_LEFT)
-                ScrObjMngr.ChgXBegin(-RectStepByKeyboard);
-
-            if (event.key.keysym.sym == SDLK_RIGHT)
-                ScrObjMngr.ChgXBegin(RectStepByKeyboard);
-            */
-            gr = s_mgr->process_keyboard_keydown(event.key.keysym.sym);//SDLK_ESCAPE
+            gr = s_mgr->process_keyboard_keydown(event.key.keysym.sym);
             break;
         case SDL_MOUSEMOTION: // Движение мышкой
             gr = s_mgr->process_mouse_motion(event.motion.x, event.motion.y);

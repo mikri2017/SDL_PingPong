@@ -20,8 +20,6 @@ FontMgr::FontMgr()
 
 FontMgr::~FontMgr()
 {
-    SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
     TTF_CloseFont(font);
     TTF_Quit();
     std::cout << "FontMgr end\n";
@@ -74,10 +72,13 @@ void FontMgr::paintText(SDL_Renderer *renderer, std::string text, int y, int h, 
     // Русский язык в тексте не поддерживается :(
     // c_str() не проносит нормально русские буквы
     // Заполнение char* русскими буквами и его отдача дает русский язык на экране
-    surface = TTF_RenderText_Solid(font, text.c_str(), font_color);
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), font_color);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-    texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_RenderCopy(renderer, texture, NULL, &dstrect);
+
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
 }
 
 void FontMgr::reloadFont()

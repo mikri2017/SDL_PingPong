@@ -3,7 +3,6 @@
 
 SceneMenuPause::SceneMenuPause()
 {
-    std::cout << "SceneMenuPause start\n";
     delay_time = 50;
 
     menuPosition.x = 120;

@@ -47,7 +47,6 @@ void SceneMgr::start_new_game(ball_move_logic bmv)
 {
     add_scene(new SceneGame(bmv));
     add_scene(new SceneMenuPause(), false); // Меню паузы
-    active->setPaused(false);
 }
 
 void SceneMgr::render(SDL_Renderer *renderer)
