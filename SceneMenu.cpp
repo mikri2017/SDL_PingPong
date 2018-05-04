@@ -2,7 +2,6 @@
 
 SceneMenu::SceneMenu()
 {
-    std::cout << "SceneMenu created\n";
     delay_time = 50;
 
     menuPosition.x = 120;
@@ -40,7 +39,9 @@ SceneMenu::~SceneMenu()
     delete chkbx_mikri;
     delete chkbx_nzemekis;
     delete btn_exit;
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "SceneMenu end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 void SceneMenu::render(SDL_Renderer *renderer)

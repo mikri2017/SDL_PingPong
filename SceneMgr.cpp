@@ -11,7 +11,9 @@ SceneMgr::~SceneMgr()
 {
     // Удаляем сцены
     delete_all_scenes();
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "SceneMgr end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 void SceneMgr::add_scene(Scene *scene, bool set_active)
@@ -27,13 +29,19 @@ void SceneMgr::add_scene(Scene *scene, bool set_active)
 void SceneMgr::delete_all_scenes()
 {
     // Удаляем сцены
+#ifdef DEBUG_MESSAGES_SHOW
     int i = 0;
+#endif // DEBUG_MESSAGES_SHOW
     for(auto it : v_scenes)
     {
+#ifdef DEBUG_MESSAGES_SHOW
         std::cout << "i = " << i << " begin\n";
+#endif // DEBUG_MESSAGES_SHOW
         delete it;
+#ifdef DEBUG_MESSAGES_SHOW
         std::cout << "i = " << i << " end\n";
         i++;
+#endif // DEBUG_MESSAGES_SHOW
     }
     v_scenes.clear();
 }

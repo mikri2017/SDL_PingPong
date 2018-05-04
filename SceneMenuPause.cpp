@@ -38,7 +38,9 @@ SceneMenuPause::~SceneMenuPause()
     delete btn_continue;
     delete btn_main_menu;
     delete btn_exit;
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "SceneMenuPause end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 void SceneMenuPause::render(SDL_Renderer *renderer)

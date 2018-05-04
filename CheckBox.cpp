@@ -24,7 +24,9 @@ CheckBox::CheckBox()
 CheckBox::~CheckBox()
 {
     delete font_caption;
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "CheckBox end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 bool CheckBox::getCheckState()

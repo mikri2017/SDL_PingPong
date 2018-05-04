@@ -1,10 +1,11 @@
 #ifndef BALL_H_INCLUDED
 #define BALL_H_INCLUDED
 
+#include "DebugParams.h"
+#include "MainConstants.h"
 #include <vector>
 #include <SDL2/SDL.h>
 #include <math.h>
-#include "MainConstants.h"
 
 class Ball
 {

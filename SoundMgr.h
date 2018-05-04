@@ -1,6 +1,8 @@
 #ifndef SOUNDMGR_H_INCLUDED
 #define SOUNDMGR_H_INCLUDED
 
+#include "DebugParams.h"
+
 class Mix_Chunk;
 
 class SoundMgr

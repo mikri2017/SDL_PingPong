@@ -1,6 +1,7 @@
 #ifndef SCENE_H_INCLUDED
 #define SCENE_H_INCLUDED
 
+#include "DebugParams.h"
 #include "MainConstants.h"
 #include <SDL2/SDL.h>
 

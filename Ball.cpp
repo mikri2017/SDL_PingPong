@@ -10,7 +10,9 @@ Ball::Ball()
 
 Ball::~Ball()
 {
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "Ball end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 void Ball::CalculateAngles()

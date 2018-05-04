@@ -10,7 +10,9 @@ RectMgr::~RectMgr()
 {
     delete rect;
     delete rect_cleaner;
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "RectMgr end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 void RectMgr::setBeginXY(int x, int y)

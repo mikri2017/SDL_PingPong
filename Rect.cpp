@@ -11,7 +11,9 @@ Rect::Rect()
 
 Rect::~Rect()
 {
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "Rect end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 void Rect::setBeginXY(int x, int y)

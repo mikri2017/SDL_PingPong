@@ -1,8 +1,10 @@
 #ifndef RECTMGR_H_INCLUDED
 #define RECTMGR_H_INCLUDED
 
+#include "DebugParams.h"
 #include "MainConstants.h"
 #include "Rect.h"
+
 class RectMgr
 {
 private:

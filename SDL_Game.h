@@ -1,12 +1,12 @@
 #ifndef SDL_GAME_H_INCLUDED
 #define SDL_GAME_H_INCLUDED
 
+#include "DebugParams.h"
 #include <string>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_keyboard.h>
 #include <SDL2/SDL_ttf.h>
-#include "MainConstants.h"
 #include "SceneMgr.h"
 
 class SDL_Game

@@ -55,6 +55,7 @@
 		<Unit filename="Button.h" />
 		<Unit filename="CheckBox.cpp" />
 		<Unit filename="CheckBox.h" />
+		<Unit filename="DebugParams.h" />
 		<Unit filename="FontMgr.cpp" />
 		<Unit filename="FontMgr.h" />
 		<Unit filename="IBallManager.h" />

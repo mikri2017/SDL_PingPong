@@ -15,7 +15,9 @@ SDL_Game::~SDL_Game()
     TTF_Quit(); // Отключаем библиотеку SDL_ttf
     Mix_CloseAudio(); // Закрываем аудио
     SDL_Quit(); //Выход из SDL
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "SDL_Game end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 bool SDL_Game::init(const char* title, int xpos, int ypos,

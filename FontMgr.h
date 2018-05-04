@@ -1,10 +1,10 @@
 #ifndef FONTMGR_H_INCLUDED
 #define FONTMGR_H_INCLUDED
 
-#include <iostream>
-#include <string>
-#include <SDL2/SDL_ttf.h>
+#include "DebugParams.h"
 #include "MainConstants.h"
+#include <iostream>
+#include <SDL2/SDL_ttf.h>
 
 enum fontAlign {
     right,

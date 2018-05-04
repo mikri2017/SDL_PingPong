@@ -1,6 +1,8 @@
 #ifndef IBALLMGR_H_INCLUDED
 #define IBALLMGR_H_INCLUDED
 
+#include "DebugParams.h"
+
 class SDL_Renderer;
 class RectMgr;
 

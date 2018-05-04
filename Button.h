@@ -1,6 +1,7 @@
 #ifndef BUTTON_H_INCLUDED
 #define BUTTON_H_INCLUDED
 
+#include "DebugParams.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 

@@ -17,7 +17,9 @@ SoundMgr::~SoundMgr()
     Mix_FreeChunk(ping);
     Mix_FreeChunk(pong);
     Mix_FreeChunk(crash);
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "SoundMgr end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 void SoundMgr::playSound(TypeChunk typeChunk)

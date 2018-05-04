@@ -1,6 +1,5 @@
 #include "BallMgr.h"
 #include <ctime>
-//#include <iostream>
 
 BallMgr::BallMgr(int radius)
 {
@@ -15,7 +14,9 @@ BallMgr::BallMgr(int radius)
 BallMgr::~BallMgr()
 {
     delete ball;
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "BallMgr end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 void BallMgr::reinit()

@@ -22,7 +22,9 @@ FontMgr::~FontMgr()
 {
     TTF_CloseFont(font);
     TTF_Quit();
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "FontMgr end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 void FontMgr::setLetterSizeInPX(size_t l_size_px)

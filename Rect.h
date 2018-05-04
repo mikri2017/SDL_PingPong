@@ -1,6 +1,7 @@
 #ifndef RECT_H_INCLUDED
 #define RECT_H_INCLUDED
 
+#include "DebugParams.h"
 #include <SDL2/SDL.h>
 
 class Rect

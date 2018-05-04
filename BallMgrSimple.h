@@ -1,10 +1,11 @@
 #ifndef BallMgrSimple_H_INCLUDED
 #define BallMgrSimple_H_INCLUDED
 
-#include "IBallManager.h"
+#include "DebugParams.h"
+//#include "MainConstants.h"
 #include <SDL2/SDL_video.h>
 #include <memory>
-
+#include "IBallManager.h"
 #include "Ball.h"
 
 class RectMgr;

@@ -1,6 +1,7 @@
 #ifndef CHECKBOX_H_INCLUDED
 #define CHECKBOX_H_INCLUDED
 
+#include "DebugParams.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "FontMgr.h"

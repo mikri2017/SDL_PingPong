@@ -28,7 +28,9 @@ BallMgrSimple::BallMgrSimple (size_t radius)
 
 BallMgrSimple::~BallMgrSimple()
 {
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "BallMgrSimple end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 // implementation for IBallMgr

@@ -1,3 +1,4 @@
+#include "MainConstants.h"
 #include "SceneGame.h"
 #include "BallMgr.h"
 #include "BallMgrSimple.h"
@@ -47,7 +48,6 @@ SceneGame::SceneGame(ball_move_logic bm_logic)
 
     // Добавляем звук
     sounds = new SoundMgr();
-
 }
 
 SceneGame::~SceneGame()
@@ -57,7 +57,9 @@ SceneGame::~SceneGame()
     delete rectDown;
     delete sounds;
     delete font_game_info;
+#ifdef DEBUG_MESSAGES_SHOW
     std::cout << "SceneGame end\n";
+#endif // DEBUG_MESSAGES_SHOW
 }
 
 void SceneGame::render(SDL_Renderer *renderer)
