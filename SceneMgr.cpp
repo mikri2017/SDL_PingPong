@@ -35,6 +35,7 @@ void SceneMgr::delete_all_scenes()
         std::cout << "i = " << i << " end\n";
         i++;
     }
+    v_scenes.clear();
 }
 
 void SceneMgr::reinit()
@@ -75,7 +76,7 @@ gameReaction SceneMgr::process_mouse_button_event(SDL_MouseButtonEvent m_btn_eve
     else if(gr == gameReaction::gr_continue)
     {
         // Если пауза, возвращаемся в игру
-        active = v_scenes[2];
+        active = v_scenes[1];
         active->setPaused(false);
         active->setFirstRenderState(true);
         return gameReaction::gr_ignore;
@@ -96,27 +97,24 @@ gameReaction SceneMgr::process_keyboard_keydown(SDL_Keycode keycode)
 
     if(keycode == SDLK_ESCAPE)
     {
-        if(active == v_scenes[2])
+        if(active == v_scenes[1])
         {
             // Если игра - ставим ее на паузу
-            std::cout << "Pause\n";
             active->setPaused(true);
-            std::cout << "Change scene\n";
             // Передаем управление в меню паузы
-            active = v_scenes[1];
-            std::cout << "It First!\n";
+            active = v_scenes[2];
             active->setFirstRenderState(true);
-            std::cout << "OK\n";
         }
-        else if(active == v_scenes[1])
+        else if(active == v_scenes[2])
         {
             // Если пауза, возвращаемся в игру
-            active = v_scenes[2];
+            active = v_scenes[1];
             active->setPaused(false);
             active->setFirstRenderState(true);
         }
         else // Выходим из игры
             gr = gameReaction::gr_exit;
+
     }
     else
         gr = active->process_keyboard_keydown(keycode);
