@@ -10,6 +10,7 @@ protected:
     bool b_paused = true;
     bool b_first_render = true;
 public:
+    virtual ~Scene() {};
     void setPaused(bool paused);
     bool getPauseState();
     void setFirstRenderState(bool first);

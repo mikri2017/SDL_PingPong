@@ -16,4 +16,6 @@ enum gameReaction {
     gr_exit
 };
 
+#include <iostream>
+
 #endif // MAINCONSTANTS_H_INCLUDED

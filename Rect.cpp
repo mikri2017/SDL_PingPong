@@ -1,4 +1,5 @@
 #include "Rect.h"
+#include <iostream>
 
 Rect::Rect()
 {
@@ -6,6 +7,11 @@ Rect::Rect()
     rect.y = 0;
     rect.w = 0;
     rect.h = 0;
+}
+
+Rect::~Rect()
+{
+    std::cout << "Rect end\n";
 }
 
 void Rect::setBeginXY(int x, int y)

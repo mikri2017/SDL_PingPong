@@ -8,6 +8,11 @@ Ball::Ball()
     CalculateAngles();
 }
 
+Ball::~Ball()
+{
+    std::cout << "Ball end\n";
+}
+
 void Ball::CalculateAngles()
 {
     for(int i=0; i<360; i++)

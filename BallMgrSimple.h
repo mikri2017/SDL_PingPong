@@ -23,6 +23,7 @@ private:
 
 public:
     explicit BallMgrSimple(size_t radius);
+    ~BallMgrSimple();
     void reinit();
     void draw(SDL_Renderer *renderer, bool clean = false);
     void flipVertically();

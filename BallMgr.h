@@ -22,6 +22,7 @@ private:
     void genLinePath(int x1, int y1, int x2, int y2);
 public:
     BallMgr(int radius);
+    ~BallMgr();
     void reinit();
     void draw(SDL_Renderer *renderer, bool clean = false);
     void flipVertically();

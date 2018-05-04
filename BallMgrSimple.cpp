@@ -26,6 +26,11 @@ BallMgrSimple::BallMgrSimple (size_t radius)
     reinit();
 }
 
+BallMgrSimple::~BallMgrSimple()
+{
+    std::cout << "BallMgrSimple end\n";
+}
+
 // implementation for IBallMgr
 
 void BallMgrSimple::reinit()

@@ -11,11 +11,12 @@ private:
     bool b_checked;
     std::string s_caption;
     SDL_Rect chkbx;
-    FontMgr font_caption, font_accept;
+    FontMgr *font_caption;
     SDL_Color font_color;
     int font_margin_left;
 public:
     CheckBox();
+    ~CheckBox();
     bool getCheckState();
     void setCheckState(bool checked);
     void setCaption(std::string caption);

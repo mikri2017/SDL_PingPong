@@ -12,6 +12,12 @@ BallMgr::BallMgr(int radius)
     reinit();
 }
 
+BallMgr::~BallMgr()
+{
+    delete ball;
+    std::cout << "BallMgr end\n";
+}
+
 void BallMgr::reinit()
 {
     SDL_Point p_ball_first;

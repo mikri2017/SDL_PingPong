@@ -23,8 +23,6 @@ int main( int argc, char* args[] )
         game->render();
     }
 
-	game->clean_and_exit();
-
 	delete game;
 
 	return 0;

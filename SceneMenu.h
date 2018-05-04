@@ -11,10 +11,11 @@ private:
     int delay_time;
     SDL_Point menuPosition, btn_size;
     int chkbx_side_len, btn_w, btn_h;
-    Button btn_new_game, btn_exit;
-    CheckBox chkbx_mikri, chkbx_nzemekis;
+    Button *btn_new_game, *btn_exit;
+    CheckBox *chkbx_mikri, *chkbx_nzemekis;
 public:
     SceneMenu();
+    ~SceneMenu();
     void render(SDL_Renderer *renderer);
     gameReaction process_mouse_motion(Sint32 x, Sint32 y);
     gameReaction process_mouse_button_event(SDL_MouseButtonEvent m_btn_event);

@@ -6,6 +6,13 @@ RectMgr::RectMgr()
     rect_cleaner = new Rect();
 }
 
+RectMgr::~RectMgr()
+{
+    delete rect;
+    delete rect_cleaner;
+    std::cout << "RectMgr end\n";
+}
+
 void RectMgr::setBeginXY(int x, int y)
 {
     rect->setBeginXY(x, y);

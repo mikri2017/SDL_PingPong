@@ -1,4 +1,5 @@
 #include "Button.h"
+#include "FontMgr.h"
 
 Button::Button()
 {
@@ -12,10 +13,18 @@ Button::Button()
     font_color = {255, 0, 0};
     font_margin_left_right = 10;
     font_margin_up_dowm = 5;
-    font_caption.setFontName("assets/fonts/XoloniumBold.ttf");
-    font_caption.setFontSize(10);
-    font_caption.setFontColor(font_color);
-    font_caption.setLetterSizeInPX(20);
+
+    font_caption = new FontMgr();
+    font_caption->setFontName("assets/fonts/XoloniumBold.ttf");
+    font_caption->setFontSize(10);
+    font_caption->setFontColor(font_color);
+    font_caption->setLetterSizeInPX(20);
+}
+
+Button::~Button()
+{
+    delete font_caption;
+    std::cout << "Button end\n";
 }
 
 void Button::setCaption(std::string caption)
@@ -33,7 +42,7 @@ void Button::setSize(int w, int h)
 {
     btn.w = w;
     btn.h = h;
-    font_caption.setTextXStartFrom(btn.x + font_margin_left_right, btn.x + btn.w - font_margin_left_right);
+    font_caption->setTextXStartFrom(btn.x + font_margin_left_right, btn.x + btn.w - font_margin_left_right);
 }
 
 bool Button::checkHover(int x, int y)
@@ -50,5 +59,5 @@ bool Button::checkHover(int x, int y)
 void Button::draw(SDL_Renderer *renderer)
 {
     SDL_RenderDrawRect(renderer, &btn);
-    font_caption.paintText(renderer, s_caption, btn.y, btn.h - font_margin_up_dowm, fontAlign::centre);
+    font_caption->paintText(renderer, s_caption, btn.y, btn.h - font_margin_up_dowm, fontAlign::centre);
 }

@@ -9,6 +9,7 @@ private:
     Rect *rect, *rect_cleaner;
 public:
     RectMgr();
+    ~RectMgr();
     void setBeginXY(int x, int y);
     void setWidth(int w);
     void setHeight(int h);

@@ -9,6 +9,7 @@ private:
     SDL_Rect rect;
 public:
     Rect();
+    ~Rect();
     void setBeginXY(int x, int y);
     SDL_Point getBeginXY();
     void setWidth(int w);

@@ -1,4 +1,5 @@
 #include "SoundMgr.h"
+#include <iostream>
 
 #include <SDL2/SDL_mixer.h>
 
@@ -16,6 +17,7 @@ SoundMgr::~SoundMgr()
     Mix_FreeChunk(ping);
     Mix_FreeChunk(pong);
     Mix_FreeChunk(crash);
+    std::cout << "SoundMgr end\n";
 }
 
 void SoundMgr::playSound(TypeChunk typeChunk)

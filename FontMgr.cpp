@@ -23,6 +23,8 @@ FontMgr::~FontMgr()
     SDL_DestroyTexture(texture);
     SDL_FreeSurface(surface);
     TTF_CloseFont(font);
+    TTF_Quit();
+    std::cout << "FontMgr end\n";
 }
 
 void FontMgr::setLetterSizeInPX(size_t l_size_px)
@@ -33,8 +35,7 @@ void FontMgr::setLetterSizeInPX(size_t l_size_px)
 void FontMgr::setFontName(std::string f_name)
 {
     font_name = f_name;
-    TTF_CloseFont(font);
-    font = TTF_OpenFont(font_name.c_str(), font_size);
+    reloadFont();
 }
 
 void FontMgr::setFontColor(const SDL_Color &f_color)

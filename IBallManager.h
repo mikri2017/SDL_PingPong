@@ -12,6 +12,7 @@ enum CollisionType {
 
 struct IBallMgr
 {
+    virtual ~IBallMgr() {};
     virtual void reinit() = 0;
     virtual void draw(SDL_Renderer *renderer, bool clean = false) = 0;
     virtual void flipVertically() = 0;

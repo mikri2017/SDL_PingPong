@@ -3,6 +3,7 @@
 
 SceneMenuPause::SceneMenuPause()
 {
+    std::cout << "SceneMenuPause start\n";
     delay_time = 50;
 
     menuPosition.x = 120;
@@ -17,17 +18,28 @@ SceneMenuPause::SceneMenuPause()
     rect_backgrnd.h = SCREEN_HEIGHT;
 
     // Задаем параметры кнопок
-    btn_continue.setCaption("CONTINUE GAME");
-    btn_continue.setPosition(menuPosition.x, menuPosition.y);
-    btn_continue.setSize(btn_w, btn_h);
+    btn_continue = new Button();
+    btn_continue->setCaption("CONTINUE GAME");
+    btn_continue->setPosition(menuPosition.x, menuPosition.y);
+    btn_continue->setSize(btn_w, btn_h);
 
-    btn_main_menu.setCaption("MAIN MENU");
-    btn_main_menu.setPosition(menuPosition.x, menuPosition.y + btn_h + 30);
-    btn_main_menu.setSize(btn_w, btn_h);
+    btn_main_menu = new Button();
+    btn_main_menu->setCaption("MAIN MENU");
+    btn_main_menu->setPosition(menuPosition.x, menuPosition.y + btn_h + 30);
+    btn_main_menu->setSize(btn_w, btn_h);
 
-    btn_exit.setCaption("EXIT");
-    btn_exit.setPosition(menuPosition.x, menuPosition.y + 2 * btn_h + 60);
-    btn_exit.setSize(btn_w, btn_h);
+    btn_exit = new Button();
+    btn_exit->setCaption("EXIT");
+    btn_exit->setPosition(menuPosition.x, menuPosition.y + 2 * btn_h + 60);
+    btn_exit->setSize(btn_w, btn_h);
+}
+
+SceneMenuPause::~SceneMenuPause()
+{
+    delete btn_continue;
+    delete btn_main_menu;
+    delete btn_exit;
+    std::cout << "SceneMenuPause end\n";
 }
 
 void SceneMenuPause::render(SDL_Renderer *renderer)
@@ -46,9 +58,9 @@ void SceneMenuPause::render(SDL_Renderer *renderer)
         SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
     }
 
-    btn_continue.draw(renderer);
-    btn_main_menu.draw(renderer);
-    btn_exit.draw(renderer);
+    btn_continue->draw(renderer);
+    btn_main_menu->draw(renderer);
+    btn_exit->draw(renderer);
 
     SDL_RenderPresent(renderer);
 
@@ -68,19 +80,19 @@ gameReaction SceneMenuPause::process_mouse_button_event(SDL_MouseButtonEvent m_b
         // Один клик
         if(m_btn_event.clicks == 1)
         {
-            if(btn_exit.checkHover(m_btn_event.x, m_btn_event.y))
+            if(btn_exit->checkHover(m_btn_event.x, m_btn_event.y))
             {
                 // Выходим из игры
                 return gameReaction::gr_exit;
             }
 
-            if(btn_main_menu.checkHover(m_btn_event.x, m_btn_event.y))
+            if(btn_main_menu->checkHover(m_btn_event.x, m_btn_event.y))
             {
                 // Выходим в главное меню
                 return gameReaction::gr_main_menu;
             }
 
-            if(btn_continue.checkHover(m_btn_event.x, m_btn_event.y))
+            if(btn_continue->checkHover(m_btn_event.x, m_btn_event.y))
             {
                 // Возвращаемся в игру
                 return gameReaction::gr_continue;

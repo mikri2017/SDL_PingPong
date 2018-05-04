@@ -7,6 +7,11 @@
 
 SceneGame::SceneGame(ball_move_logic bm_logic)
 {
+    // Выставляем счет игры
+    score = 0;
+    best = 0;
+
+    // Расставляем элементы игры
     if(bm_logic == ball_move_logic::mikriVision)
     {
         delay_time = 5;
@@ -33,14 +38,26 @@ SceneGame::SceneGame(ball_move_logic bm_logic)
 
     // Задаем параметры текста
     font_color = {0, 0, 255};
-    font_game_info.setFontName("assets/fonts/XoloniumBold.ttf");
-    font_game_info.setFontSize(10);
-    font_game_info.setFontColor(font_color);
-    font_game_info.setLetterSizeInPX(20);
 
-    // Выставляем счет игры
-    score = 0;
-    best = 0;
+    font_game_info = new FontMgr();
+    font_game_info->setFontName("assets/fonts/XoloniumBold.ttf");
+    font_game_info->setFontSize(10);
+    font_game_info->setFontColor(font_color);
+    font_game_info->setLetterSizeInPX(20);
+
+    // Добавляем звук
+    sounds = new SoundMgr();
+
+}
+
+SceneGame::~SceneGame()
+{
+    delete ballmgr;
+    delete rectUp;
+    delete rectDown;
+    delete sounds;
+    delete font_game_info;
+    std::cout << "SceneGame end\n";
 }
 
 void SceneGame::render(SDL_Renderer *renderer)
@@ -60,13 +77,13 @@ void SceneGame::render(SDL_Renderer *renderer)
         if(ballmgr->checkCollisionWithRect(rectUp))
         {
             score++;
-            sounds.playSound(SoundMgr::tcPing);
+            sounds->playSound(SoundMgr::tcPing);
         }
 
         if(ballmgr->checkCollisionWithRect(rectDown))
         {
             score++;
-            sounds.playSound(SoundMgr::tcPong);
+            sounds->playSound(SoundMgr::tcPong);
         }
 
         // Очищаем экран от текущих объектов
@@ -80,10 +97,10 @@ void SceneGame::render(SDL_Renderer *renderer)
         switch (ballmgr->checkCollisionWithScreen())
         {
             case leftRight:
-                sounds.playSound(SoundMgr::tcKnock);
+                sounds->playSound(SoundMgr::tcKnock);
                 break;
             case topBottom:
-                sounds.playSound(SoundMgr::tcCrash);
+                sounds->playSound(SoundMgr::tcCrash);
                 // Формируем статистику игры
                 if(score > best)
                     best = score;
@@ -94,7 +111,7 @@ void SceneGame::render(SDL_Renderer *renderer)
 
         // Выводим текст
         std::string s_game_info = "SCORE: " + std::to_string(score) + "  BEST: " + std::to_string(best);
-        font_game_info.paintText(renderer, s_game_info, SCREEN_HEIGHT - 30, 30, fontAlign::right);
+        font_game_info->paintText(renderer, s_game_info, SCREEN_HEIGHT - 30, 30, fontAlign::right);
 
         SDL_RenderPresent(renderer);
 
@@ -140,6 +157,6 @@ gameReaction SceneGame::process_keyboard_keydown(SDL_Keycode keycode)
         if(keycode == SDLK_UP)
             ballmgr->flipHorizontally();
     }
-    
+
     return gameReaction::gr_ignore;
 }

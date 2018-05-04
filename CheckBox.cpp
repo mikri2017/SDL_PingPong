@@ -12,11 +12,19 @@ CheckBox::CheckBox()
     // Задаем параметры текста
     font_color = {255, 0, 0};
     font_margin_left = 10;
-    font_caption.setFontName("assets/fonts/XoloniumBold.ttf");
-    font_caption.setFontSize(10);
-    font_caption.setFontColor(font_color);
-    font_caption.setLetterSizeInPX(20);
-    font_caption.setTextXStartFrom(0, 0);
+
+    font_caption = new FontMgr();
+    font_caption->setFontName("assets/fonts/XoloniumBold.ttf");
+    font_caption->setFontSize(10);
+    font_caption->setFontColor(font_color);
+    font_caption->setLetterSizeInPX(20);
+    font_caption->setTextXStartFrom(0, 0);
+}
+
+CheckBox::~CheckBox()
+{
+    delete font_caption;
+    std::cout << "CheckBox end\n";
 }
 
 bool CheckBox::getCheckState()
@@ -44,7 +52,7 @@ void CheckBox::setSize(int side_len)
 {
     chkbx.w = side_len;
     chkbx.h = side_len;
-    font_caption.setTextXStartFrom(chkbx.x + chkbx.w + font_margin_left);
+    font_caption->setTextXStartFrom(chkbx.x + chkbx.w + font_margin_left);
 }
 
 bool CheckBox::checkHover(int x, int y)
@@ -64,7 +72,7 @@ void CheckBox::draw(SDL_Renderer *renderer)
     SDL_RenderFillRect(renderer, &chkbx);
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderDrawRect(renderer, &chkbx);
-    font_caption.paintText(renderer, s_caption, chkbx.y, chkbx.h, fontAlign::left);
+    font_caption->paintText(renderer, s_caption, chkbx.y, chkbx.h, fontAlign::left);
     if(b_checked)
     {
         SDL_RenderDrawLine(renderer, chkbx.x, chkbx.y, chkbx.x + chkbx.w, chkbx.y + chkbx.h);

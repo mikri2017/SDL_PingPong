@@ -22,6 +22,7 @@ public:
     };
 
     Ball();
+    ~Ball();
     void setCentreXY(int x, int y);
     void setRadius(int r);
     int getRadius();
