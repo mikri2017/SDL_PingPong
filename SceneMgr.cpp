@@ -74,12 +74,12 @@ gameReaction SceneMgr::process_mouse_button_event(SDL_MouseButtonEvent m_btn_eve
     if(gr == gameReaction::gr_start_new_mikri)
     {
         start_new_game(ball_move_logic::mikriVision);
-        return gameReaction::gr_ignore;
+        gr = gameReaction::gr_ignore;
     }
     else if(gr == gameReaction::gr_start_new_zemekis)
     {
         start_new_game(ball_move_logic::nZemekisVision);
-        return gameReaction::gr_ignore;
+        gr = gameReaction::gr_ignore;
     }
     else if(gr == gameReaction::gr_continue)
     {
@@ -87,7 +87,7 @@ gameReaction SceneMgr::process_mouse_button_event(SDL_MouseButtonEvent m_btn_eve
         active = v_scenes[1];
         active->setPaused(false);
         active->setFirstRenderState(true);
-        return gameReaction::gr_ignore;
+        gr = gameReaction::gr_ignore;
     }
     else if(gr == gameReaction::gr_main_menu)
     {
@@ -95,8 +95,8 @@ gameReaction SceneMgr::process_mouse_button_event(SDL_MouseButtonEvent m_btn_eve
         reinit();
         gr = gameReaction::gr_ignore;
     }
-    else
-        return gr;
+
+    return gr;
 }
 
 gameReaction SceneMgr::process_keyboard_keydown(SDL_Keycode keycode)

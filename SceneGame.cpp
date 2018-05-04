@@ -109,6 +109,8 @@ void SceneGame::render(SDL_Renderer *renderer)
                 score = 0;
                 ballmgr->reinit();
                 break;
+            default:
+                break;
         }
 
         // Выводим текст
