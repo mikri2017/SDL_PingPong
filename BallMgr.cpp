@@ -178,7 +178,7 @@ void BallMgr::flipVertically()
     p_second.y = linePath[0].y + 2 * (linePath[linePath_iter].y - linePath[0].y);
     updateLinePath(linePath[linePath_iter], p_second);
     // Тест плохих углов
-    SDL_Point t_f, t_s;
+    //SDL_Point t_f, t_s;
     // Слева
     //t_f.x = 25; t_f.y = 373; t_s.x = 25; t_s.y = 372;
     //t_f.x = 25; t_f.y = 106; t_s.x = 25; t_s.y = 107;
