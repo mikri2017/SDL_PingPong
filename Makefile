@@ -40,9 +40,9 @@ OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
 OUT_RELEASE = bin/Release/SDL_PingPong
 
-OBJ_DEBUG = $(OBJDIR_DEBUG)/SDL_Game.o $(OBJDIR_DEBUG)/Scene.o $(OBJDIR_DEBUG)/SceneGame.o $(OBJDIR_DEBUG)/SceneMenu.o $(OBJDIR_DEBUG)/RectMgr.o $(OBJDIR_DEBUG)/SceneMenuPause.o $(OBJDIR_DEBUG)/SceneMgr.o $(OBJDIR_DEBUG)/SoundMgr.o $(OBJDIR_DEBUG)/main.o $(OBJDIR_DEBUG)/Ball.o $(OBJDIR_DEBUG)/Rect.o $(OBJDIR_DEBUG)/FontMgr.o $(OBJDIR_DEBUG)/CheckBox.o $(OBJDIR_DEBUG)/Button.o $(OBJDIR_DEBUG)/BallMgrSimple.o $(OBJDIR_DEBUG)/BallMgr.o
+OBJ_DEBUG = $(OBJDIR_DEBUG)/SDL_Game.o $(OBJDIR_DEBUG)/Scene.o $(OBJDIR_DEBUG)/SceneGame.o $(OBJDIR_DEBUG)/SceneMenu.o $(OBJDIR_DEBUG)/RectMgr.o $(OBJDIR_DEBUG)/SceneMenuPause.o $(OBJDIR_DEBUG)/SceneMgr.o $(OBJDIR_DEBUG)/SoundMgr.o $(OBJDIR_DEBUG)/main.o $(OBJDIR_DEBUG)/BallMgr.o $(OBJDIR_DEBUG)/BallMgrSimple.o $(OBJDIR_DEBUG)/Button.o $(OBJDIR_DEBUG)/CheckBox.o $(OBJDIR_DEBUG)/Ball.o $(OBJDIR_DEBUG)/FontMgr.o $(OBJDIR_DEBUG)/Rect.o
 
-OBJ_RELEASE = $(OBJDIR_RELEASE)/SDL_Game.o $(OBJDIR_RELEASE)/Scene.o $(OBJDIR_RELEASE)/SceneGame.o $(OBJDIR_RELEASE)/SceneMenu.o $(OBJDIR_RELEASE)/RectMgr.o $(OBJDIR_RELEASE)/SceneMenuPause.o $(OBJDIR_RELEASE)/SceneMgr.o $(OBJDIR_RELEASE)/SoundMgr.o $(OBJDIR_RELEASE)/main.o $(OBJDIR_RELEASE)/Ball.o $(OBJDIR_RELEASE)/Rect.o $(OBJDIR_RELEASE)/FontMgr.o $(OBJDIR_RELEASE)/CheckBox.o $(OBJDIR_RELEASE)/Button.o $(OBJDIR_RELEASE)/BallMgrSimple.o $(OBJDIR_RELEASE)/BallMgr.o
+OBJ_RELEASE = $(OBJDIR_RELEASE)/SDL_Game.o $(OBJDIR_RELEASE)/Scene.o $(OBJDIR_RELEASE)/SceneGame.o $(OBJDIR_RELEASE)/SceneMenu.o $(OBJDIR_RELEASE)/RectMgr.o $(OBJDIR_RELEASE)/SceneMenuPause.o $(OBJDIR_RELEASE)/SceneMgr.o $(OBJDIR_RELEASE)/SoundMgr.o $(OBJDIR_RELEASE)/main.o $(OBJDIR_RELEASE)/BallMgr.o $(OBJDIR_RELEASE)/BallMgrSimple.o $(OBJDIR_RELEASE)/Button.o $(OBJDIR_RELEASE)/CheckBox.o $(OBJDIR_RELEASE)/Ball.o $(OBJDIR_RELEASE)/FontMgr.o $(OBJDIR_RELEASE)/Rect.o
 
 all: debug release
 
@@ -86,26 +86,26 @@ $(OBJDIR_DEBUG)/SoundMgr.o: SoundMgr.cpp
 $(OBJDIR_DEBUG)/main.o: main.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c main.cpp -o $(OBJDIR_DEBUG)/main.o
 
-$(OBJDIR_DEBUG)/Ball.o: Ball.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Ball.cpp -o $(OBJDIR_DEBUG)/Ball.o
-
-$(OBJDIR_DEBUG)/Rect.o: Rect.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Rect.cpp -o $(OBJDIR_DEBUG)/Rect.o
-
-$(OBJDIR_DEBUG)/FontMgr.o: FontMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c FontMgr.cpp -o $(OBJDIR_DEBUG)/FontMgr.o
-
-$(OBJDIR_DEBUG)/CheckBox.o: CheckBox.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c CheckBox.cpp -o $(OBJDIR_DEBUG)/CheckBox.o
-
-$(OBJDIR_DEBUG)/Button.o: Button.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Button.cpp -o $(OBJDIR_DEBUG)/Button.o
+$(OBJDIR_DEBUG)/BallMgr.o: BallMgr.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c BallMgr.cpp -o $(OBJDIR_DEBUG)/BallMgr.o
 
 $(OBJDIR_DEBUG)/BallMgrSimple.o: BallMgrSimple.cpp
 	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c BallMgrSimple.cpp -o $(OBJDIR_DEBUG)/BallMgrSimple.o
 
-$(OBJDIR_DEBUG)/BallMgr.o: BallMgr.cpp
-	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c BallMgr.cpp -o $(OBJDIR_DEBUG)/BallMgr.o
+$(OBJDIR_DEBUG)/Button.o: Button.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Button.cpp -o $(OBJDIR_DEBUG)/Button.o
+
+$(OBJDIR_DEBUG)/CheckBox.o: CheckBox.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c CheckBox.cpp -o $(OBJDIR_DEBUG)/CheckBox.o
+
+$(OBJDIR_DEBUG)/Ball.o: Ball.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Ball.cpp -o $(OBJDIR_DEBUG)/Ball.o
+
+$(OBJDIR_DEBUG)/FontMgr.o: FontMgr.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c FontMgr.cpp -o $(OBJDIR_DEBUG)/FontMgr.o
+
+$(OBJDIR_DEBUG)/Rect.o: Rect.cpp
+	$(CXX) $(CFLAGS_DEBUG) $(INC_DEBUG) -c Rect.cpp -o $(OBJDIR_DEBUG)/Rect.o
 
 clean_debug: 
 	rm -f $(OBJ_DEBUG) $(OUT_DEBUG)
@@ -150,26 +150,26 @@ $(OBJDIR_RELEASE)/SoundMgr.o: SoundMgr.cpp
 $(OBJDIR_RELEASE)/main.o: main.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c main.cpp -o $(OBJDIR_RELEASE)/main.o
 
-$(OBJDIR_RELEASE)/Ball.o: Ball.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Ball.cpp -o $(OBJDIR_RELEASE)/Ball.o
-
-$(OBJDIR_RELEASE)/Rect.o: Rect.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Rect.cpp -o $(OBJDIR_RELEASE)/Rect.o
-
-$(OBJDIR_RELEASE)/FontMgr.o: FontMgr.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c FontMgr.cpp -o $(OBJDIR_RELEASE)/FontMgr.o
-
-$(OBJDIR_RELEASE)/CheckBox.o: CheckBox.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c CheckBox.cpp -o $(OBJDIR_RELEASE)/CheckBox.o
-
-$(OBJDIR_RELEASE)/Button.o: Button.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Button.cpp -o $(OBJDIR_RELEASE)/Button.o
+$(OBJDIR_RELEASE)/BallMgr.o: BallMgr.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c BallMgr.cpp -o $(OBJDIR_RELEASE)/BallMgr.o
 
 $(OBJDIR_RELEASE)/BallMgrSimple.o: BallMgrSimple.cpp
 	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c BallMgrSimple.cpp -o $(OBJDIR_RELEASE)/BallMgrSimple.o
 
-$(OBJDIR_RELEASE)/BallMgr.o: BallMgr.cpp
-	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c BallMgr.cpp -o $(OBJDIR_RELEASE)/BallMgr.o
+$(OBJDIR_RELEASE)/Button.o: Button.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Button.cpp -o $(OBJDIR_RELEASE)/Button.o
+
+$(OBJDIR_RELEASE)/CheckBox.o: CheckBox.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c CheckBox.cpp -o $(OBJDIR_RELEASE)/CheckBox.o
+
+$(OBJDIR_RELEASE)/Ball.o: Ball.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Ball.cpp -o $(OBJDIR_RELEASE)/Ball.o
+
+$(OBJDIR_RELEASE)/FontMgr.o: FontMgr.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c FontMgr.cpp -o $(OBJDIR_RELEASE)/FontMgr.o
+
+$(OBJDIR_RELEASE)/Rect.o: Rect.cpp
+	$(CXX) $(CFLAGS_RELEASE) $(INC_RELEASE) -c Rect.cpp -o $(OBJDIR_RELEASE)/Rect.o
 
 clean_release: 
 	rm -f $(OBJ_RELEASE) $(OUT_RELEASE)
