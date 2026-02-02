@@ -16,6 +16,11 @@ SceneMgr::~SceneMgr()
 #endif // DEBUG_MESSAGES_SHOW
 }
 
+SDL_AppResult SceneMgr::app_iter(AppState *as)
+{
+    return active->app_iter(as);
+}
+
 void SceneMgr::add_scene(Scene *scene, bool set_active)
 {
     v_scenes.push_back(scene);
@@ -58,12 +63,7 @@ void SceneMgr::start_new_game(ball_move_logic bmv)
     add_scene(new SceneMenuPause(), false); // Меню паузы
 }
 
-void SceneMgr::render(SDL_Renderer *renderer)
-{
-    active->render(renderer);
-}
-
-gameReaction SceneMgr::process_mouse_motion(Sint32 x, Sint32 y)
+gameReaction SceneMgr::process_mouse_motion(float x, float y)
 {
     return active->process_mouse_motion(x, y);
 }
@@ -86,7 +86,6 @@ gameReaction SceneMgr::process_mouse_button_event(SDL_MouseButtonEvent m_btn_eve
         // Если пауза, возвращаемся в игру
         active = v_scenes[1];
         active->setPaused(false);
-        active->setFirstRenderState(true);
         gr = gameReaction::gr_ignore;
     }
     else if(gr == gameReaction::gr_main_menu)
@@ -99,11 +98,11 @@ gameReaction SceneMgr::process_mouse_button_event(SDL_MouseButtonEvent m_btn_eve
     return gr;
 }
 
-gameReaction SceneMgr::process_keyboard_keydown(SDL_Keycode keycode)
+gameReaction SceneMgr::process_keyboard_keydown(SDL_Scancode scancode)
 {
     gameReaction gr = gameReaction::gr_ignore;
 
-    if(keycode == SDLK_ESCAPE)
+    if(scancode == SDL_SCANCODE_ESCAPE)
     {
         if(active == v_scenes[1])
         {
@@ -111,21 +110,19 @@ gameReaction SceneMgr::process_keyboard_keydown(SDL_Keycode keycode)
             active->setPaused(true);
             // Передаем управление в меню паузы
             active = v_scenes[2];
-            active->setFirstRenderState(true);
         }
         else if(active == v_scenes[2])
         {
             // Если пауза, возвращаемся в игру
             active = v_scenes[1];
             active->setPaused(false);
-            active->setFirstRenderState(true);
         }
         else // Выходим из игры
             gr = gameReaction::gr_exit;
 
     }
     else
-        gr = active->process_keyboard_keydown(keycode);
+        gr = active->process_keyboard_keydown(scancode);
 
     return gr;
 }

@@ -3,10 +3,10 @@
 
 Rect::Rect()
 {
-    rect.x = 0;
-    rect.y = 0;
-    rect.w = 0;
-    rect.h = 0;
+    frect.x = 0;
+    frect.y = 0;
+    frect.w = 0;
+    frect.h = 0;
 }
 
 Rect::~Rect()
@@ -23,15 +23,15 @@ void Rect::setBeginXY(int x, int y)
         x = 0;
     if(y < 0)
         y = 0;
-    rect.x = x;
-    rect.y = y;
+    frect.x = x;
+    frect.y = y;
 }
 
 SDL_Point Rect::getBeginXY()
 {
     SDL_Point p_begin_xy;
-    p_begin_xy.x = rect.x;
-    p_begin_xy.y = rect.y;
+    p_begin_xy.x = frect.x;
+    p_begin_xy.y = frect.y;
     return p_begin_xy;
 }
 
@@ -39,27 +39,27 @@ void Rect::setWidth(int w)
 {
     if(w < 0)
         w = 0;
-    rect.w = w;
+    frect.w = w;
 }
 
 int Rect::getWidth()
 {
-    return rect.w;
+    return frect.w;
 }
 
 void Rect::setHeight(int h)
 {
     if(h < 0)
         h = 0;
-    rect.h = h;
+    frect.h = h;
 }
 
 int Rect::getHeight()
 {
-    return rect.h;
+    return frect.h;
 }
 
 void Rect::draw(SDL_Renderer *renderer)
 {
-    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderFillRect(renderer, &frect);
 }

@@ -1,22 +1,23 @@
 #include "SoundMgr.h"
 #include <iostream>
-
-#include <SDL2/SDL_mixer.h>
+#include <SDL3_mixer/SDL_mixer.h>
 
 SoundMgr::SoundMgr()
 {
-    knock = Mix_LoadWAV("assets/snd/knock.wav");
-    ping = Mix_LoadWAV("assets/snd/ping.wav");
-    pong = Mix_LoadWAV("assets/snd/pong.wav");
-    crash = Mix_LoadWAV("assets/snd/crash.wav");
+    m_mxr = MIX_CreateMixerDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, nullptr);
+
+    knock = MIX_LoadAudio(m_mxr, "assets/snd/knock.wav", true);
+    ping = MIX_LoadAudio(m_mxr, "assets/snd/ping.wav", true);
+    pong = MIX_LoadAudio(m_mxr, "assets/snd/pong.wav", true);
+    crash = MIX_LoadAudio(m_mxr, "assets/snd/crash.wav", true);
 }
 
 SoundMgr::~SoundMgr()
 {
-    Mix_FreeChunk(knock);
-    Mix_FreeChunk(ping);
-    Mix_FreeChunk(pong);
-    Mix_FreeChunk(crash);
+    MIX_DestroyAudio(knock);
+    MIX_DestroyAudio(ping);
+    MIX_DestroyAudio(pong);
+    MIX_DestroyAudio(crash);
 #ifdef DEBUG_MESSAGES_SHOW
     std::cout << "SoundMgr end\n";
 #endif // DEBUG_MESSAGES_SHOW
@@ -26,9 +27,9 @@ void SoundMgr::playSound(TypeChunk typeChunk)
 {
     switch (typeChunk)
     {
-    case tcPing: Mix_PlayChannel(-1, ping, 0); break;
-    case tcPong: Mix_PlayChannel(-1, pong, 0); break;
-    case tcKnock: Mix_PlayChannel(-1, knock, 0); break;
-    case tcCrash: Mix_PlayChannel(-1, crash, 0); break;
+    case tcPing: MIX_PlayAudio(m_mxr, ping); break;
+    case tcPong: MIX_PlayAudio(m_mxr, pong); break;
+    case tcKnock: MIX_PlayAudio(m_mxr, knock); break;
+    case tcCrash: MIX_PlayAudio(m_mxr, crash); break;
     }
 }

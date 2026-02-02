@@ -30,12 +30,11 @@ private:
 public:
     SceneGame(ball_move_logic bm_logic = ball_move_logic::mikriVision);
     ~SceneGame();
-    void render(SDL_Renderer *renderer);
-    void render_clean(SDL_Renderer *renderer);
-    gameReaction process_mouse_motion(Sint32 x, Sint32 y);
+    SDL_AppResult app_iter(AppState *as);
+    void render_clean(SDL_Renderer *r);
+    gameReaction process_mouse_motion(float x, float y);
     gameReaction process_mouse_button_event(SDL_MouseButtonEvent m_btn_event);
-    gameReaction process_keyboard_keydown(SDL_Keycode keycode);
+    gameReaction process_keyboard_keydown(SDL_Scancode scancode);
 };
-
 
 #endif // GAMESCENE_H_INCLUDED

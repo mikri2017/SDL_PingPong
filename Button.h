@@ -3,7 +3,7 @@
 
 #include "DebugParams.h"
 #include <iostream>
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 
 class FontMgr;
 
@@ -11,7 +11,7 @@ class Button
 {
 private:
     std::string s_caption;
-    SDL_Rect btn;
+    SDL_FRect btn;
     FontMgr *font_caption;
     SDL_Color font_color;
     int font_margin_left_right;

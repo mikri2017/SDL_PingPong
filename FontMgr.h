@@ -4,7 +4,7 @@
 #include "DebugParams.h"
 #include "MainConstants.h"
 #include <iostream>
-#include <SDL2/SDL_ttf.h>
+#include <SDL3_ttf/SDL_ttf.h>
 
 enum fontAlign {
     right,
@@ -31,9 +31,8 @@ public:
     void setFontSize(int f_size);
     void setFontColor(const SDL_Color &f_color);
     void setTextXStartFrom(int x_left = 0, int x_right = SCREEN_WIDTH);
-    void paintText(SDL_Renderer *renderer, std::string text, int y, int h, fontAlign f_align = fontAlign::right);
+    void paintText(SDL_Renderer *renderer, std::string text, float y, float h, fontAlign f_align);
     void reloadFont();
 };
-
 
 #endif // FONTMGR_H_INCLUDED

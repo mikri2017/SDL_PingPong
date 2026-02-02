@@ -37,12 +37,12 @@ BallMgrSimple::~BallMgrSimple()
 
 void BallMgrSimple::reinit()
 {
-    srand(time(NULL));
+    srand(time(nullptr));
 
     ball_point.x = SCREEN_WIDTH / 2;
     ball_point.y = SCREEN_HEIGHT / 2;
     ball->setCentreXY(ball_point.x, ball_point.y);
-    ball_cleaner = ball->getRectArea();
+    ball_cleaner = ball->getFRectArea();
 
     xspeed = initDirection(3.);
     yspeed = initDirection(2.);
@@ -53,7 +53,7 @@ void BallMgrSimple::draw (SDL_Renderer *renderer, bool clean)
 {
     if (clean)
     {
-        ball_cleaner = ball->getRectArea();
+        ball_cleaner = ball->getFRectArea();
         SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
         SDL_RenderFillRect(renderer, &ball_cleaner);
     }

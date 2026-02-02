@@ -60,6 +60,6 @@ bool Button::checkHover(int x, int y)
 
 void Button::draw(SDL_Renderer *renderer)
 {
-    SDL_RenderDrawRect(renderer, &btn);
+    SDL_RenderRect(renderer, &btn);
     font_caption->paintText(renderer, s_caption, btn.y, btn.h - font_margin_up_dowm, fontAlign::centre);
 }

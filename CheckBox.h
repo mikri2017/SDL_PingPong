@@ -3,7 +3,7 @@
 
 #include "DebugParams.h"
 #include <iostream>
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 #include "FontMgr.h"
 
 class CheckBox
@@ -11,7 +11,7 @@ class CheckBox
 private:
     bool b_checked;
     std::string s_caption;
-    SDL_Rect chkbx;
+    SDL_FRect chkbx;
     FontMgr *font_caption;
     SDL_Color font_color;
     int font_margin_left;

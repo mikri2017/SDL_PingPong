@@ -64,25 +64,25 @@ void Ball::drawCircle(SDL_Renderer* renderer)
 
 	while (x >= y)
 	{
-		SDL_RenderDrawPoint(renderer, (int)(cx + x), (int)(cy + y));
-		SDL_RenderDrawPoint(renderer, (int)(cx + y), (int)(cy + x));
+		SDL_RenderPoint(renderer, (int)(cx + x), (int)(cy + y));
+		SDL_RenderPoint(renderer, (int)(cx + y), (int)(cy + x));
 
 		if (x != 0)
 		{
-			SDL_RenderDrawPoint(renderer, (int)(cx - x), (int)(cy + y));
-			SDL_RenderDrawPoint(renderer, (int)(cx + y), (int)(cy - x));
+			SDL_RenderPoint(renderer, (int)(cx - x), (int)(cy + y));
+			SDL_RenderPoint(renderer, (int)(cx + y), (int)(cy - x));
 		}
 
 		if (y != 0)
 		{
-			SDL_RenderDrawPoint(renderer, (int)(cx + x), (int)(cy - y));
-			SDL_RenderDrawPoint(renderer, (int)(cx - y), (int)(cy + x));
+			SDL_RenderPoint(renderer, (int)(cx + x), (int)(cy - y));
+			SDL_RenderPoint(renderer, (int)(cx - y), (int)(cy + x));
 		}
 
 		if (x != 0 && y != 0)
 		{
-			SDL_RenderDrawPoint(renderer, (int)(cx - x), (int)(cy - y));
-			SDL_RenderDrawPoint(renderer, (int)(cx - y), (int)(cy - x));
+			SDL_RenderPoint(renderer, (int)(cx - x), (int)(cy - y));
+			SDL_RenderPoint(renderer, (int)(cx - y), (int)(cy - x));
 		}
 
 		error += y;
@@ -100,21 +100,21 @@ void Ball::drawCircle(SDL_Renderer* renderer)
 
 void Ball::fillCircle (SDL_Renderer* renderer)
 {
-    int cx = p_centre.x;
-    int cy = p_centre.y;
-	for (double dy = 1; dy <= radius; dy += 1.0)
+    /*float cx = p_centre.x;
+    float cy = p_centre.y;
+	for (float dy = 1; dy <= radius; dy += 1.0)
 	{
-		double dx = floor(sqrt((2.0 * radius * dy) - (dy * dy)));
-		SDL_RenderDrawLine(renderer, cx - dx, cy + dy - radius, cx + dx, cy + dy - radius);
-		SDL_RenderDrawLine(renderer, cx - dx, cy - dy + radius, cx + dx, cy - dy + radius);
-    }
+		float dx = floor(sqrt((2.0 * radius * dy) - (dy * dy)));
+		SDL_RenderLine(renderer, cx - dx, cy + dy - radius, cx + dx, cy + dy - radius);
+		SDL_RenderLine(renderer, cx - dx, cy - dy + radius, cx + dx, cy - dy + radius);
+    }*/
 }
 
-SDL_Rect Ball::getRectArea()
+SDL_FRect Ball::getFRectArea()
 {
     // Вычисляем область текущего
     // расположения объекта
-    SDL_Rect ball_rect;
+    SDL_FRect ball_rect;
     ball_rect.x = p_centre.x - radius;
     ball_rect.y = p_centre.y - radius;
     // +1, чтобы не оставалось следов от шарика
@@ -122,7 +122,6 @@ SDL_Rect Ball::getRectArea()
     ball_rect.w = radius * 2 + 1;
     return ball_rect;
 }
-
 
 Ball::BallBound Ball::getBallBound() const
 {

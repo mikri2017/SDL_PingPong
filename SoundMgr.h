@@ -2,11 +2,20 @@
 #define SOUNDMGR_H_INCLUDED
 
 #include "DebugParams.h"
+#include <SDL3_mixer/SDL_mixer.h>
 
 class Mix_Chunk;
 
 class SoundMgr
 {
+private:
+    MIX_Mixer *m_mxr {nullptr};
+
+    MIX_Audio *ping {nullptr},
+        *pong {nullptr},
+        *knock {nullptr},
+        *crash {nullptr};
+
 public:
     enum TypeChunk
     {
@@ -19,10 +28,7 @@ public:
     SoundMgr();
     ~SoundMgr();
 
-    void playSound(TypeChunk typechunk);
-
-private:
-    Mix_Chunk *ping, *pong, *knock, *crash;
+    void playSound(TypeChunk typechunk);    
 };
 
 #endif

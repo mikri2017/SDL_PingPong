@@ -11,7 +11,7 @@ class BallMgr : public IBallMgr
 {
 private:
     Ball *ball;
-    SDL_Rect ball_cleaner;
+    SDL_FRect ball_cleaner;
     int dir_angle;
     int checkCollisionAngles[3];
     float dir_angle_cos, dir_angle_sin;

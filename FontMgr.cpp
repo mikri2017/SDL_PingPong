@@ -56,10 +56,10 @@ void FontMgr::setFontSize(int f_size)
     reloadFont();
 }
 
-void FontMgr::paintText(SDL_Renderer *renderer, std::string text, int y, int h, fontAlign f_align)
+void FontMgr::paintText(SDL_Renderer *renderer, std::string text, float y, float h, fontAlign f_align)
 {
-    int x;
-    int text_width_px = letter_size_px * static_cast<int>(text.length());
+    float x;
+    float text_width_px = letter_size_px * static_cast<int>(text.length());
 
     // Настраиваем форматирование текста
     if(f_align == fontAlign::right) // по правому краю
@@ -69,18 +69,18 @@ void FontMgr::paintText(SDL_Renderer *renderer, std::string text, int y, int h, 
     else // по левому краю
         x = x_start_left;
 
-    SDL_Rect dstrect = { x, y, text_width_px, h };
+    SDL_FRect dstrect = { x, y, text_width_px, h };
 
     // Русский язык в тексте не поддерживается :(
     // c_str() не проносит нормально русские буквы
     // Заполнение char* русскими буквами и его отдача дает русский язык на экране
-    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), font_color);
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), 0, font_color);
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-    SDL_RenderCopy(renderer, texture, NULL, &dstrect);
+    SDL_RenderTexture(renderer, texture, nullptr, &dstrect);
 
     SDL_DestroyTexture(texture);
-    SDL_FreeSurface(surface);
+    SDL_DestroySurface(surface);
 }
 
 void FontMgr::reloadFont()

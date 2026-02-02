@@ -3,7 +3,7 @@
 
 #include "DebugParams.h"
 //#include "MainConstants.h"
-#include <SDL2/SDL_video.h>
+#include <SDL3/SDL_video.h>
 #include <memory>
 #include "IBallManager.h"
 #include "Ball.h"
@@ -17,7 +17,7 @@ private:
     float yspeed;
     float xspeed;
     float bounce;
-    SDL_Rect ball_cleaner;
+    SDL_FRect ball_cleaner;
     SDL_Point ball_point;
 
     BallMgrSimple () {};

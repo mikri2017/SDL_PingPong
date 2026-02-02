@@ -3,7 +3,8 @@
 
 #include "DebugParams.h"
 #include <vector>
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
+#include "MainConstants.h"
 #include "Scene.h"
 #include "SceneGame.h"
 
@@ -19,10 +20,10 @@ private:
 public:
     SceneMgr();
     ~SceneMgr();
-    void render(SDL_Renderer *renderer);
-    gameReaction process_mouse_motion(Sint32 x, Sint32 y);
+    SDL_AppResult app_iter(AppState *as);
+    gameReaction process_mouse_motion(float x, float y);
     gameReaction process_mouse_button_event(SDL_MouseButtonEvent m_btn_event);
-    gameReaction process_keyboard_keydown(SDL_Keycode keycode);
+    gameReaction process_keyboard_keydown(SDL_Scancode scancode);
 };
 
 #endif // SCENEMGR_H_INCLUDED

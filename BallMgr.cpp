@@ -3,7 +3,7 @@
 
 BallMgr::BallMgr(int radius)
 {
-    srand(time(NULL));
+    srand(time(nullptr));
 
     ball = new Ball();
     ball->setRadius(radius);
@@ -26,7 +26,7 @@ void BallMgr::reinit()
     p_ball_first.y = SCREEN_HEIGHT / 2;
 
     ball->setCentreXY(p_ball_first.x, p_ball_first.y);
-    ball_cleaner = ball->getRectArea();
+    ball_cleaner = ball->getFRectArea();
 
     // Определяемся с направлением
     // 1. Шарик летит вниз или вверх
@@ -120,14 +120,14 @@ void BallMgr::genLinePath(int x1, int y1, int x2, int y2)
     p.x = x2;
     p.y = y2;
     //linePath.push_back(p);
-    //SDL_RenderDrawPoint(renderer, x2, y2);
+    //SDL_RenderPoint(renderer, x2, y2);
     //setPixel(x2, y2);
     while(x1 != x2 || y1 != y2)
     {
         p.x = x1;
         p.y = y1;
         linePath.push_back(p);
-        //SDL_RenderDrawPoint(renderer, x1, y1);
+        //SDL_RenderPoint(renderer, x1, y1);
         //setPixel(x1, y1);
         const int error2 = error * 2;
         //
@@ -147,12 +147,12 @@ void BallMgr::genLinePath(int x1, int y1, int x2, int y2)
 void BallMgr::draw(SDL_Renderer *renderer, bool clean)
 {
     //for(int i = 0; i < linePath.size(); i++)
-    //    SDL_RenderDrawPoint(renderer, linePath[i].x, linePath[i].y);
+    //    SDL_RenderPoint(renderer, linePath[i].x, linePath[i].y);
 
     if(clean)
     {
         // Убираем старое изображение шарика
-        ball_cleaner = ball->getRectArea();
+        ball_cleaner = ball->getFRectArea();
         SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
         SDL_RenderFillRect(renderer, &ball_cleaner);
     }

@@ -4,7 +4,7 @@
 #include "DebugParams.h"
 #include "MainConstants.h"
 #include <vector>
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 #include <math.h>
 
 class Ball
@@ -28,6 +28,7 @@ public:
     void setRadius(int r);
     int getRadius();
     void draw(SDL_Renderer *renderer);
+    SDL_FRect getFRectArea();
     SDL_Rect getRectArea();
     BallBound getBallBound() const;
 };

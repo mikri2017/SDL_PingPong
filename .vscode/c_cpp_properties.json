@@ -1,0 +1,78 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}",
+                "/usr/include/c++/7",
+                "/usr/include/x86_64-linux-gnu/c++/7",
+                "/usr/include/c++/7/backward",
+                "/usr/lib/llvm-4.0/lib/clang/4.0.1/include",
+                "/usr/local/include",
+                "/usr/include/x86_64-linux-gnu",
+                "/usr/include",
+                "/usr/include/c++/7.3.1",
+                "/usr/include/c++/7.3.1/x86_64-pc-linux-gnu",
+                "/usr/include/c++/7.3.1/backward",
+                "/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include",
+                "/usr/local/include",
+                "/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include-fixed",
+                "/usr/include"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "/usr/include/c++/7",
+                    "/usr/include/x86_64-linux-gnu/c++/7",
+                    "/usr/include/c++/7/backward",
+                    "/usr/lib/llvm-4.0/lib/clang/4.0.1/include",
+                    "/usr/local/include",
+                    "/usr/include/x86_64-linux-gnu",
+                    "/usr/include",
+                    "/usr/include/c++/7.3.1",
+                    "/usr/include/c++/7.3.1/x86_64-pc-linux-gnu",
+                    "/usr/include/c++/7.3.1/backward",
+                    "/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include",
+                    "/usr/local/include",
+                    "/usr/lib/gcc/x86_64-pc-linux-gnu/7.3.1/include-fixed",
+                    "/usr/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "MinGW",
+            "intelliSenseMode": "clang-x64",
+            "compilerPath": "C:\\Dev\\MinGW\\mingw64\\bin\\g++.exe",
+            "includePath": [
+                "${workspaceFolder}",
+                "C:\\Dev\\SDL\\MinGW_SDL3\\x86_64-w64-mingw32\\include",
+                "C:\\Dev\\SDL\\MinGW_SDL3_image\\x86_64-w64-mingw32\\include",
+                "C:\\Dev\\SDL\\MinGW_SDL3_mixer\\x86_64-w64-mingw32\\include",
+                "C:\\Dev\\SDL\\MinGW_SDL3_ttf\\x86_64-w64-mingw32\\include"
+            ],
+            "defines": [
+                "_DEBUG"
+            ],
+            "browse": {
+                "path": [
+                    "C:\\Dev\\MinGW\\mingw64\\include",
+                    "C:\\Dev\\MinGW\\mingw64\\include\\*",
+                    "C:\\Dev\\MinGW\\mingw64\\include",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

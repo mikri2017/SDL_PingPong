@@ -1,4 +1,5 @@
 #include "SceneMenu.h"
+#include <iostream>
 
 SceneMenu::SceneMenu()
 {
@@ -44,28 +45,28 @@ SceneMenu::~SceneMenu()
 #endif // DEBUG_MESSAGES_SHOW
 }
 
-void SceneMenu::render(SDL_Renderer *renderer)
+SDL_AppResult SceneMenu::app_iter(AppState *as)
 {
-    if(b_first_render)
-    {
-        setFirstRenderState(false);
+    SDL_SetRenderDrawColor(as->r, 255, 255, 255, SDL_ALPHA_OPAQUE);
+    SDL_RenderClear(as->r);
 
-        SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-        SDL_RenderClear( renderer );
-        SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
-    }
+    SDL_SetRenderDrawColor(as->r, 255, 255, 255, SDL_ALPHA_OPAQUE);
+    SDL_RenderClear(as->r);
+    SDL_SetRenderDrawColor(as->r, 255, 0, 0, SDL_ALPHA_OPAQUE);
 
-    btn_new_game->draw(renderer);
-    chkbx_mikri->draw(renderer);
-    chkbx_nzemekis->draw(renderer);
-    btn_exit->draw(renderer);
+    btn_new_game->draw(as->r);
+    chkbx_mikri->draw(as->r);
+    chkbx_nzemekis->draw(as->r);
+    btn_exit->draw(as->r);
 
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(as->r);
 
     SDL_Delay(delay_time);
+
+    return SDL_APP_CONTINUE;
 }
 
-gameReaction SceneMenu::process_mouse_motion(Sint32 x, Sint32 y)
+gameReaction SceneMenu::process_mouse_motion(float x, float y)
 {
     return gameReaction::gr_ignore;
 }
@@ -109,7 +110,7 @@ gameReaction SceneMenu::process_mouse_button_event(SDL_MouseButtonEvent m_btn_ev
     return gameReaction::gr_ignore;
 }
 
-gameReaction SceneMenu::process_keyboard_keydown(SDL_Keycode keycode)
+gameReaction SceneMenu::process_keyboard_keydown(SDL_Scancode scancode)
 {
     return gameReaction::gr_ignore;
 }

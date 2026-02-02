@@ -2,12 +2,12 @@
 #define RECT_H_INCLUDED
 
 #include "DebugParams.h"
-#include <SDL2/SDL.h>
+#include <SDL3/SDL.h>
 
 class Rect
 {
 private:
-    SDL_Rect rect;
+    SDL_FRect frect;
 public:
     Rect();
     ~Rect();

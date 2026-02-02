@@ -62,18 +62,13 @@ SceneGame::~SceneGame()
 #endif // DEBUG_MESSAGES_SHOW
 }
 
-void SceneGame::render(SDL_Renderer *renderer)
+SDL_AppResult SceneGame::app_iter(AppState *as)
 {
     if(!b_paused)
     {
-        if(b_first_render)
-        {
-            setFirstRenderState(false);
-
-            SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-            SDL_RenderClear( renderer );
-            SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
-        }
+        SDL_SetRenderDrawColor(as->r, 255, 255, 255, 255);
+        SDL_RenderClear(as->r);
+        SDL_SetRenderDrawColor(as->r, 255, 0, 0, 255);
 
         // Просчитываем столкновения
         if(ballmgr->checkCollisionWithRect(rectUp))
@@ -89,13 +84,13 @@ void SceneGame::render(SDL_Renderer *renderer)
         }
 
         // Очищаем экран от текущих объектов
-        render_clean(renderer);
+        render_clean(as->r);
 
         // Рисуем новые
-        rectUp->draw(renderer);
-        rectDown->draw(renderer);
+        rectUp->draw(as->r);
+        rectDown->draw(as->r);
 
-        ballmgr->draw(renderer);
+        ballmgr->draw(as->r);
         switch (ballmgr->checkCollisionWithScreen())
         {
             case leftRight:
@@ -115,23 +110,25 @@ void SceneGame::render(SDL_Renderer *renderer)
 
         // Выводим текст
         std::string s_game_info = "SCORE: " + std::to_string(score) + "  BEST: " + std::to_string(best);
-        font_game_info->paintText(renderer, s_game_info, SCREEN_HEIGHT - 30, 30, fontAlign::right);
+        font_game_info->paintText(as->r, s_game_info, SCREEN_HEIGHT - 30, 30, fontAlign::right);
 
-        SDL_RenderPresent(renderer);
+        SDL_RenderPresent(as->r);
 
         SDL_Delay(delay_time);
     }
+
+    return SDL_APP_CONTINUE;
 }
 
-void SceneGame::render_clean(SDL_Renderer *renderer)
+void SceneGame::render_clean(SDL_Renderer *r)
 {
     // Стираем текущие объекты сцены
-    rectUp->draw(renderer, true);
-    rectDown->draw(renderer, true);
-    ballmgr->draw(renderer, true);
+    rectUp->draw(r, true);
+    rectDown->draw(r, true);
+    ballmgr->draw(r, true);
 }
 
-gameReaction SceneGame::process_mouse_motion(Sint32 x, Sint32 y)
+gameReaction SceneGame::process_mouse_motion(float x, float y)
 {
     if(!b_paused)
     {
@@ -152,13 +149,13 @@ gameReaction SceneGame::process_mouse_button_event(SDL_MouseButtonEvent m_btn_ev
     return gameReaction::gr_ignore;
 }
 
-gameReaction SceneGame::process_keyboard_keydown(SDL_Keycode keycode)
+gameReaction SceneGame::process_keyboard_keydown(SDL_Scancode scancode)
 {
     if(!b_paused)
     {
-        if(keycode == SDLK_LEFT)
+        if(scancode == SDL_SCANCODE_LEFT)
             ballmgr->flipVertically();
-        if(keycode == SDLK_UP)
+        if(scancode == SDL_SCANCODE_UP)
             ballmgr->flipHorizontally();
     }
 

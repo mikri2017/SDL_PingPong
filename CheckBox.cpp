@@ -70,14 +70,18 @@ bool CheckBox::checkHover(int x, int y)
 
 void CheckBox::draw(SDL_Renderer *renderer)
 {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &chkbx);
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderDrawRect(renderer, &chkbx);
-    font_caption->paintText(renderer, s_caption, chkbx.y, chkbx.h, fontAlign::left);
     if(b_checked)
     {
-        SDL_RenderDrawLine(renderer, chkbx.x, chkbx.y, chkbx.x + chkbx.w, chkbx.y + chkbx.h);
-        SDL_RenderDrawLine(renderer, chkbx.x + chkbx.w, chkbx.y, chkbx.x, chkbx.y + chkbx.h);
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+        SDL_RenderFillRect(renderer, &chkbx);
     }
+    else
+    {
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+        SDL_RenderFillRect(renderer, &chkbx);
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+        SDL_RenderRect(renderer, &chkbx);
+    }
+
+    font_caption->paintText(renderer, s_caption, chkbx.y, chkbx.h, fontAlign::left);
 }

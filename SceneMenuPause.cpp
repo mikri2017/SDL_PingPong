@@ -11,10 +11,10 @@ SceneMenuPause::SceneMenuPause()
     btn_h = 70;
 
     // Фон меню паузы
-    rect_backgrnd.x = 0;
-    rect_backgrnd.y = 0;
-    rect_backgrnd.w = SCREEN_WIDTH;
-    rect_backgrnd.h = SCREEN_HEIGHT;
+    frect_backgrnd.x = 0;
+    frect_backgrnd.y = 0;
+    frect_backgrnd.w = SCREEN_WIDTH;
+    frect_backgrnd.h = SCREEN_HEIGHT;
 
     // Задаем параметры кнопок
     btn_continue = new Button();
@@ -43,32 +43,29 @@ SceneMenuPause::~SceneMenuPause()
 #endif // DEBUG_MESSAGES_SHOW
 }
 
-void SceneMenuPause::render(SDL_Renderer *renderer)
+SDL_AppResult SceneMenuPause::app_iter(AppState *as)
 {
-    if(b_first_render)
-    {
-        setFirstRenderState(false);
+    // Включаем поддержку прозрачности
+    SDL_SetRenderDrawBlendMode(as->r, SDL_BLENDMODE_BLEND);
+    // Выставляем цвет с прозрачностью
+    SDL_SetRenderDrawColor(as->r, 255, 255, 255, 190);
+    // Заливаем весь экран
+    SDL_RenderFillRect(as->r, &frect_backgrnd);
+    // Возвращаем основной цвет рисовки
+    SDL_SetRenderDrawColor(as->r, 255, 0, 0, 255);
 
-        // Включаем поддержку прозрачности
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-        // Выставляем цвет с прозрачностью
-        SDL_SetRenderDrawColor( renderer, 255, 255, 255, 190 );
-        // Заливаем весь экран
-        SDL_RenderFillRect(renderer, &rect_backgrnd);
-        // Возвращаем основной цвет рисовки
-        SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
-    }
+    btn_continue->draw(as->r);
+    btn_main_menu->draw(as->r);
+    btn_exit->draw(as->r);
 
-    btn_continue->draw(renderer);
-    btn_main_menu->draw(renderer);
-    btn_exit->draw(renderer);
-
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(as->r);
 
     SDL_Delay(delay_time);
+
+    return SDL_APP_CONTINUE;
 }
 
-gameReaction SceneMenuPause::process_mouse_motion(Sint32 x, Sint32 y)
+gameReaction SceneMenuPause::process_mouse_motion(float x, float y)
 {
     return gameReaction::gr_ignore;
 }
@@ -104,7 +101,7 @@ gameReaction SceneMenuPause::process_mouse_button_event(SDL_MouseButtonEvent m_b
     return gameReaction::gr_ignore;
 }
 
-gameReaction SceneMenuPause::process_keyboard_keydown(SDL_Keycode keycode)
+gameReaction SceneMenuPause::process_keyboard_keydown(SDL_Scancode scancode)
 {
     return gameReaction::gr_ignore;
 }
