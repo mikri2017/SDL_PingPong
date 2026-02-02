@@ -21,7 +21,7 @@ SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
     }
 
     if (!MIX_Init()) {
-        SDL_Log("MIX_Init failed: %s", SDL_GetError());
+        SDL_Log("Couldn't initialize MIX: %s", SDL_GetError());
         return SDL_APP_FAILURE;
     }
 
@@ -57,7 +57,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 void SDL_AppQuit(void* appstate, SDL_AppResult result)
 {
     // Закрываем аудио
-    MIX_DestroyMixer(nullptr);
+    MIX_Quit();
 
     // Убираем объект игры
     delete game;

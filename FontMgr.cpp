@@ -2,15 +2,21 @@
 
 FontMgr::FontMgr()
 {
-    TTF_Init();
+    if (!TTF_Init()) {
+        SDL_Log("Couldn't initialize TTF: %s", SDL_GetError());
+        return;
+    }
 
     scn_indent = 10;
     font_size = 10;
     font_name = "assets/fonts/XoloniumBold.ttf";
-    font = TTF_OpenFont(font_name.c_str(), font_size);
 
+    font = TTF_OpenFont(font_name.c_str(), font_size);
     if(!font)
-        std::cout << SDL_GetError() << std::endl;
+    {
+        SDL_Log("Couldn't open TTF font: %s", SDL_GetError());
+        return;
+    }
 
     font_color = {0, 0, 255};
     letter_size_px = 20;

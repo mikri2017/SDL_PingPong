@@ -18,6 +18,8 @@ SoundMgr::~SoundMgr()
     MIX_DestroyAudio(ping);
     MIX_DestroyAudio(pong);
     MIX_DestroyAudio(crash);
+
+    MIX_DestroyMixer(m_mxr);
 #ifdef DEBUG_MESSAGES_SHOW
     std::cout << "SoundMgr end\n";
 #endif // DEBUG_MESSAGES_SHOW
