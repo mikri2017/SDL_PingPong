@@ -1,5 +1,5 @@
 # SDL_PingPong
-PingPong singleplayer game on C++ and SDL2.
+PingPong singleplayer game on C++ and SDL3.
 
 Uses SDL3, SDL3_ttf and SDL3_mixer.
 
@@ -27,13 +27,13 @@ To build, open folder in VS Code, then press Ctrl + Shift + B and choose build t
 
 ### On Linux:
 
-Just install libs SDL2, SDL2_ttf(In some distro's SDL2-ttf) and SDL2_mixer.
+Just install libs SDL3, SDL3_ttf(In some distro's SDL3-ttf) and SDL3_mixer.
 
-You can use Makefile or compile this by CodeBlocks project(*_linux.cbp file), or from terminal by g++ :)
+You can use Makefile or from terminal by g++ :)
 
 # SDL_PingPong
 
-Одиночная игра Пинг-понг. Написана на C++ с графической библиотекой SDL2.
+Одиночная игра Пинг-понг. Написана на C++ с графической библиотекой SDL3.
 
 Использованы библиотеки: SDL3, SDL3_ttf and SDL3_mixer.
 
@@ -59,6 +59,6 @@ C:\Dev\MinGW\mingw64
 
 ### На Linux:
 
-Просто установите библиотеки SDL2, SDL2_ttf(В некоторых дистрибутивах SDL2-ttf) и SDL2_mixer.
+Просто установите библиотеки SDL3, SDL3_ttf(В некоторых дистрибутивах SDL3-ttf) и SDL3_mixer.
 
-Вы можете использовать Makefile или проект для CodeBlocks(файл *_linux.cbp), или просто скомпилировать из терминанала командой g++ :)
+Вы можете использовать Makefile или просто скомпилировать из терминанала командой g++ :)
