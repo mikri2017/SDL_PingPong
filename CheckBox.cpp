@@ -68,16 +68,16 @@ bool CheckBox::checkHover(int x, int y)
     return false;
 }
 
-void CheckBox::draw(SDL_Renderer *renderer)
+void CheckBox::draw(SDL_Renderer *r)
 {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &chkbx);
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderRect(renderer, &chkbx);
-    font_caption->paintText(renderer, s_caption, chkbx.y, chkbx.h, fontAlign::left);
+    SDL_SetRenderDrawColor(r, 255, 255, 255, 255);
+    SDL_RenderFillRect(r, &chkbx);
+    SDL_SetRenderDrawColor(r, 255, 0, 0, 255);
+    SDL_RenderRect(r, &chkbx);
+    font_caption->paintText(r, s_caption, chkbx.y, chkbx.h, fontAlign::left);
     if(b_checked)
     {
-        SDL_RenderLine(renderer, chkbx.x, chkbx.y, chkbx.x + chkbx.w, chkbx.y + chkbx.h);
-        SDL_RenderLine(renderer, chkbx.x + chkbx.w, chkbx.y, chkbx.x, chkbx.y + chkbx.h);
+        SDL_RenderLine(r, chkbx.x, chkbx.y, chkbx.x + chkbx.w, chkbx.y + chkbx.h);
+        SDL_RenderLine(r, chkbx.x + chkbx.w, chkbx.y, chkbx.x, chkbx.y + chkbx.h);
     }
 }

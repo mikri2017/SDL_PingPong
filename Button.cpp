@@ -58,8 +58,8 @@ bool Button::checkHover(int x, int y)
     return false;
 }
 
-void Button::draw(SDL_Renderer *renderer)
+void Button::draw(SDL_Renderer *r)
 {
-    SDL_RenderRect(renderer, &btn);
-    font_caption->paintText(renderer, s_caption, btn.y, btn.h - font_margin_up_dowm, fontAlign::centre);
+    SDL_RenderRect(r, &btn);
+    font_caption->paintText(r, s_caption, btn.y, btn.h - font_margin_up_dowm, fontAlign::centre);
 }

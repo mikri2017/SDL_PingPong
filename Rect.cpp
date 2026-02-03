@@ -59,7 +59,7 @@ int Rect::getHeight()
     return frect.h;
 }
 
-void Rect::draw(SDL_Renderer *renderer)
+void Rect::draw(SDL_Renderer *r)
 {
-    SDL_RenderFillRect(renderer, &frect);
+    SDL_RenderFillRect(r, &frect);
 }

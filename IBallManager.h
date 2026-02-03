@@ -16,7 +16,7 @@ struct IBallMgr
 {
     virtual ~IBallMgr() {};
     virtual void reinit() = 0;
-    virtual void draw(SDL_Renderer *renderer, bool clean = false) = 0;
+    virtual void draw(SDL_Renderer *r, bool clean = false) = 0;
     virtual void flipVertically() = 0;
     virtual void flipHorizontally() = 0;
     virtual CollisionType checkCollisionWithScreen() = 0;

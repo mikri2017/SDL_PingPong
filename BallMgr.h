@@ -25,7 +25,7 @@ public:
     BallMgr(int radius);
     ~BallMgr();
     void reinit();
-    void draw(SDL_Renderer *renderer, bool clean = false);
+    void draw(SDL_Renderer *r, bool clean = false);
     void flipVertically();
     void flipHorizontally();
     CollisionType checkCollisionWithScreen();

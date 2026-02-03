@@ -31,7 +31,7 @@ public:
     void setFontSize(int f_size);
     void setFontColor(const SDL_Color &f_color);
     void setTextXStartFrom(int x_left = 0, int x_right = SCREEN_WIDTH);
-    void paintText(SDL_Renderer *renderer, std::string text, float y, float h, fontAlign f_align);
+    void paintText(SDL_Renderer *r, std::string text, float y, float h, fontAlign f_align);
     void reloadFont();
 };
 

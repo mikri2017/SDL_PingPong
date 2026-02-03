@@ -48,13 +48,13 @@ int Ball::getRadius()
     return radius;
 }
 
-void Ball::draw(SDL_Renderer *renderer)
+void Ball::draw(SDL_Renderer *r)
 {
-    drawCircle(renderer);
-    fillCircle(renderer);
+    drawCircle(r);
+    fillCircle(r);
 }
 
-void Ball::drawCircle(SDL_Renderer* renderer)
+void Ball::drawCircle(SDL_Renderer* r)
 {
 	double error = (double)-radius;
 	double x = (double)radius - 0.5;
@@ -64,25 +64,25 @@ void Ball::drawCircle(SDL_Renderer* renderer)
 
 	while (x >= y)
 	{
-		SDL_RenderPoint(renderer, (int)(cx + x), (int)(cy + y));
-		SDL_RenderPoint(renderer, (int)(cx + y), (int)(cy + x));
+		SDL_RenderPoint(r, (int)(cx + x), (int)(cy + y));
+		SDL_RenderPoint(r, (int)(cx + y), (int)(cy + x));
 
 		if (x != 0)
 		{
-			SDL_RenderPoint(renderer, (int)(cx - x), (int)(cy + y));
-			SDL_RenderPoint(renderer, (int)(cx + y), (int)(cy - x));
+			SDL_RenderPoint(r, (int)(cx - x), (int)(cy + y));
+			SDL_RenderPoint(r, (int)(cx + y), (int)(cy - x));
 		}
 
 		if (y != 0)
 		{
-			SDL_RenderPoint(renderer, (int)(cx + x), (int)(cy - y));
-			SDL_RenderPoint(renderer, (int)(cx - y), (int)(cy + x));
+			SDL_RenderPoint(r, (int)(cx + x), (int)(cy - y));
+			SDL_RenderPoint(r, (int)(cx - y), (int)(cy + x));
 		}
 
 		if (x != 0 && y != 0)
 		{
-			SDL_RenderPoint(renderer, (int)(cx - x), (int)(cy - y));
-			SDL_RenderPoint(renderer, (int)(cx - y), (int)(cy - x));
+			SDL_RenderPoint(r, (int)(cx - x), (int)(cy - y));
+			SDL_RenderPoint(r, (int)(cx - y), (int)(cy - x));
 		}
 
 		error += y;
@@ -98,15 +98,15 @@ void Ball::drawCircle(SDL_Renderer* renderer)
     }
 }
 
-void Ball::fillCircle (SDL_Renderer* renderer)
+void Ball::fillCircle (SDL_Renderer* r)
 {
     float cx = p_centre.x;
     float cy = p_centre.y;
 	for (float dy = 1; dy <= radius; dy += 1.0)
 	{
 		float dx = floor(sqrt((2.0 * radius * dy) - (dy * dy)));
-		SDL_RenderLine(renderer, cx - dx, cy + dy - radius, cx + dx, cy + dy - radius);
-		SDL_RenderLine(renderer, cx - dx, cy - dy + radius, cx + dx, cy - dy + radius);
+		SDL_RenderLine(r, cx - dx, cy + dy - radius, cx + dx, cy + dy - radius);
+		SDL_RenderLine(r, cx - dx, cy - dy + radius, cx + dx, cy - dy + radius);
     }
 }
 

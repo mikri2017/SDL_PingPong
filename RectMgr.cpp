@@ -33,19 +33,19 @@ void RectMgr::setHeight(int h)
     rect_cleaner->setHeight(h);
 }
 
-void RectMgr::draw(SDL_Renderer *renderer, bool clean)
+void RectMgr::draw(SDL_Renderer *r, bool clean)
 {
     if(clean)
     {
         // Убираем старое изображение платформы
-        SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-        rect_cleaner->draw(renderer);
+        SDL_SetRenderDrawColor(r, 255, 255, 255, 255);
+        rect_cleaner->draw(r);
     }
     else
     {
         // Рисуем новое изображение платформы
-        SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
-        rect->draw(renderer);
+        SDL_SetRenderDrawColor(r, 255, 0, 0, 255);
+        rect->draw(r);
     }
 }
 

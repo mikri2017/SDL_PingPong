@@ -15,8 +15,8 @@ private:
     std::vector<double> CosForAngles, SinForAngles;
     void SetDirectionAngle(double new_angle);
     void CalculateAngles();
-    void drawCircle(SDL_Renderer* renderer);
-    void fillCircle (SDL_Renderer* renderer);
+    void drawCircle(SDL_Renderer* r);
+    void fillCircle (SDL_Renderer* r);
 public:
     struct BallBound {
         int l,r,t,b;
@@ -27,7 +27,7 @@ public:
     void setCentreXY(int x, int y);
     void setRadius(int r);
     int getRadius();
-    void draw(SDL_Renderer *renderer);
+    void draw(SDL_Renderer *r);
     SDL_FRect getFRectArea();
     SDL_Rect getRectArea();
     BallBound getBallBound() const;

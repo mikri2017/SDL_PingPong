@@ -62,7 +62,7 @@ void FontMgr::setFontSize(int f_size)
     reloadFont();
 }
 
-void FontMgr::paintText(SDL_Renderer *renderer, std::string text, float y, float h, fontAlign f_align)
+void FontMgr::paintText(SDL_Renderer *r, std::string text, float y, float h, fontAlign f_align)
 {
     float x;
     float text_width_px = letter_size_px * static_cast<int>(text.length());
@@ -81,9 +81,9 @@ void FontMgr::paintText(SDL_Renderer *renderer, std::string text, float y, float
     // c_str() не проносит нормально русские буквы
     // Заполнение char* русскими буквами и его отдача дает русский язык на экране
     SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), 0, font_color);
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(r, surface);
 
-    SDL_RenderTexture(renderer, texture, nullptr, &dstrect);
+    SDL_RenderTexture(r, texture, nullptr, &dstrect);
 
     SDL_DestroyTexture(texture);
     SDL_DestroySurface(surface);

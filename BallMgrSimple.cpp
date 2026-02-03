@@ -49,13 +49,13 @@ void BallMgrSimple::reinit()
 
 }
 
-void BallMgrSimple::draw (SDL_Renderer *renderer, bool clean)
+void BallMgrSimple::draw (SDL_Renderer *r, bool clean)
 {
     if (clean)
     {
         ball_cleaner = ball->getFRectArea();
-        SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-        SDL_RenderFillRect(renderer, &ball_cleaner);
+        SDL_SetRenderDrawColor(r, 255, 255, 255, 255);
+        SDL_RenderFillRect(r, &ball_cleaner);
     }
     else
     {
@@ -63,8 +63,8 @@ void BallMgrSimple::draw (SDL_Renderer *renderer, bool clean)
         ball_point.y += yspeed;
         ball->setCentreXY(ball_point.x, ball_point.y);
         // Рисуем новое изображение шарика
-        SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
-        ball->draw(renderer);
+        SDL_SetRenderDrawColor(r, 255, 0, 0, 255 );
+        ball->draw(r);
     }
 }
 

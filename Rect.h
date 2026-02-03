@@ -17,7 +17,7 @@ public:
     int getWidth();
     void setHeight(int h);
     int getHeight();
-    void draw(SDL_Renderer *renderer);
+    void draw(SDL_Renderer *r);
 };
 
 #endif // RECT_H_INCLUDED

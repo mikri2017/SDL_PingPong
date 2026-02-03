@@ -2,7 +2,6 @@
 #define BallMgrSimple_H_INCLUDED
 
 #include "DebugParams.h"
-//#include "MainConstants.h"
 #include <SDL3/SDL_video.h>
 #include <memory>
 #include "IBallManager.h"
@@ -26,7 +25,7 @@ public:
     explicit BallMgrSimple(size_t radius);
     ~BallMgrSimple();
     void reinit();
-    void draw(SDL_Renderer *renderer, bool clean = false);
+    void draw(SDL_Renderer *r, bool clean = false);
     void flipVertically();
     void flipHorizontally();
     CollisionType checkCollisionWithScreen();

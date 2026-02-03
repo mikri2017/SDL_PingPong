@@ -15,7 +15,7 @@ public:
     void setBeginXY(int x, int y);
     void setWidth(int w);
     void setHeight(int h);
-    void draw(SDL_Renderer *renderer, bool clean = false);
+    void draw(SDL_Renderer *r, bool clean = false);
     SDL_Rect getRect();
 };
 
