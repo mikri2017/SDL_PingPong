@@ -61,4 +61,13 @@ C:\Dev\MinGW\mingw64
 
 Просто установите библиотеки SDL3, SDL3_ttf(В некоторых дистрибутивах SDL3-ttf) и SDL3_mixer.
 
-Вы можете использовать Makefile или просто скомпилировать из терминанала командой g++ :)
+Установка на Debian (требуется подключить sid ветку для mixer)
+
+`sudo apt install libsdl3-dev libsdl3-image-dev libsdl3-mixer-dev libsdl3-net-dev libsdl3-ttf-dev`
+
+Через CMake:
+
+* `mkdir build && cd build`
+* `cmake ..`
+* `cmake --build .`
+* `cmake --install .`
